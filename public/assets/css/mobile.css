@@ -1,0 +1,100 @@
+@media (max-width: 600px) {
+    /* --- Content --- */
+    .page_map_link {
+        padding: 25px 16px;
+        flex: 0 0 100%;
+    }
+
+    .page_map_link img {
+        margin: 0 16px 0 0;
+    }
+
+    .highlighted_block {
+        padding: 56px 16px 20px;
+    }
+    .highlighted_block:before {
+        left: 16px;
+        top: 16px;
+        margin: 0;
+    }
+    /* -------------- */
+}
+
+@media (max-width: 480px) {
+    /* --- Common --- */
+    h1 {
+        margin: 16px 0 50px;
+    }
+    /* -------------- */
+
+    /* --- Header --- */
+    .page_header .article_list_spoiler {
+        display: flex;
+        margin: 0 45px 0 0;
+    }
+
+    .page_header .inner_page_logo {
+        margin: 0;
+    }
+
+    .page_header .article_list {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        margin: 1px 0 0;
+        box-sizing: border-box;
+        display: none;
+        padding: 32px 0;
+        flex-direction: column;
+        background: #fff;
+        text-align: center;
+    }
+    .page_header .article_list.visible {
+        display: flex;
+        z-index: 1;
+    }
+
+    .page_header .article_list_item {
+        margin: 0;
+        font-size: 14px;
+        padding: 16px 24px;
+    }
+    /* -------------- */
+
+    /* --- Track block --- */
+    .main_logo {
+        width: 224px;
+        height: 50px;
+    }
+
+    .track_block h1 {
+        font-size: 24px;
+    }
+    /* ------------------- */
+
+    /* --- Content --- */
+    .popular_shops {
+        margin: 32px auto 40px;
+    }
+
+    .popular_shops .like_h1 {
+        margin: 0 0 20px;
+        font-size: 24px;
+    }
+
+    .shop_list .shop_item {
+        flex: 0 0 calc((100% - 24) / 5);
+        margin: 0 0 21px;
+    }
+    /* -------------- */
+}
+
+@media (max-width: 450px) {
+    /* --- Track block --- */
+    .your_track_instruction {
+        padding: 0;
+        border: none;
+    }
+    /* ------------------- */
+}

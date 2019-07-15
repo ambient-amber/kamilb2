@@ -1,0 +1,6 @@
+.ks-page>.ks-body>.ks-logo {
+    display: block;
+    width: 352px;
+    height: 80px;
+    background: url('../img/main_logo.png');
+}

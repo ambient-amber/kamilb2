@@ -1,0 +1,160 @@
+@media (max-width: 1000px) {
+    /* --- Footer --- */
+    .footer_social_item.fb {
+        padding: 17px;
+    }
+    .footer_social_item.fb:before {
+        left: 50%;
+        margin: -6px 0 0 -6px;
+    }
+
+    .footer_social_item.fb .text {
+        display: none;
+    }
+    /* ------------- */
+}
+
+@media (max-width: 955px) {
+    /* --- Header --- */
+    .page_header {
+        padding: 8px 16px;
+    }
+    /* -------------- */
+
+    /* --- Content --- */
+    .popular_shops {
+        margin: 48px auto 32px;
+    }
+
+    .popular_shops .like_h1 {
+        margin: 0 0 56px;
+    }
+
+    h1 {
+        margin: 80px 0 48px;
+        font-size: 36px;
+    }
+
+    h2 {
+        margin: 32px 0;
+        font-size: 24px;
+    }
+
+    .page_content_block_inner {
+        padding: 0;
+    }
+
+    .page_content_block p {
+        margin: 0 0 30px;
+    }
+
+    .page_map_title {
+        margin: 0 0 30px;
+        padding: 0;
+    }
+
+    .highlighted_block {
+        margin: 40px 0;
+        padding: 35px 50px;
+    }
+    .highlighted_block:before {
+        left: 8px;
+    }
+
+    .page_map_link {
+        padding: 25px;
+    }
+
+    .page_map_link img {
+        margin: 0 25px 0 0;
+    }
+    /* -------------- */
+
+    /* --- Footer --- */
+    .footer {
+        padding: 8px 16px;
+    }
+    /* ------------- */
+}
+
+@media (max-width: 900px) {
+    .footer_links_item {
+        flex: 0 0 calc((100% - 25px) / 2);
+    }
+}
+
+@media (max-width: 700px) {
+    .footer_inner {
+        flex-direction: column-reverse;
+    }
+
+    .footer_links {
+        flex-direction: column;
+        text-align: center;
+        margin: 0 0 32px;
+    }
+
+    .footer_links_item {
+        margin: 0;
+        padding: 10px 0;
+    }
+
+    .footer_social {
+        margin: 32px 0;
+        text-align: center;
+        display: block;
+    }
+
+    .footer_social_item.fb {
+        padding: 10px 24px 10px 40px;
+    }
+
+    .footer_social_item:before {
+        left: 19px !important;
+        margin: -6px 0 0 !important;
+    }
+
+    .footer_social_item.fb .text {
+        display: inline;
+    }
+}
+
+@media (max-width: 590px) {
+    /* --- Track block --- */
+    .track_submit {
+        width: 76px;
+    }
+
+    .track_submit .text {
+        display: none;
+    }
+    .track_submit:after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        right: 50%;
+        width: 24px;
+        height: 24px;
+        margin: -12px -12px 0 0;
+        background: url(/assets/img/search_icon.png) center center;
+    }
+
+    .your_track_instruction .instruction {
+        line-height: 23px;
+    }
+    /* ------------------ */
+}
+
+@media (max-width: 550px) {
+    /* --- Track block --- */
+    .track_block {
+        margin: 20px 0 40px;
+    }
+
+    .select_language {
+        position: static;
+        margin: 0 24px 36px;
+        text-align: right;
+    }
+    /* ------------------ */
+}

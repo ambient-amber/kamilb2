@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Welcome!{% endblock %}</title>
+
+    {% block stylesheets %}
+        <link rel="stylesheet" href="{{ asset('assets/css/normalize.css') }}" />
+        <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}" />
+        <link rel="stylesheet" href="{{ asset('assets/css/tablet.css') }}" />
+        <link rel="stylesheet" href="{{ asset('assets/css/mobile.css') }}" />
+    {% endblock %}
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+<div class="page_wrapper">
+    {% block header %}
+        <div class="page_header">
+            <a href="#" class="article_list_spoiler"></a>
+            <div class="article_list">
+                <a href="/" class="article_list_item">Как отслеживать посылки?</a>
+                <a href="/" class="article_list_item">Как покупать в интернете?</a>
+            </div>
+
+            <div class="telegram_link_wrap">
+                <a href="#" class="telegram_link">{% trans %}telegram_bot{% endtrans %}</a>
+            </div>
+        </div>
+    {% endblock %}
+
+    {% block body %}
+        <main>
+            <div class="page_content_block">
+                <div class="track_block">
+                    <div class="select_language">
+                        <a href="#" class="selected">ru</a>
+                        <a href="#">uz</a>
+                    </div>
+                    <a href="/" class="main_logo"></a>
+                    <h1>
+                        {% trans %}mail_search{% endtrans %}
+                        {% trans %}track_package{% endtrans %}
+                    </h1>
+
+                    <div class="track_input_block">
+                        <div class="track_input_before"></div>
+                        <input class="track_input" type="text" maxlength="50" placeholder="{% trans %}enter_track_number{% endtrans %}: RF588134391SG"/>
+                        <div class="track_submit">
+                            <span class="text">
+                                {% trans %}track_package{% endtrans %}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="track_result" id="track_result"></div>
+
+                <div class="your_track_instruction">
+                    <div class="your_tracks">
+                        {% trans %}your_tracks{% endtrans %}:
+                        <span class="track_number">RU255658194NL</span>,
+                        <span class="track_number">RU255658194NL</span>,
+                        <span class="track_number">RU255658194NL</span>,
+                        <span class="track_number">RU255658194NL</span>
+                    </div>
+
+                    <div class="instruction">
+                        <b>{% trans %}tracking_hint_1{% endtrans %}</b> <br/>
+                        {% trans %}tracking_hint_2{% endtrans %}: LZ009818636CN, RB454004001SG
+                    </div>
+
+                    <div class="your_other_tracks">
+                        {% trans %}your_other_tracks{% endtrans %}:<br/>
+                        <span class="track_number">RU255658194NL</span>,
+                        <span class="track_number">RU255658194NL</span>,
+                        <span class="track_number">RU255658194NL</span>,
+                        <span class="track_number">RU255658194NL</span>
+                    </div>
+                </div>
+
+                <div class="index_banner"></div>
+
+                <div class="page_content_block">
+                    <div class="popular_shops">
+                        <div class="like_h1">
+                            {% trans %}popular_shops{% endtrans %}
+                        </div>
+
+                        <div class="shop_list">
+                            {% for i in 1..5 %}
+                                <div class="shop_item">
+                                    <img src="../assets/img/shops/logo_{{ i }}.png" alt="">
+                                </div>
+                            {% endfor %}
+                            {% for i in 1..5 %}
+                                <div class="shop_item">
+                                    <img src="../assets/img/shops/logo_{{ i }}.png" alt="">
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    {% endblock %}
+
+
+    {% block footer %}
+        <div class="footer">
+            <div class="footer_inner">
+                <div class="footer_links">
+                    <a class="footer_links_item" href="#">Пользовательское соглашение</a>
+                    <a class="footer_links_item" href="#">Политика конфиденциальности</a>
+                    <a class="footer_links_item" href="#">Правила сайта</a>
+                    <a class="footer_links_item" href="#">Пользовательское соглашение</a>
+                    <a class="footer_links_item" href="#">Политика конфиденциальности</a>
+                    <a class="footer_links_item" href="#">Правила сайта</a>
+                </div>
+
+                <div class="footer_social">
+                    <a href="#" class="footer_social_item fb">
+                        <span class="text">Facebook</span>
+                    </a>
+                    <a href="#" class="footer_social_item tg_bot">
+                        <span class="text">{% trans %}telegram_bot{% endtrans %}</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    {% endblock %}
+</div>
+
+{% block javascripts %}
+    <!-- Скрипт 17track -->
+    <script type="text/javascript" src="//www.17track.net/externalcall.js"></script>
+
+    <script src="{{ asset('assets/vendor/jquery/jquery.js') }}"></script>
+    <script src="{{ asset('assets/vendor/scrollTo/scrollTo.js') }}"></script>
+    <script src="{{ asset('assets/js/main.js') }}"></script>
+{% endblock %}
+</body>
+</html>

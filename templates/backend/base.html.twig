@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- BEGIN HEAD -->
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}KOSMO - Multi Purpose Bootstrap 4 Admin Template{% endblock %}</title>
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    {% block stylesheets %}
+        <!-- BEGIN GLOBAL MANDATORY STYLES -->
+        <link rel="stylesheet" href="{{ asset('assets/cosmo/libs/bootstrap/css/bootstrap.min.css') }}">
+
+        <link rel="stylesheet" type="text/css" href="{{ asset('assets/cosmo/libs/bootstrap/css/bootstrap.min.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('assets/cosmo/assets/fonts/line-awesome/css/line-awesome.min.css') }}">
+        <!--<link rel="stylesheet" type="text/css" href="assets/fonts/open-sans/styles.css">-->
+
+        <link rel="stylesheet" type="text/css" href="{{ asset('assets/cosmo/assets/fonts/montserrat/styles.css') }}">
+
+        <link rel="stylesheet" type="text/css" href="{{ asset('assets/cosmo/libs/tether/css/tether.min.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('assets/cosmo/libs/jscrollpane/jquery.jscrollpane.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('assets/cosmo/libs/flag-icon-css/css/flag-icon.min.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('assets/cosmo/assets/styles/common.min.css') }}">
+        <!-- END GLOBAL MANDATORY STYLES -->
+
+        <!-- BEGIN THEME STYLES -->
+        <link rel="stylesheet" type="text/css" href="{{ asset('assets/cosmo/assets/styles/themes/primary.min.css') }}">
+        <link class="ks-sidebar-dark-style" rel="stylesheet" type="text/css" href="{{ asset('assets/cosmo/assets/styles/themes/sidebar-black.min.css') }}">
+        <!-- END THEME STYLES -->
+
+        <link rel="stylesheet" type="text/css" href="{{ asset('assets/cosmo/assets/fonts/kosmo/styles.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('assets/cosmo/assets/fonts/weather/css/weather-icons.min.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('assets/cosmo/libs/c3js/c3.min.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('assets/cosmo/libs/noty/noty.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('assets/cosmo/assets/styles/widgets/payment.min.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('assets/cosmo/assets/styles/widgets/panels.min.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('assets/cosmo/assets/styles/dashboard/tabbed-sidebar.min.css') }}">
+    {% endblock %}
+</head>
+<!-- END HEAD -->
+
+<!-- remove ks-page-header-fixed to unfix header -->
+<body class="ks-navbar-fixed ks-sidebar-default ks-sidebar-position-fixed ks-page-header-fixed ks-theme-primary ks-page-loading">
+
+<!-- BEGIN HEADER -->
+{% block header %}
+    <nav class="navbar ks-navbar">
+        <!-- BEGIN HEADER INNER -->
+        <!-- BEGIN LOGO -->
+        <div href="index.html" class="navbar-brand">
+            <!-- BEGIN RESPONSIVE SIDEBAR TOGGLER -->
+            <a href="#" class="ks-sidebar-toggle"><i class="ks-icon la la-bars" aria-hidden="true"></i></a>
+            <a href="#" class="ks-sidebar-mobile-toggle"><i class="ks-icon la la-bars" aria-hidden="true"></i></a>
+            <!-- END RESPONSIVE SIDEBAR TOGGLER -->
+
+            <div class="ks-navbar-logo">
+                <a href="/admin" class="ks-logo">Kosmo</a>
+            </div>
+        </div>
+        <!-- END LOGO -->
+
+        <!-- BEGIN MENUS -->
+        <div class="ks-wrapper">
+            <nav class="nav navbar-nav">
+                <!-- BEGIN NAVBAR MENU -->
+                <div class="ks-navbar-menu">
+
+                </div>
+                <!-- END NAVBAR MENU -->
+
+                <!-- BEGIN NAVBAR ACTIONS -->
+                <div class="ks-navbar-actions">
+                    <!-- BEGIN NAVBAR LANGUAGES -->
+                    <div class="nav-item dropdown ks-languages">
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                            EN <span class="ks-text">Languages</span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right ks-scrollable" aria-labelledby="Preview">
+                            <div class="ks-wrapper">
+                                <a href="#" class="ks-language ks-selected">
+                                    <span class="flag-icon flag-icon-us ks-icon"></span>
+                                    <span class="ks-text">English</span>
+                                </a>
+                                <a href="#" class="ks-language">
+                                    <span class="flag-icon flag-icon-ru ks-icon"></span>
+                                    <span class="ks-text">Русский</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END NAVBAR LANGUAGES -->
+
+                    <!-- BEGIN NAVBAR USER -->
+                    <div class="nav-item dropdown ks-user">
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                            <span class="ks-avatar">
+                                <img src="{{ asset('assets/cosmo/assets/img/avatars/avatar-13.jpg') }}" width="36" height="36">
+                            </span>
+                            <span class="ks-info">
+                                <span class="ks-name">Robert Dean</span>
+                                <span class="ks-description">Premium User</span>
+                            </span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="Preview">
+                            <a class="dropdown-item" href="#">
+                                <span class="la la-user ks-icon"></span>
+                                <span>Profile</span>
+                            </a>
+                            <a class="dropdown-item" href="#">
+                                <span class="la la-sign-out ks-icon" aria-hidden="true"></span>
+                                <span>Logout</span>
+                            </a>
+                        </div>
+                    </div>
+                    <!-- END NAVBAR USER -->
+                </div>
+                <!-- END NAVBAR ACTIONS -->
+            </nav>
+
+            <!-- BEGIN NAVBAR ACTIONS TOGGLER -->
+            <nav class="nav navbar-nav ks-navbar-actions-toggle">
+                <a class="nav-item nav-link" href="#">
+                    <span class="la la-ellipsis-h ks-icon ks-open"></span>
+                    <span class="la la-close ks-icon ks-close"></span>
+                </a>
+            </nav>
+            <!-- END NAVBAR ACTIONS TOGGLER -->
+
+            <!-- BEGIN NAVBAR MENU TOGGLER -->
+            <nav class="nav navbar-nav ks-navbar-menu-toggle">
+                <a class="nav-item nav-link" href="#">
+                    <span class="la la-th ks-icon ks-open"></span>
+                    <span class="la la-close ks-icon ks-close"></span>
+                </a>
+            </nav>
+            <!-- END NAVBAR MENU TOGGLER -->
+        </div>
+        <!-- END MENUS -->
+        <!-- END HEADER INNER -->
+    </nav>
+{% endblock %}
+<!-- END HEADER -->
+
+<div class="ks-page-container ks-dashboard-tabbed-sidebar-fixed-tabs">
+    <!-- BEGIN DEFAULT SIDEBAR -->
+    {% block leftSidebar %}
+        <div class="ks-column ks-sidebar ks-info">
+            <div class="ks-wrapper">
+                <ul class="nav nav-pills nav-stacked">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle"  href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                            <span class="ks-icon la la-cubes"></span>
+                            <span>Layouts</span>
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="../default-primary/index.html">Default</a>
+                            <div class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle"  href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                                    <span>Sidebar</span>
+                                </a>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="../sidebar_sections-primary/index.html" target="_blank">Sections</a>
+                                    <a class="dropdown-item" href="../sidebar_compact-primary/index.html" target="_blank">Compact</a>
+                                    <a class="dropdown-item" href="../sidebar_iconbar-primary/index.html" target="_blank">Iconbar</a>
+                                    <a class="dropdown-item" href="../sidebar_iconbar_compact-primary/index.html" target="_blank">Iconbar Compact</a>
+                                </div>
+                            </div>
+                            <div class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle"  href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                                    <span>Navigation</span>
+                                </a>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="../horizontal_navbar-primary/index.html" target="_blank">Horizontal</a>
+                                    <a class="dropdown-item" href="../horizontal_navbar_iconbar-primary/index.html" target="_blank">Horizontal Iconbar</a>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle"  href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                            <span class="ks-icon la la-th"></span>
+                            <span>DataTables</span>
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="datatables-datatables-net.html">DataTables.net</a>
+                            <a class="dropdown-item" href="datatables-bootstrap-table.html">Bootstrap Table</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle"  href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                            <span class="ks-icon la la-puzzle-piece"><span class="badge badge-pill badge-pink ks-label">3</span></span>
+                            <span>Widgets</span>
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="widgets-panels.html">Panels</a>
+                            <a class="dropdown-item" href="widgets-upload.html">Upload</a>
+                            <a class="dropdown-item" href="widgets-tables.html">Tables</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    {% endblock %}
+    <!-- END DEFAULT SIDEBAR -->
+
+    <div class="ks-column ks-page">
+        <div class="ks-header">
+            <section class="ks-title-and-subtitle">
+                <div class="ks-title-block">
+                    <h3 class="ks-main-title">Dashboard / Tabbed Sidebar</h3>
+                    <div class="ks-sub-title">This is header sub title</div>
+                </div>
+            </section>
+        </div>
+
+        <div class="ks-content">
+            <div class="ks-body">
+                {% block content %}
+                    <div class="ks-dashboard-tabbed-sidebar">
+                        <div class="ks-dashboard-tabbed-sidebar-widgets">
+                            <div class="row">
+                                <div class="col-lg-3">
+                                    <div class="card ks-widget-payment-simple-amount-item ks-purple">
+                                        <div class="payment-simple-amount-item-icon-block">
+                                            <span class="ks-icon-combo-chart ks-icon"></span>
+                                        </div>
+
+                                        <div class="payment-simple-amount-item-body">
+                                            <div class="payment-simple-amount-item-amount">
+                                                <span class="ks-amount">$9.24</span>
+                                                <span class="ks-amount-icon ks-icon-circled-up-right"></span>
+                                            </div>
+                                            <div class="payment-simple-amount-item-description">
+                                                Total Profit <span class="ks-progress-type">(+$1.89)</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="card ks-widget-payment-simple-amount-item ks-green">
+                                        <div class="payment-simple-amount-item-icon-block">
+                                            <span class="la la-pie-chart ks-icon"></span>
+                                        </div>
+
+                                        <div class="payment-simple-amount-item-body">
+                                            <div class="payment-simple-amount-item-amount">
+                                                <span class="ks-amount">$2.190</span>
+                                                <span class="ks-amount-icon ks-icon-circled-up-right"></span>
+                                            </div>
+                                            <div class="payment-simple-amount-item-description">
+                                                Total Revenue <span class="ks-progress-type">(+$1.89)</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="card ks-widget-payment-simple-amount-item ks-pink">
+                                        <div class="payment-simple-amount-item-icon-block">
+                                            <span class="ks-icon-user ks-icon"></span>
+                                        </div>
+
+                                        <div class="payment-simple-amount-item-body">
+                                            <div class="payment-simple-amount-item-amount">
+                                                <span class="ks-amount">23</span>
+                                                <span class="ks-amount-icon ks-icon-circled-down-left"></span>
+                                            </div>
+                                            <div class="payment-simple-amount-item-description">
+                                                Active Clients <span class="ks-progress-type">(+$1.89)</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="card ks-widget-payment-simple-amount-item ks-orange">
+                                        <div class="payment-simple-amount-item-icon-block">
+                                            <span class="la la-area-chart ks-icon"></span>
+                                        </div>
+
+                                        <div class="payment-simple-amount-item-body">
+                                            <div class="payment-simple-amount-item-amount">
+                                                <span class="ks-amount">$431.2</span>
+                                                <span class="ks-amount-icon ks-icon-circled-up-right"></span>
+                                            </div>
+                                            <div class="payment-simple-amount-item-description">
+                                                Average Profit <span class="ks-progress-type">(+$1.89)</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% block scripts %}
+    <!-- BEGIN PAGE LEVEL PLUGINS -->
+    <script src="{{ asset('assets/cosmo/libs/jquery/jquery.min.js') }}"></script>
+    <script src="{{ asset('assets/cosmo/libs/responsejs/response.min.js') }}"></script>
+    <script src="{{ asset('assets/cosmo/libs/loading-overlay/loadingoverlay.min.js') }}"></script>
+    <script src="{{ asset('assets/cosmo/libs/tether/js/tether.min.js') }}"></script>
+    <script src="{{ asset('assets/cosmo/libs/bootstrap/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('assets/cosmo/libs/jscrollpane/jquery.jscrollpane.min.js') }}"></script>
+    <script src="{{ asset('assets/cosmo/libs/jscrollpane/jquery.mousewheel.js') }}"></script>
+    <script src="{{ asset('assets/cosmo/libs/flexibility/flexibility.js') }}"></script>
+    <script src="{{ asset('assets/cosmo/libs/noty/noty.min.js') }}"></script>
+    <!-- END PAGE LEVEL PLUGINS -->
+
+    <!-- BEGIN THEME LAYOUT SCRIPTS -->
+    <script src="{{ asset('assets/cosmo/assets/scripts/common.min.js') }}"></script>
+    <!-- END THEME LAYOUT SCRIPTS -->
+
+    <script src="{{ asset('assets/cosmo/libs/d3/d3.min.js') }}"></script>
+    <script src="{{ asset('assets/cosmo/libs/c3js/c3.min.js') }}"></script>
+    <script src="{{ asset('assets/cosmo/libs/noty/noty.min.js') }}"></script>
+
+    <script type="application/javascript">
+        (function ($) {
+            $(document).ready(function () {
+                /*setTimeout(function () {
+                    new Noty({
+                        text: '<strong>Welcome to Kosmo Admin Template</strong>! <br> You successfully read this important alert message.',
+                        type   : 'information',
+                        theme  : 'mint',
+                        layout : 'topRight',
+                        timeout: 3000
+                    }).show();
+                }, 1500);*/
+            });
+        })(jQuery);
+    </script>
+{% endblock %}
+
+<div class="ks-mobile-overlay"></div>
+
+<!-- BEGIN SETTINGS BLOCK -->
+<div class="ks-settings-slide-block">
+    <a class="ks-settings-slide-control">
+        <span class="ks-icon la la-cog"></span>
+    </a>
+
+    <div class="ks-header">
+        <span class="ks-text">Layout Options</span>
+        <a class="ks-settings-slide-close-control">
+            <span class="ks-icon la la-close"></span>
+        </a>
+    </div>
+
+    <div class="ks-themes-list">
+        <a href="../default-primary/index.html" class="ks-theme ks-primary ks-active"></a>
+    </div>
+
+    <ul class="ks-settings-list">
+        <li>
+            <span class="ks-text">Collapsed Sidebar</span>
+            <label class="ks-checkbox-slider ks-on-off ks-primary ks-sidebar-checkbox-toggle">
+                <input type="checkbox" value="1">
+                <span class="ks-indicator"></span>
+                <span class="ks-on">On</span>
+                <span class="ks-off">Off</span>
+            </label>
+        </li>
+    </ul>
+</div>
+<!-- END SETTINGS BLOCK -->
+</body>
+</html>
