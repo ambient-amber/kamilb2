@@ -1,0 +1,77 @@
+
+<div class="card">
+    <div class="card-block">
+        {{ form_start(form) }}
+            <div class="form-group row">
+                {{ form_label(
+                    form.email,
+                    null,
+                    {'label_attr': {'class': 'col-sm-2 form-control-label'}})
+                }}
+
+                <div class="col-sm-10">
+                    {{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_help(form.email) }}
+                    {{ form_errors(form.email) }}
+                </div>
+            </div>
+
+            <div class="form-group row">
+                {{ form_label(
+                    form.roles,
+                    null,
+                    {'label_attr': {'class': 'col-sm-2 form-control-label'}})
+                }}
+                <div class="col-sm-10">
+                    {{ form_widget(form.roles) }}
+                    {{ form_help(form.roles) }}
+                    {{ form_errors(form.roles) }}
+
+                    {#{% for choice in form.roles.vars.choices  %}
+                        <label class="custom-control custom-checkbox">
+                            <input
+                                type="checkbox"
+                                class="custom-control-input"
+                                {% if choice.value in form.roles.vars.value %}checked{% endif %}
+                                name="{{ form.roles.vars.full_name }}[]"
+                                value="{{ choice.value }}"
+                            >
+                            <span class="custom-control-indicator"></span>
+                            <span class="custom-control-description">{{ choice.label }}</span>
+                        </label>
+                    {% endfor %}
+
+                    {% do form.roles.setRendered() %}#}
+                </div>
+            </div>
+
+            <div class="form-group row">
+                {{ form_label(
+                    form.plainPassword,
+                    null,
+                    {'label_attr': {'class': 'col-sm-2 form-control-label'}})
+                }}
+                <div class="col-sm-10">
+                    {{ form_widget(form.plainPassword) }}
+                    {{ form_help(form.plainPassword) }}
+                    {{ form_errors(form.plainPassword) }}
+                </div>
+            </div>
+
+            <table>
+                <tr>
+                    <td>
+                        <a class="btn btn-primary btn-sm" href="{{ path('user_index') }}">Назад к списку</a>
+                    </td>
+                    <td>
+                        <button class="btn btn-primary btn-sm">{{ button_label|default('Save') }}</button>
+                    </td>
+                </tr>
+            </table>
+        {{ form_end(form) }}
+
+        {% if user.id %}
+            {{ include('backend/user/_delete_form.html.twig') }}
+        {% endif %}
+    </div>
+</div>

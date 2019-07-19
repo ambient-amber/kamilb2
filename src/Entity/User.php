@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
@@ -31,6 +32,12 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=255)
      */
     private $password;
+
+    /**
+     * @Assert\Blank()
+     * @Assert\Length(max=4096)
+     */
+    private $plainPassword;
 
     public function getId(): ?int
     {
@@ -65,15 +72,27 @@ class User implements UserInterface
     public function getRoles(): array
     {
         $roles = $this->roles;
+        $uniqueRoles = [];
+
         // guarantee every user at least has ROLE_USER
         $roles[] = 'ROLE_USER';
 
-        return array_unique($roles);
+        foreach ($roles as $role) {
+            $uniqueRoles[$role] = $role;
+        }
+
+        return $uniqueRoles;
     }
 
     public function setRoles(array $roles): self
     {
-        $this->roles = $roles;
+        $newRoles = [];
+
+        foreach ($roles as $role) {
+            $newRoles[] = $role;
+        }
+
+        $this->roles = $newRoles;
 
         return $this;
     }
@@ -108,5 +127,15 @@ class User implements UserInterface
         $this->password = $password;
 
         return $this;
+    }
+
+    public function getPlainPassword()
+    {
+        return $this->plainPassword;
+    }
+
+    public function setPlainPassword($password)
+    {
+        $this->plainPassword = $password;
     }
 }
