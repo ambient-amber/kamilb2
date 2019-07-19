@@ -4,7 +4,6 @@ namespace App\Form;
 
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -12,7 +11,6 @@ use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Length;
-use Symfony\Component\Form\CallbackTransformer;
 
 class UserType extends AbstractType
 {
@@ -27,7 +25,8 @@ class UserType extends AbstractType
             'options' => ['attr' => ['class' => 'password-field']],
             'first_options'  => ['label' => 'Пароль'],
             'second_options' => ['label' => 'Повторите пароль'],
-            'required' => false
+            'required' => false,
+            'mapped' => false
         ];
 
         if (!$isEdit) {
