@@ -1,0 +1,8 @@
+{% extends "backend/base.html.twig" %}
+
+{% block moduleTitle %}Популярные магазины{% endblock %}
+{% block moduleSubTitle %}Редактирование{% endblock %}
+
+{% block content %}
+    {{ include('backend/popular_shop/_form.html.twig', {'button_label': 'Update'}) }}
+{% endblock %}
