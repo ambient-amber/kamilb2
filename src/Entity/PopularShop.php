@@ -29,9 +29,14 @@ class PopularShop
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $image;
+    private $imageHash;
 
     private $plainImage;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $imageName;
 
     /**
      * @ORM\Column(type="boolean")
@@ -67,14 +72,14 @@ class PopularShop
         return $this;
     }
 
-    public function getImage(): ?string
+    public function getImageHash(): ?string
     {
-        return $this->image;
+        return $this->imageHash;
     }
 
-    public function setImage(?string $image): self
+    public function setImageHash(?string $imageHash): self
     {
-        $this->image = $image;
+        $this->imageHash = $imageHash;
 
         return $this;
     }
@@ -99,6 +104,18 @@ class PopularShop
     public function setPub(bool $pub): self
     {
         $this->pub = $pub;
+
+        return $this;
+    }
+
+    public function getImageName(): ?string
+    {
+        return $this->imageName;
+    }
+
+    public function setImageName(?string $imageName): self
+    {
+        $this->imageName = $imageName;
 
         return $this;
     }

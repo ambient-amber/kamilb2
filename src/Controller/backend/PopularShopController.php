@@ -5,6 +5,7 @@ namespace App\Controller\backend;
 use App\Entity\PopularShop;
 use App\Form\PopularShopType;
 use App\Repository\PopularShopRepository;
+use App\Service\UploadHelper;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -28,7 +29,7 @@ class PopularShopController extends AbstractController
     /**
      * @Route("/new", name="popular_shop_new", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
+    public function new(Request $request, UploadHelper $uploadHelper): Response
     {
         $popularShop = new PopularShop();
         $form = $this->createForm(PopularShopType::class, $popularShop);
@@ -38,9 +39,9 @@ class PopularShopController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
 
             $plainImage = $request->files->get('popular_shop')['plainImage'];
-
-            /*$uploadedFile = $uploadHelper->uploadHashFile($plainImage);
-            $popularShop->setFile($uploadedFile['newName']);*/
+            $uploadedFile = $uploadHelper->uploadHashFile($plainImage);
+            $popularShop->setImageHash($uploadedFile['hash_name']);
+            $popularShop->setImageName($uploadedFile['original_name']);
 
             $entityManager->persist($popularShop);
             $entityManager->flush();
@@ -67,19 +68,19 @@ class PopularShopController extends AbstractController
     /**
      * @Route("/{id}/edit", name="popular_shop_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, PopularShop $popularShop): Response
+    public function edit(Request $request, PopularShop $popularShop, UploadHelper $uploadHelper): Response
     {
         $form = $this->createForm(PopularShopType::class, $popularShop);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             $plainImage = $request->files->get('popular_shop')['plainImage'];
 
-            /*if (!empty($plainImage)) {
+            if (!empty($plainImage)) {
                 $uploadedFile = $uploadHelper->uploadHashFile($plainImage);
-                $popularShop->setFile($uploadedFile['newName']);
-            }*/
+                $popularShop->setImageHash($uploadedFile['hash_name']);
+                $popularShop->setImageName($uploadedFile['original_name']);
+            }
 
             $this->getDoctrine()->getManager()->flush();
 
