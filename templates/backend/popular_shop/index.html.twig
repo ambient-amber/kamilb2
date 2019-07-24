@@ -25,7 +25,10 @@
                                     <td>{{ popular_shop.id }}</td>
                                     <td>{{ popular_shop.title }}</td>
                                     <td>{{ popular_shop.url }}</td>
-                                    <td>{{ popular_shop.image }}</td>
+                                    <td>
+                                        <img src="{{ uploaded_hash_asset(popular_shop.imageHash) }}">
+
+                                    </td>
                                     <td>{{ popular_shop.pub ? 'Yes' : 'No' }}</td>
                                     <td>
                                         <a href="{{ path('popular_shop_show', {'id': popular_shop.id}) }}">
@@ -44,7 +47,7 @@
                         </tbody>
                     </table>
 
-                    <a href="{{ path('popular_shop_new') }}">Create new</a>
+                    <a class="btn btn-primary btn-sm" href="{{ path('popular_shop_new') }}">Create new</a>
                 </div>
             </div>
         </div>

@@ -28,10 +28,10 @@
                     <table>
                         <tr>
                             <td>
-                                <a class="btn btn-primary btn-sm" href="{{ path('user_index') }}">Назад к списку</a>
+                                <a class="btn btn-primary btn-sm" href="{{ path('user_index') }}">back to list</a>
                             </td>
                             <td>
-                                <a class="btn btn-primary btn-sm" href="{{ path('user_edit', {'id': user.id}) }}">Редактировать</a>
+                                <a class="btn btn-primary btn-sm" href="{{ path('user_edit', {'id': user.id}) }}">edit</a>
                             </td>
                             <td>
                                 {{ include('backend/user/_delete_form.html.twig') }}

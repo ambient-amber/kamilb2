@@ -1,3 +1,7 @@
+img {
+    max-width: 100%;
+}
+
 .module_content_table .ks-icon {
     font-size: 20px;
 }

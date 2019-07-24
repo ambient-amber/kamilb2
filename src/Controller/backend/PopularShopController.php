@@ -40,6 +40,7 @@ class PopularShopController extends AbstractController
 
             $plainImage = $request->files->get('popular_shop')['plainImage'];
             $uploadedFile = $uploadHelper->uploadHashFile($plainImage);
+
             $popularShop->setImageHash($uploadedFile['hash_name']);
             $popularShop->setImageName($uploadedFile['original_name']);
 

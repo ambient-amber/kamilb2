@@ -31,8 +31,6 @@ class PopularShop
      */
     private $imageHash;
 
-    private $plainImage;
-
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
@@ -80,18 +78,6 @@ class PopularShop
     public function setImageHash(?string $imageHash): self
     {
         $this->imageHash = $imageHash;
-
-        return $this;
-    }
-
-    public function getPlainImage(): ?string
-    {
-        return $this->plainImage;
-    }
-
-    public function setPlainImage(?string $image): self
-    {
-        $this->plainImage = $image;
 
         return $this;
     }
