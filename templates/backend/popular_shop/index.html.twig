@@ -26,8 +26,7 @@
                                     <td>{{ popular_shop.title }}</td>
                                     <td>{{ popular_shop.url }}</td>
                                     <td>
-                                        <img src="{{ uploaded_hash_asset(popular_shop.imageHash) }}">
-
+                                        <img src="{{ resize_hash_image(popular_shop.imageHash, {'width': 100, 'height': 100, 'method': 'exact', 'ignore_existence': true}) }}">
                                     </td>
                                     <td>{{ popular_shop.pub ? 'Yes' : 'No' }}</td>
                                     <td>

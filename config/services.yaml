@@ -33,3 +33,7 @@ services:
     # please note that last definitions always *replace* previous ones
 
     Symfony\Component\Asset\Context\RequestStackContext: '@assets.context'
+
+    App\EventListener\EntityElementRemovalSubscriber:
+        tags:
+            - { name: doctrine.event_subscriber, connection: default }

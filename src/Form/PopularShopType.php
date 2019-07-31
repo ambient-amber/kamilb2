@@ -13,10 +13,14 @@ class PopularShopType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $shop = $options['data'] ?? null;
+        $isEdit = $shop && $shop->getId();
+
         $builder
             ->add('title')
             ->add('url')
             ->add('plainImage', FileType::class, [
+                'required' => $isEdit ? false : true,
                 'mapped' => false,
                 'constraints' => [
                     new Image(

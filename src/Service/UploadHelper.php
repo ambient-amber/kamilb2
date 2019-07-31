@@ -70,6 +70,57 @@ class UploadHelper
     }
 
     /**
+     * Удаление файла со сгенерированным названием.
+     *
+     * @param string $hashName Сгенерированное название
+     *
+     * @return void.
+     */
+    public function unloadHashFile($hashName)
+    {
+        // Получение пути до файла
+        $fileNamePath = $this->parseHashFileNamePath($hashName);
+
+        $fullPath = $this->uploadsHashPath . $fileNamePath . $hashName;
+
+        $fullPathParts = pathinfo($fullPath);
+
+        $files = scandir($fullPathParts['dirname']);
+
+        if ($files) {
+            // Удаляем не только сам файл, но и его вариации с разными разрешениями
+            // Например, d69df68135.jpeg и d69df68135_100_100.jpeg
+            foreach ($files as $file) {
+                if (preg_match('/^' . $fullPathParts['filename'] . '/', $file)) {
+                    unlink($fullPathParts['dirname'] . '/' . $file);
+                }
+            }
+
+            // Сканируем директории, в которых лежал файл, поднимаясь по вложенности вверх,
+            // попутно удаляя директории, если они остались пустыми после удаления файла.
+            // Например файл d69df68135.jpeg лежит в uploads/hash/d69/df6/d69df68135.jpeg.
+            // Проверяется:
+            // uploads/hash/d69/df6/
+            // uploads/hash/d69/
+            $fileNamePathParts = explode('/', $fileNamePath);
+            $directory = $fullPathParts['dirname'];
+
+            for ($i = (count($fileNamePathParts) - 1); $i > 0; $i--) {
+                $directory = preg_replace('/' . $fileNamePathParts[$i] . '(\/)?$/', '', $directory);
+                $directoryFiles = scandir($directory);
+
+                if ($directoryFiles) {
+                    $directoryFiles = array_diff($directoryFiles, ['.', '..']);
+
+                    if (!count($directoryFiles)) {
+                        rmdir($directory);
+                    }
+                }
+            }
+        }
+    }
+
+    /**
      * Создание уникального названия файла.
      *
      * @param UploadedFile $file Объект файла
