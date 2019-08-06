@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller\backend;
+namespace App\Controller\Backend;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -14,7 +14,6 @@ class BackController extends AbstractController
     public function homepage()
     {
         return $this->render('backend/base.html.twig', [
-
         ]);
     }
 }

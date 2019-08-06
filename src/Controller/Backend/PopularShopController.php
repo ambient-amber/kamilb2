@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller\backend;
+namespace App\Controller\Backend;
 
 use App\Entity\PopularShop;
 use App\Form\PopularShopType;

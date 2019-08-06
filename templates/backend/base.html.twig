@@ -150,58 +150,12 @@
     {% block leftSidebar %}
         <div class="ks-column ks-sidebar ks-info">
             <div class="ks-wrapper">
-                <ul class="nav nav-pills nav-stacked">
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle"  href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                            <span class="ks-icon la la-cubes"></span>
-                            <span>Layouts</span>
-                        </a>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="../default-primary/index.html">Default</a>
-                            <div class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle"  href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                                    <span>Sidebar</span>
-                                </a>
-                                <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="../sidebar_sections-primary/index.html" target="_blank">Sections</a>
-                                    <a class="dropdown-item" href="../sidebar_compact-primary/index.html" target="_blank">Compact</a>
-                                    <a class="dropdown-item" href="../sidebar_iconbar-primary/index.html" target="_blank">Iconbar</a>
-                                    <a class="dropdown-item" href="../sidebar_iconbar_compact-primary/index.html" target="_blank">Iconbar Compact</a>
-                                </div>
-                            </div>
-                            <div class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle"  href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                                    <span>Navigation</span>
-                                </a>
-                                <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="../horizontal_navbar-primary/index.html" target="_blank">Horizontal</a>
-                                    <a class="dropdown-item" href="../horizontal_navbar_iconbar-primary/index.html" target="_blank">Horizontal Iconbar</a>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle"  href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                            <span class="ks-icon la la-th"></span>
-                            <span>DataTables</span>
-                        </a>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="datatables-datatables-net.html">DataTables.net</a>
-                            <a class="dropdown-item" href="datatables-bootstrap-table.html">Bootstrap Table</a>
-                        </div>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle"  href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                            <span class="ks-icon la la-puzzle-piece"><span class="badge badge-pill badge-pink ks-label">3</span></span>
-                            <span>Widgets</span>
-                        </a>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="widgets-panels.html">Panels</a>
-                            <a class="dropdown-item" href="widgets-upload.html">Upload</a>
-                            <a class="dropdown-item" href="widgets-tables.html">Tables</a>
-                        </div>
-                    </li>
-                </ul>
+                {{ knp_menu_render(
+                    'mainBackend',
+                    {
+                        'template': 'backend/mainMenu.html.twig'
+                    }
+                ) }}
             </div>
         </div>
     {% endblock %}
@@ -250,6 +204,7 @@
     <script src="{{ asset('assets/cosmo/libs/jscrollpane/jquery.mousewheel.js') }}"></script>
     <script src="{{ asset('assets/cosmo/libs/flexibility/flexibility.js') }}"></script>
     <script src="{{ asset('assets/cosmo/libs/noty/noty.min.js') }}"></script>
+    <script src="{{ asset('assets/js/backend/common.js') }}"></script>
     <!-- END PAGE LEVEL PLUGINS -->
 
     <!-- BEGIN THEME LAYOUT SCRIPTS -->

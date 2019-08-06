@@ -37,3 +37,9 @@ services:
     App\EventListener\EntityElementRemovalSubscriber:
         tags:
             - { name: doctrine.event_subscriber, connection: default }
+
+    App.menu_builder:
+        class: App\Menu\MenuBuilder
+        arguments: ["@knp_menu.factory"]
+        tags:
+            - { name: knp_menu.menu_builder, method: createMainBackendMenu, alias: mainBackend } # The alias is what is used to retrieve the menu
