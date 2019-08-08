@@ -6,6 +6,7 @@ use App\Entity\PopularShop;
 use App\Form\PopularShopType;
 use App\Repository\PopularShopRepository;
 use App\Service\UploadHelper;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,10 +20,18 @@ class PopularShopController extends AbstractController
     /**
      * @Route("/", name="popular_shop_index", methods={"GET"})
      */
-    public function index(PopularShopRepository $popularShopRepository): Response
+    public function index(PopularShopRepository $repository, PaginatorInterface $paginator, Request $request): Response
     {
+        $queryBuilder = $repository->findAll();
+
+        $pagination = $paginator->paginate(
+            $queryBuilder, // query NOT result
+            $request->query->getInt('page', 1),
+            10
+        );
+
         return $this->render('backend/popular_shop/index.html.twig', [
-            'popular_shops' => $popularShopRepository->findAll(),
+            'pagination' => $pagination,
         ]);
     }
 

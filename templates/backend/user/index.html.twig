@@ -18,7 +18,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            {% for user in users %}
+                            {% for user in pagination %}
                                 <tr>
                                     <td>{{ user.id }}</td>
                                     <td>{{ user.email }}</td>
@@ -39,6 +39,12 @@
                             {% endfor %}
                         </tbody>
                     </table>
+
+                    <p>
+                        Total: {{ pagination.getTotalItemCount }}
+                    </p>
+
+                    {{ knp_pagination_render(pagination) }}
 
                     <a class="btn btn-primary btn-sm" href="{{ path('user_new') }}">Create new</a>
                 </div>

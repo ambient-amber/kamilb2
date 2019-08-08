@@ -20,7 +20,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            {% for popular_shop in popular_shops %}
+                            {% for popular_shop in pagination %}
                                 <tr>
                                     <td>{{ popular_shop.id }}</td>
                                     <td>{{ popular_shop.title }}</td>
@@ -45,6 +45,12 @@
                             {% endfor %}
                         </tbody>
                     </table>
+
+                    <p>
+                        Total: {{ pagination.getTotalItemCount }}
+                    </p>
+
+                    {{ knp_pagination_render(pagination) }}
 
                     <a class="btn btn-primary btn-sm" href="{{ path('popular_shop_new') }}">Create new</a>
                 </div>
