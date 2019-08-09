@@ -1,6 +1,6 @@
 {% extends "backend/base.html.twig" %}
 
-{% block moduleTitle %}Пользователи{% endblock %}
+{% block moduleTitle %}Статьи{% endblock %}
 {% block moduleSubTitle %}Список{% endblock %}
 
 {% block content %}
@@ -12,24 +12,26 @@
                         <thead>
                             <tr>
                                 <th>Id</th>
-                                <th>Логин</th>
-                                <th>Роли</th>
-                                <th>Действия</th>
+                                <th>Title</th>
+                                <th>Image</th>
+                                <th>actions</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {% for user in pagination %}
+                            {% for article in pagination %}
                                 <tr>
-                                    <td>{{ user.id }}</td>
-                                    <td>{{ user.email }}</td>
-                                    <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
+                                    <td>{{ article.id }}</td>
                                     <td>
-                                        <a href="{{ path('user_show', {'id': user.id}) }}">
-                                            <span class="ks-icon la la-eye"></span>
-                                        </a>
-                                        <a href="{{ path('user_edit', {'id': user.id}) }}">
-                                            <span class="ks-icon la la-pencil"></span>
-                                        </a>
+                                        {% for translation in article.articleTranslations %}
+                                            <p>
+                                                {{ translation.title }}
+                                            </p>
+                                        {% endfor %}
+                                    </td>
+                                    <td>{{ article.imageHash }}</td>
+                                    <td>
+                                        <a href="{{ path('article_show', {'id': article.id}) }}">show</a>
+                                        <a href="{{ path('article_edit', {'id': article.id}) }}">edit</a>
                                     </td>
                                 </tr>
                             {% else %}
@@ -46,7 +48,7 @@
 
                     {{ knp_pagination_render(pagination) }}
 
-                    <a class="btn btn-primary btn-sm" href="{{ path('user_new') }}">Create new</a>
+                    <a class="btn btn-primary btn-sm" href="{{ path('article_new') }}">Create new</a>
                 </div>
             </div>
         </div>

@@ -29,7 +29,7 @@ class MenuBuilder
             ]
         );
 
-        $menu->addChild('User', ['route' => 'user_index'])
+        $menu->addChild('user', ['route' => 'user_index'])
              ->setAttribute('dropdown', true)
              ->setAttribute('class', 'nav-item dropdown')
              ->setLinkAttributes(['class' => 'nav-link dropdown-toggle']);
@@ -38,16 +38,28 @@ class MenuBuilder
 
         }*/
 
-        $menu['User']->addChild('List', ['route' => 'user_index']);
-        $menu['User']->addChild('Add', ['route' => 'user_new']);
+        $menu['user']->addChild('List', ['route' => 'user_index']);
+        $menu['user']->addChild('Add', ['route' => 'user_new']);
 
-        $menu->addChild('Popular shop', ['route' => 'popular_shop_index'])
+        $menu->addChild('popular_shop', ['route' => 'popular_shop_index'])
             ->setAttribute('dropdown', true)
             ->setAttribute('class', 'nav-item dropdown')
             ->setLinkAttributes(['class' => 'nav-link dropdown-toggle']);
 
-        $menu['Popular shop']->addChild('List', ['route' => 'popular_shop_index']);
-        $menu['Popular shop']->addChild('Add', ['route' => 'popular_shop_new']);
+        $menu['popular_shop']->addChild('List', ['route' => 'popular_shop_index']);
+        $menu['popular_shop']->addChild('Add', ['route' => 'popular_shop_new']);
+
+        $menu->addChild('language', ['route' => 'language_index'])
+            ->setAttribute('class', 'nav-item')
+            ->setLinkAttributes(['class' => 'nav-link']);
+
+        $menu->addChild('article', ['route' => 'article_index'])
+            ->setAttribute('dropdown', true)
+            ->setAttribute('class', 'nav-item dropdown')
+            ->setLinkAttributes(['class' => 'nav-link dropdown-toggle']);
+
+        $menu['article']->addChild('List', ['route' => 'article_index']);
+        $menu['article']->addChild('Add', ['route' => 'article_new']);
 
         return $menu;
     }

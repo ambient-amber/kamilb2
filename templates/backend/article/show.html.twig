@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+
+<title>Article</title>
+
+{% block body %}
+    <h1>Article</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ article.id }}</td>
+            </tr>
+            <tr>
+                <th>ImageName</th>
+                <td>{{ article.imageName }}</td>
+            </tr>
+            <tr>
+                <th>ImageHash</th>
+                <td>{{ article.imageHash }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('article_index') }}">back to list</a>
+
+    <a href="{{ path('article_edit', {'id': article.id}) }}">edit</a>
+
+    {{ include('backend/article/_delete_form.html.twig') }}
+{% endblock %}

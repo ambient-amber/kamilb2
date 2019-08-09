@@ -3,6 +3,7 @@
 namespace App\Controller\Frontend;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 class ArticleController extends AbstractController
@@ -10,8 +11,10 @@ class ArticleController extends AbstractController
     /**
      * @Route("/article", name="article_list")
      */
-    public function list()
+    public function list(Request $request)
     {
+        $locale = $request->getLocale();
+
         return $this->render('frontend/article/list.html.twig', [
 
         ]);
