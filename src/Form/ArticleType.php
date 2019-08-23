@@ -3,7 +3,6 @@
 namespace App\Form;
 
 use App\Entity\Article;
-use App\Entity\ArticleTranslation;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -13,15 +12,17 @@ class ArticleType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder
+        /*$builder
             ->add('imageName')
             ->add('imageHash')
-        ;
+        ;*/
 
         $builder->add('articleTranslations', CollectionType::class, [
-            'entry_type' => ArticleTranslation::class,
+            'entry_type' => ArticleTranslationType::class,
             'entry_options' => ['label' => false],
+            'by_reference' => false,
             'allow_add' => true,
+            'allow_delete' => true,
         ]);
     }
 

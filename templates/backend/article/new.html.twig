@@ -1,11 +1,16 @@
-<!DOCTYPE html>
+{% extends "backend/base.html.twig" %}
 
-<title>New Article</title>
+{% block moduleTitle %}Статьи{% endblock %}
+{% block moduleSubTitle %}Создание{% endblock %}
 
-{% block body %}
-    <h1>Create new Article</h1>
-
-    {{ include('backend/article/_form.html.twig') }}
-
-    <a href="{{ path('article_index') }}">back to list</a>
+{% block content %}
+    <div class="ks-dashboard-tabbed-sidebar">
+        <div class="ks-dashboard-tabbed-sidebar-widgets">
+            <div class="row">
+                <div class="col-lg-12">
+                    {{ include('backend/article/_form.html.twig') }}
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

@@ -29,7 +29,7 @@ class Article
     private $imageHash;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\ArticleTranslation", mappedBy="article", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\ArticleTranslation", mappedBy="article", orphanRemoval=true, cascade={"persist"})
      */
     private $articleTranslations;
 
@@ -79,7 +79,7 @@ class Article
     {
         if (!$this->articleTranslations->contains($articleTranslation)) {
             $this->articleTranslations[] = $articleTranslation;
-            $articleTranslation->setArticleId($this);
+            $articleTranslation->setArticle($this);
         }
 
         return $this;
@@ -90,8 +90,8 @@ class Article
         if ($this->articleTranslations->contains($articleTranslation)) {
             $this->articleTranslations->removeElement($articleTranslation);
             // set the owning side to null (unless already changed)
-            if ($articleTranslation->getArticleId() === $this) {
-                $articleTranslation->setArticleId(null);
+            if ($articleTranslation->getArticle() === $this) {
+                $articleTranslation->setArticle(null);
             }
         }
 
