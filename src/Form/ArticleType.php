@@ -7,15 +7,35 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Validator\Constraints\Image;
+use App\EventListener\Form\UpdateImageSubscriber;
+use App\Service\UploadHelper;
 
 class ArticleType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        /*$builder
-            ->add('imageName')
-            ->add('imageHash')
-        ;*/
+        $shop = $options['data'] ?? null;
+        $isEdit = $shop && $shop->getId();
+
+        $builder
+            ->add('url')
+            ->add('pub')
+            ->add(
+                'plainImage',
+                FileType::class,
+                [
+                    'required' => $isEdit ? false : true,
+                    'mapped' => false,
+                    'constraints' => [
+                        new Image(
+                            ['maxSize' => '5M']
+                        )
+                    ]
+                ]
+            )
+        ;
 
         $builder->add('articleTranslations', CollectionType::class, [
             'entry_type' => ArticleTranslationType::class,
@@ -24,6 +44,10 @@ class ArticleType extends AbstractType
             'allow_add' => true,
             'allow_delete' => true,
         ]);
+
+        if ($isEdit) {
+            $builder->addEventSubscriber(new UpdateImageSubscriber());
+        }
     }
 
     public function configureOptions(OptionsResolver $resolver)

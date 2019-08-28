@@ -3,11 +3,9 @@
 namespace App\Controller\Backend;
 
 use App\Entity\Article;
-use App\Entity\ArticleTranslation;
 use App\Form\ArticleType;
 use App\Repository\ArticleRepository;
-use App\Entity\Language;
-use App\Repository\LanguageRepository;
+use App\Service\UploadHelper;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -40,7 +38,7 @@ class ArticleController extends AbstractController
     /**
      * @Route("/new", name="article_new", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
+    public function new(Request $request, UploadHelper $uploadHelper): Response
     {
         $article = new Article();
         $form = $this->createForm(ArticleType::class, $article);
@@ -48,6 +46,13 @@ class ArticleController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
+
+            $plainImage = $request->files->get('article')['plainImage'];
+            $uploadedFile = $uploadHelper->uploadHashFile($plainImage);
+
+            $article->setImageHash($uploadedFile['hash_name']);
+            $article->setImageName($uploadedFile['original_name']);
+
             $entityManager->persist($article);
             $entityManager->flush();
 
@@ -73,30 +78,21 @@ class ArticleController extends AbstractController
     /**
      * @Route("/{id}/edit", name="article_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, Article $article, LanguageRepository $languageRepository): Response
+    public function edit(Request $request, Article $article, UploadHelper $uploadHelper): Response
     {
-        /*$languageList = $languageRepository->findAll();
-
-        foreach ($article->getArticleTranslations() as $translation) {
-            $articleLanguage = $translation->getLanguage();
-
-            foreach ($languageList as $languageItem) {
-                if ($articleLanguage->getId() != $languageItem->getId()) {
-                    $translation = new ArticleTranslation();
-                    $translation->setArticle($article);
-                    $translation->setLanguage($articleLanguage);
-                    $translation->setTitle('');
-                    $translation->setContent('');
-
-                    $article->addArticleTranslation($translation);
-                }
-            }
-        }*/
-
         $form = $this->createForm(ArticleType::class, $article);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $plainImage = $request->files->get('article')['plainImage'];
+
+            if (!empty($plainImage)) {
+                $uploadedFile = $uploadHelper->uploadHashFile($plainImage);
+
+                $article->setImageHash($uploadedFile['hash_name']);
+                $article->setImageName($uploadedFile['original_name']);
+            }
+
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('article_index');

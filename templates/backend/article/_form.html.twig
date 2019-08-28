@@ -3,6 +3,67 @@
         {{ form_start(form) }}
             <div class="form-group row">
                 {{ form_label(
+                    form.url,
+                    null,
+                    {'label_attr': {'class': 'col-sm-2 form-control-label'}})
+                }}
+
+                <div class="col-sm-10">
+                    {{ form_widget(form.url, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_help(form.url) }}
+                    {{ form_errors(form.url) }}
+                </div>
+            </div>
+
+            <div class="form-group row">
+                {{ form_label(
+                    form.pub,
+                    null,
+                    {'label_attr': {'class': 'col-sm-2 form-control-label'}})
+                }}
+
+                <div class="col-sm-10">
+                    {{ form_widget(form.pub) }}
+                    {{ form_help(form.pub) }}
+                    {{ form_errors(form.pub) }}
+                </div>
+            </div>
+
+            <div class="form-group row">
+                {{ form_label(
+                    form.plainImage,
+                    null,
+                    {'label_attr': {'class': 'col-sm-2 form-control-label'}})
+                }}
+
+                <div class="col-sm-3">
+                    {% if article.imageHash %}
+                        <img src="{{ uploaded_hash_asset(article.imageHash) }}">
+                    {% else %}
+                        <p>Preview image is not selected</p>
+                    {% endif %}
+                </div>
+
+                <div class="col-sm-4">
+                    <button class="btn btn-primary ks-btn-file">
+                        <span class="la la-cloud-upload ks-icon"></span>
+                        <span class="ks-text">Choose preview image</span>
+                        <input
+                            type="file"
+                            name="{{ form.plainImage.vars.full_name }}"
+                            {% if form.plainImage.vars.required %}required{% endif %}
+                        >
+                    </button>
+
+                    {{ form_help(form.plainImage) }}
+                    {{ form_errors(form.plainImage) }}
+
+                    {% do form.plainImage.setRendered() %}
+                </div>
+            </div>
+
+            <div class="form-group row">
+                {{ form_label(
                     form.articleTranslations,
                     null,
                     {'label_attr': {'class': 'col-sm-2 form-control-label'}})

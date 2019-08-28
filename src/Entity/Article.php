@@ -33,6 +33,16 @@ class Article
      */
     private $articleTranslations;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $pub;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $url;
+
     public function __construct()
     {
         $this->articleTranslations = new ArrayCollection();
@@ -94,6 +104,30 @@ class Article
                 $articleTranslation->setArticle(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getPub(): ?bool
+    {
+        return $this->pub;
+    }
+
+    public function setPub(bool $pub): self
+    {
+        $this->pub = $pub;
+
+        return $this;
+    }
+
+    public function getUrl(): ?string
+    {
+        return $this->url;
+    }
+
+    public function setUrl(string $url): self
+    {
+        $this->url = $url;
 
         return $this;
     }
