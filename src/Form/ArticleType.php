@@ -9,8 +9,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Validator\Constraints\Image;
-use App\EventListener\Form\UpdateImageSubscriber;
-use App\Service\UploadHelper;
 
 class ArticleType extends AbstractType
 {
@@ -44,10 +42,6 @@ class ArticleType extends AbstractType
             'allow_add' => true,
             'allow_delete' => true,
         ]);
-
-        if ($isEdit) {
-            $builder->addEventSubscriber(new UpdateImageSubscriber());
-        }
     }
 
     public function configureOptions(OptionsResolver $resolver)

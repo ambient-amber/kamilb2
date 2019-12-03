@@ -89,6 +89,8 @@ class ArticleController extends AbstractController
             if (!empty($plainImage)) {
                 $uploadedFile = $uploadHelper->uploadHashFile($plainImage);
 
+                $uploadHelper->unloadHashFile($article->getImageHash());
+
                 $article->setImageHash($uploadedFile['hash_name']);
                 $article->setImageName($uploadedFile['original_name']);
             }
@@ -107,9 +109,11 @@ class ArticleController extends AbstractController
     /**
      * @Route("/{id}", name="article_delete", methods={"DELETE"})
      */
-    public function delete(Request $request, Article $article): Response
+    public function delete(Request $request, Article $article, UploadHelper $uploadHelper): Response
     {
         if ($this->isCsrfTokenValid('delete'.$article->getId(), $request->request->get('_token'))) {
+            $uploadHelper->unloadHashFile($article->getImageHash());
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($article);
             $entityManager->flush();

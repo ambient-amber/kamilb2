@@ -87,6 +87,8 @@ class PopularShopController extends AbstractController
             $plainImage = $request->files->get('popular_shop')['plainImage'];
 
             if (!empty($plainImage)) {
+                $uploadHelper->unloadHashFile($popularShop->getImageHash());
+
                 $uploadedFile = $uploadHelper->uploadHashFile($plainImage);
                 $popularShop->setImageHash($uploadedFile['hash_name']);
                 $popularShop->setImageName($uploadedFile['original_name']);
@@ -106,9 +108,11 @@ class PopularShopController extends AbstractController
     /**
      * @Route("/{id}", name="popular_shop_delete", methods={"DELETE"})
      */
-    public function delete(Request $request, PopularShop $popularShop): Response
+    public function delete(Request $request, PopularShop $popularShop, UploadHelper $uploadHelper): Response
     {
         if ($this->isCsrfTokenValid('delete'.$popularShop->getId(), $request->request->get('_token'))) {
+            $uploadHelper->unloadHashFile($popularShop->getImageHash());
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($popularShop);
             $entityManager->flush();
