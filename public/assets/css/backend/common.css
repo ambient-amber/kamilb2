@@ -6,6 +6,15 @@ img {
     font-size: 20px;
 }
 
+.pub_toggle_link,
+.pub_toggle_link:focus {
+    color: #000000;
+}
+.pub_toggle_link:hover,
+.pub_toggle_link.active {
+    color: #ff9600;
+}
+
 /* ------ Формы ------ */
 button {
     cursor: pointer;

@@ -14,6 +14,26 @@ $(document).ready(function(){
     });
     /* -------------------------------- */
 
+    /* --- Включение/выключение публикации --- */
+    $('.pub_toggle_link').click(function(){
+        var $link = $(this);
+
+        $.ajax({
+            url: $link.attr('href'),
+            type: 'post',
+            dataType: 'json',
+            data: {},
+            success: function (result) {
+                if (result.success) {
+                    $link.toggleClass('active');
+                }
+            }
+        });
+
+        return false;
+    });
+    /* -------------------------------------- */
+
 
     /* --------- Статьи --------- */
     $('.js_add_translation').click(function(){

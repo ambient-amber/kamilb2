@@ -8,6 +8,7 @@ use App\Repository\ArticleRepository;
 use App\Service\UploadHelper;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -120,5 +121,18 @@ class ArticleController extends AbstractController
         }
 
         return $this->redirectToRoute('article_index');
+    }
+
+    /**
+     * @Route("/{id}/pub_toggle", name="article_pub_toggle", methods={"GET","POST"})
+     */
+    public function pub(Request $request, Article $article): JsonResponse
+    {
+        $article->setPub(!$article->getPub());
+        $this->getDoctrine()->getManager()->flush();
+
+        return $this->json([
+            'success' => true
+        ]);
     }
 }

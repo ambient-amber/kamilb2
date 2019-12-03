@@ -13,8 +13,7 @@
                             <tr>
                                 <th>Id</th>
                                 <th>Title</th>
-                                <th>Image</th>
-                                <th>actions</th>
+                                <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -28,10 +27,16 @@
                                             </p>
                                         {% endfor %}
                                     </td>
-                                    <td>{{ article.imageHash }}</td>
                                     <td>
-                                        <a href="{{ path('article_show', {'id': article.id}) }}">show</a>
-                                        <a href="{{ path('article_edit', {'id': article.id}) }}">edit</a>
+                                        <a href="{{ path('article_show', {'id': article.id}) }}" title="look">
+                                            <span class="ks-icon la la-eye"></span>
+                                        </a>
+                                        <a href="{{ path('article_edit', {'id': article.id}) }}" title="edit">
+                                            <span class="ks-icon la la-pencil"></span>
+                                        </a>
+                                        <a href="{{ path('article_pub_toggle', {'id': article.id}) }}" class="pub_toggle_link {{ article.pub ? 'active' : '' }}" title="toggle pub">
+                                            <i class="ks-icon la la-lightbulb-o"></i>
+                                        </a>
                                     </td>
                                 </tr>
                             {% else %}

@@ -15,8 +15,7 @@
                                 <th>Title</th>
                                 <th>Url</th>
                                 <th>Image</th>
-                                <th>Pub</th>
-                                <th>actions</th>
+                                <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -28,13 +27,15 @@
                                     <td>
                                         <img src="{{ resize_hash_image(popular_shop.imageHash, {'width': 100, 'height': 100, 'method': 'exact', 'ignore_existence': true}) }}">
                                     </td>
-                                    <td>{{ popular_shop.pub ? 'Yes' : 'No' }}</td>
                                     <td>
-                                        <a href="{{ path('popular_shop_show', {'id': popular_shop.id}) }}">
+                                        <a href="{{ path('popular_shop_show', {'id': popular_shop.id}) }}" title="look">
                                             <span class="ks-icon la la-eye"></span>
                                         </a>
-                                        <a href="{{ path('popular_shop_edit', {'id': popular_shop.id}) }}">
+                                        <a href="{{ path('popular_shop_edit', {'id': popular_shop.id}) }}" title="edit">
                                             <span class="ks-icon la la-pencil"></span>
+                                        </a>
+                                        <a href="{{ path('popular_shop_pub_toggle', {'id': popular_shop.id}) }}" class="pub_toggle_link {{ popular_shop.pub ? 'active' : '' }}" title="toggle pub">
+                                            <i class="ks-icon la la-lightbulb-o"></i>
                                         </a>
                                     </td>
                                 </tr>
