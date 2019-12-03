@@ -19,6 +19,15 @@ class PopularShopRepository extends ServiceEntityRepository
         parent::__construct($registry, PopularShop::class);
     }
 
+    public function findIndexItems()
+    {
+        return $this->createQueryBuilder('p')
+            ->andWhere('p.pub = 1')
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
     // /**
     //  * @return PopularShop[] Returns an array of PopularShop objects
     //  */

@@ -81,26 +81,23 @@
 
                 <div class="index_banner"></div>
 
-                <div class="page_content_block">
-                    <div class="popular_shops">
-                        <div class="like_h1">
-                            {% trans %}popular_shops{% endtrans %}
-                        </div>
+                {% if popular_shops %}
+                    <div class="page_content_block">
+                        <div class="popular_shops">
+                            <div class="like_h1">
+                                {% trans %}popular_shops{% endtrans %}
+                            </div>
 
-                        <div class="shop_list">
-                            {% for i in 1..5 %}
-                                <div class="shop_item">
-                                    <img src="../assets/img/shops/logo_{{ i }}.png" alt="">
-                                </div>
-                            {% endfor %}
-                            {% for i in 1..5 %}
-                                <div class="shop_item">
-                                    <img src="../assets/img/shops/logo_{{ i }}.png" alt="">
-                                </div>
-                            {% endfor %}
+                            <div class="shop_list">
+                                {% for popular_shop in popular_shops %}
+                                    <a href="{{ popular_shop.url }}" class="shop_item" title="{{ popular_shop.title|e }}">
+                                        <img src="{{ uploaded_hash_asset(popular_shop.imageHash) }}" alt="{{ popular_shop.title|e }}">
+                                    </a>
+                                {% endfor %}
+                            </div>
                         </div>
                     </div>
-                </div>
+                {% endif %}
             </div>
         </main>
     {% endblock %}
