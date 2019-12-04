@@ -35,21 +35,70 @@ $(document).ready(function(){
     /* -------------------------------------- */
 
     /* --- TinyMCE --- */
-    tinymce.init({
-        selector: '.js_tinymce_textarea',
-        plugins: 'print preview fullpage paste importcss searchreplace autolink autosave save directionality code visualblocks visualchars fullscreen image link media template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists wordcount imagetools textpattern noneditable help charmap quickbars emoticons',
-        menubar: 'file edit view insert format tools table help',
-        toolbar: 'undo redo | bold italic underline strikethrough | fontselect fontsizeselect formatselect | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist | forecolor backcolor removeformat | pagebreak | charmap emoticons | fullscreen  preview save print | insertfile image media template link anchor codesample | ltr rtl',
-        toolbar_sticky: true,
-        height: 400,
-        image_caption: true,
-        quickbars_selection_toolbar: 'bold italic | quicklink h2 h3 blockquote quickimage quicktable',
-        noneditable_noneditable_class: "mceNonEditable",
-        toolbar_drawer: 'sliding',
-        contextmenu: "link image imagetools table",
-        images_upload_url: 'postAcceptor.php',
-        images_upload_base_path: '/public/uploads/',
-    });
+    var tinymce_settings = {
+        language: 'ru',
+        theme: 'modern',
+        relative_urls: false,
+        convert_urls: false,
+        valid_elements: '*[*]',
+        valid_children : '+body[style]',
+        paste_as_text: true,
+        plugins: [
+            'advlist autolink link image lists charmap print preview hr anchor pagebreak',
+            'searchreplace visualblocks visualchars codemirror fullscreen insertdatetime media nonbreaking',
+            'save table contextmenu directionality template paste textcolor responsivefilemanager'
+        ],
+        image_advtab: true,
+        plugin_preview_width: 800,
+        //content_css: '/admin/assets/styles/editor.css',
+        advlist_bullet_styles: 'default',
+        advlist_number_styles: 'default',
+        style_formats: [
+            { title: 'Абзац', block: 'p' },
+            { title: 'H2 title', block: 'h2' },
+            { title: 'H3 title', block: 'h3' },
+            { title: 'H4 title', block: 'h4' }
+        ],
+        external_filemanager_path: '/assets/cosmo/libs/tinymce/plugins/filemanager/',
+        filemanager_title: 'Responsive Filemanager',
+        external_plugins: { filemanager: '/assets/cosmo/libs/tinymce/plugins/filemanager/plugin.min.js' },
+        codemirror: {
+            indentOnInit: true,
+            fullscreen: false,
+            path: 'codemirror',
+            config: {
+                mode: 'application/x-httpd-php',
+                lineNumbers: false
+            },
+            width: 940,
+            height: 480,
+            jsFiles: [
+                'mode/clike/clike.js',
+                'mode/php/php.js'
+            ]
+        },
+    };
+
+    function enable_editor(selector) {
+        var tinymce_settings_full = $.extend(true, {}, tinymce_settings);
+
+        tinymce_settings_full.selector = selector;
+        tinymce_settings_full.height = 400;
+        tinymce_settings_full.menu = {
+            edit: {title: 'Edit', items: 'undo redo | cut copy paste pastetext | selectall'},
+            insert: {title: 'Insert', items: 'link image | nonbreaking hr charmap | hidden_text image_comparison image_slider'},
+            view: {title: 'View', items: 'visualblocks visualaid'},
+            format: {title: 'Format', items: 'bold italic underline strikethrough superscript subscript | formats | content_layout_left | removeformat'},
+            table: {title: 'Table', items: 'inserttable tableprops deletetable | cell row column'},
+            tools: {title: 'Tools', items: 'typograf code'}
+        };
+
+        tinymce_settings_full.toolbar = 'undo redo | styleselect | fontsizeselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image responsivefilemanager media | fullscreen preview code';
+
+        tinymce.init(tinymce_settings_full);
+    }
+
+    enable_editor('.js_tinymce_textarea');
     /* -------------- */
 
     /* --------- Статьи --------- */
@@ -60,12 +109,19 @@ $(document).ready(function(){
         var newForm = prototype.replace(/__name__/g, index);
 
         $collectionHolder.append(newForm);
+
+        enable_editor('#article_articleTranslations_' + index + '_content');
     });
 
     $(document).on('click', '.js_delete_translation', function(){
         var $self = $(this);
+        var $parent = $self.closest('fieldset');
 
-        $self.closest('fieldset').remove();
+        tinymce.remove('#' + $parent.find('.js_tinymce_textarea').attr('id'));
+
+        $parent.remove();
+
+        return false;
     });
     /* -------------------------- */
 });
