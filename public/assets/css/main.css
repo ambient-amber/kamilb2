@@ -54,6 +54,16 @@ h2:after {
     background: #303030;
     border-radius: 5px;
 }
+
+.row {
+    display: table-row;
+}
+
+.row .cell {
+    display: table-cell;
+    vertical-align: middle;
+    padding: 10px 25px 10px 0;
+}
 /* -------------- */
 
 
@@ -352,6 +362,10 @@ h2:after {
 }
 
 /* - Page map links - */
+.page_map {
+    margin: 0 -96px;
+}
+
 .page_map_links {
     display: flex;
     flex-wrap: wrap;
@@ -387,9 +401,11 @@ h2:after {
     margin: 0 40px 0 0;
 }
 
-/* ----------------- */
-
-/* --------------- */
+/* --- Список статей --- */
+.items_list_link {
+    font-size: 16px;
+}
+/* -------------------- */
 
 /* --- Footer --- */
 .footer {
