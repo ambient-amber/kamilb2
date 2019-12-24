@@ -50,14 +50,22 @@ $(document).ready(function(){
         ],
         image_advtab: true,
         plugin_preview_width: 800,
-        //content_css: '/admin/assets/styles/editor.css',
+        content_css : '/assets/css/backend/tiny_mce_front_styles.css',
         advlist_bullet_styles: 'default',
         advlist_number_styles: 'default',
         style_formats: [
             { title: 'Абзац', block: 'p' },
             { title: 'H2 title', block: 'h2' },
             { title: 'H3 title', block: 'h3' },
-            { title: 'H4 title', block: 'h4' }
+            { title: 'H4 title', block: 'h4' },
+            { title: 'Важное примечание', block: 'div', classes: 'highlighted_block'}
+        ],
+        templates : [
+            {
+                title: "Фото с подписью",
+                description: "Фото с подписью",
+                url: "/assets/cosmo/libs/tinymce/templates/photo_with_description.htm",
+            }
         ],
         external_filemanager_path: '/assets/cosmo/libs/tinymce/plugins/filemanager/',
         filemanager_title: 'Responsive Filemanager',
@@ -93,7 +101,7 @@ $(document).ready(function(){
             tools: {title: 'Tools', items: 'typograf code'}
         };
 
-        tinymce_settings_full.toolbar = 'undo redo | styleselect | fontsizeselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image responsivefilemanager media | fullscreen preview code';
+        tinymce_settings_full.toolbar = 'undo redo | styleselect | fontsizeselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image responsivefilemanager media | fullscreen preview code template';
 
         tinymce.init(tinymce_settings_full);
     }
