@@ -1,0 +1,62 @@
+<div class="card">
+    <div class="card-block">
+        {{ form_start(form) }}
+            <div class="form-group row">
+                {{ form_label(
+                    form.textId,
+                    null,
+                    {'label_attr': {'class': 'col-sm-2 form-control-label'}})
+                }}
+
+                <div class="col-sm-10">
+                    {{ form_widget(form.textId, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_help(form.textId) }}
+                    {{ form_errors(form.textId) }}
+                </div>
+            </div>
+
+            <div class="form-group row">
+                {{ form_label(
+                    form.description,
+                    null,
+                    {'label_attr': {'class': 'col-sm-2 form-control-label'}})
+                }}
+
+                <div class="col-sm-10">
+                    {{ form_widget(form.description, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_help(form.description) }}
+                    {{ form_errors(form.description) }}
+                </div>
+            </div>
+
+            <div class="form-group row">
+                {{ form_label(
+                    form.content,
+                    null,
+                    {'label_attr': {'class': 'col-sm-2 form-control-label'}})
+                }}
+
+                <div class="col-sm-10">
+                    {{ form_widget(form.content) }}
+                    {{ form_help(form.content) }}
+                    {{ form_errors(form.content) }}
+                </div>
+            </div>
+
+            <table>
+                <tr>
+                    <td>
+                        <a class="btn btn-primary btn-sm" href="{{ path('content_block_index') }}">back to list</a>
+                    </td>
+                    <td>
+                        <button class="btn btn-primary btn-sm">{{ button_label|default('Save') }}</button>
+                    </td>
+                </tr>
+            </table>
+        {{ form_end(form) }}
+
+        {% if content_block.id %}
+            {{ include('backend/content_block/_delete_form.html.twig') }}
+        {% endif %}
+    </div>
+</div>

@@ -1,0 +1,45 @@
+{% extends "backend/base.html.twig" %}
+
+{% block moduleTitle %}Популярные магазины{% endblock %}
+{% block moduleSubTitle %}Просмотр{% endblock %}
+
+{% block content %}
+    <div class="ks-dashboard-tabbed-sidebar">
+        <div class="ks-dashboard-tabbed-sidebar-widgets">
+            <div class="row">
+                <div class="col-lg-12">
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <th>Id</th>
+                                <td>{{ content_block.id }}</td>
+                            </tr>
+                            <tr>
+                                <th>description</th>
+                                <td>{{ content_block.description }}</td>
+                            </tr>
+                            <tr>
+                                <th>content</th>
+                                <td>{{ content_block.content }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <table>
+                        <tr>
+                            <td>
+                                <a class="btn btn-primary btn-sm" href="{{ path('content_block_index') }}">back to list</a>
+                            </td>
+                            <td>
+                                <a class="btn btn-primary btn-sm" href="{{ path('content_block_edit', {'id': content_block.id}) }}">edit</a>
+                            </td>
+                            <td>
+                                {{ include('backend/content_block/_delete_form.html.twig') }}
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
