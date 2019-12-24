@@ -107,6 +107,17 @@ $(document).ready(function(){
     }
 
     enable_editor('.js_tinymce_textarea');
+
+    // Заполнение настоящей textarea перед отправкой формы добавления/редактирования для избежания ошибки валидации
+    $('.js_save_with_tiny_mce').click(function(e){
+        e.preventDefault();
+
+        tinymce.triggerSave();
+
+        $(this).closest('form').submit();
+
+        return false;
+    });
     /* -------------- */
 
     /* --------- Статьи --------- */
