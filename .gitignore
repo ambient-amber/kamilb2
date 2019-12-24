@@ -17,7 +17,3 @@
 ###> symfony/web-server-bundle ###
 /.web-server-pid
 ###< symfony/web-server-bundle ###
-
-/public/uploads/hash/*
-/public/uploads/file_manager/*
-/public/uploads/tinymce_thumbs/*
