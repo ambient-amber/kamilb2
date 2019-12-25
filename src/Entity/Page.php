@@ -6,10 +6,13 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\PageRepository")
- * @ORM\Table(indexes={
- *     @ORM\Index(name="pub_index", columns={"pub"}),
- *     @ORM\Index(name="show_in_footer_index", columns={"show_in_footer"}),
- * })
+ * @ORM\Table(
+ *     indexes = {
+ *         @ORM\Index(name = "pub_index", columns = {"pub"}),
+ *         @ORM\Index(name = "show_in_footer_index", columns = {"show_in_footer"}),
+ *         @ORM\Index(name = "url_index", columns = {"url"}),
+ *     }
+ * )
  */
 class Page
 {

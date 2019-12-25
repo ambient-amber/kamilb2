@@ -6,6 +6,12 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\PopularShopRepository")
+ * @ORM\Table(
+ *     indexes = {
+ *          @ORM\Index(name = "url_index", columns = {"url"}),
+ *          @ORM\Index(name = "pub_index", columns = {"pub"}),
+ *     }
+ * )
  */
 class PopularShop
 {

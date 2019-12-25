@@ -8,6 +8,12 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ArticleRepository")
+ * @ORM\Table(
+ *     indexes = {
+ *          @ORM\Index(name = "pub_index", columns = {"pub"}),
+ *          @ORM\Index(name = "url_index", columns = {"url"}),
+ *     }
+ * )
  */
 class Article
 {

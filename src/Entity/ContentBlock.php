@@ -6,6 +6,11 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ContentBlockRepository")
+ * @ORM\Table(
+ *     indexes = {
+ *         @ORM\Index(name = "text_id_index", columns = {"text_id"})
+ *     }
+ * )
  */
 class ContentBlock
 {
