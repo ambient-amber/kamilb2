@@ -79,7 +79,11 @@
 {% block linkElement %}
     {% import _self as knp_menu %}
     <a href="{{ item.uri }}"{{ knp_menu.attributes(item.linkAttributes) }}>
-        <span class="ks-icon la la-th"></span>
+
+        {% if item.attributes.icon_class is defined %}
+            <span class="ks-icon {{ item.attributes.icon_class }}"></span>
+        {% endif %}
+
         {{ block('label') }}
     </a>
 {% endblock %}

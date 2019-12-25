@@ -32,6 +32,7 @@ class MenuBuilder
         // Пользователи
         $menu->addChild('user', ['route' => 'user_index'])
              ->setAttribute('dropdown', true)
+             ->setAttribute('icon_class', 'la la-users')
              ->setAttribute('class', 'nav-item dropdown')
              ->setLinkAttributes(['class' => 'nav-link dropdown-toggle']);
 
@@ -41,6 +42,7 @@ class MenuBuilder
         // Популярные магазины
         $menu->addChild('popular_shop', ['route' => 'popular_shop_index'])
             ->setAttribute('dropdown', true)
+            ->setAttribute('icon_class', 'la la-external-link')
             ->setAttribute('class', 'nav-item dropdown')
             ->setLinkAttributes(['class' => 'nav-link dropdown-toggle']);
 
@@ -50,11 +52,13 @@ class MenuBuilder
         // Языки
         $menu->addChild('language', ['route' => 'language_index'])
             ->setAttribute('class', 'nav-item')
+            ->setAttribute('icon_class', 'la la-language')
             ->setLinkAttributes(['class' => 'nav-link']);
 
         // Статьи
         $menu->addChild('article', ['route' => 'article_index'])
             ->setAttribute('dropdown', true)
+            ->setAttribute('icon_class', 'la la-newspaper-o')
             ->setAttribute('class', 'nav-item dropdown')
             ->setLinkAttributes(['class' => 'nav-link dropdown-toggle']);
 
@@ -64,6 +68,7 @@ class MenuBuilder
         // Контентные блоки
         $menu->addChild('content_block', ['route' => 'content_block_index'])
             ->setAttribute('dropdown', true)
+            ->setAttribute('icon_class', 'la la-puzzle-piece')
             ->setAttribute('class', 'nav-item dropdown')
             ->setLinkAttributes(['class' => 'nav-link dropdown-toggle']);
 
