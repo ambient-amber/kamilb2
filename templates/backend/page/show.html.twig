@@ -1,0 +1,61 @@
+{% extends "backend/base.html.twig" %}
+
+{% block moduleTitle %}Статические страницы{% endblock %}
+{% block moduleSubTitle %}Просмотр{% endblock %}
+
+{% block content %}
+    <div class="ks-dashboard-tabbed-sidebar">
+        <div class="ks-dashboard-tabbed-sidebar-widgets">
+            <div class="row">
+                <div class="col-lg-12">
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <th>Id</th>
+                                <td>{{ page.id }}</td>
+                            </tr>
+                            <tr>
+                                <th>Title</th>
+                                <td>{{ page.title }}</td>
+                            </tr>
+                            <tr>
+                                <th>Url</th>
+                                <td>{{ page.url }}</td>
+                            </tr>
+                            <tr>
+                                <th>Pub</th>
+                                <td>{{ page.pub ? 'Yes' : 'No' }}</td>
+                            </tr>
+                            <tr>
+                                <th>ShowInFooter</th>
+                                <td>{{ page.showInFooter ? 'Yes' : 'No' }}</td>
+                            </tr>
+                            <tr>
+                                <th>Content</th>
+                                <td>
+                                    <div class="js_scrollable_block" data-height="150px">
+                                        {{ page.content|raw }}
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <table>
+                        <tr>
+                            <td>
+                                <a class="btn btn-primary btn-sm" href="{{ path('page_index') }}">back to list</a>
+                            </td>
+                            <td>
+                                <a class="btn btn-primary btn-sm" href="{{ path('page_edit', {'id': page.id}) }}">edit</a>
+                            </td>
+                            <td>
+                                {{ include('backend/page/_delete_form.html.twig') }}
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

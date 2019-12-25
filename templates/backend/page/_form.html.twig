@@ -1,0 +1,90 @@
+<div class="card">
+    <div class="card-block">
+        {{ form_start(form) }}
+            <div class="form-group row">
+                {{ form_label(
+                    form.title,
+                    null,
+                    {'label_attr': {'class': 'col-sm-2 form-control-label'}})
+                }}
+
+                <div class="col-sm-10">
+                    {{ form_widget(form.title, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_help(form.title) }}
+                    {{ form_errors(form.title) }}
+                </div>
+            </div>
+
+            <div class="form-group row">
+                {{ form_label(
+                    form.url,
+                    null,
+                    {'label_attr': {'class': 'col-sm-2 form-control-label'}})
+                }}
+
+                <div class="col-sm-10">
+                    {{ form_widget(form.url, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_help(form.url) }}
+                    {{ form_errors(form.url) }}
+                </div>
+            </div>
+
+            <div class="form-group row">
+                {{ form_label(
+                    form.pub,
+                    null,
+                    {'label_attr': {'class': 'col-sm-2 form-control-label'}})
+                }}
+
+                <div class="col-sm-10">
+                    {{ form_widget(form.pub) }}
+                    {{ form_help(form.pub) }}
+                    {{ form_errors(form.pub) }}
+                </div>
+            </div>
+
+            <div class="form-group row">
+                {{ form_label(
+                    form.showInFooter,
+                    null,
+                    {'label_attr': {'class': 'col-sm-2 form-control-label'}})
+                }}
+
+                <div class="col-sm-10">
+                    {{ form_widget(form.showInFooter) }}
+                    {{ form_help(form.showInFooter) }}
+                    {{ form_errors(form.showInFooter) }}
+                </div>
+            </div>
+
+            <div class="form-group row">
+                {{ form_label(
+                    form.content,
+                    null,
+                    {'label_attr': {'class': 'col-sm-2 form-control-label'}})
+                }}
+
+                <div class="col-sm-10">
+                    {{ form_widget(form.content) }}
+                    {{ form_help(form.content) }}
+                    {{ form_errors(form.content) }}
+                </div>
+            </div>
+
+            <table>
+                <tr>
+                    <td>
+                        <a class="btn btn-primary btn-sm" href="{{ path('page_index') }}">back to list</a>
+                    </td>
+                    <td>
+                        <button class="btn btn-primary btn-sm js_save_with_tiny_mce">{{ button_label|default('Save') }}</button>
+                    </td>
+                </tr>
+            </table>
+        {{ form_end(form) }}
+
+        {% if page.id %}
+            {{ include('backend/page/_delete_form.html.twig') }}
+        {% endif %}
+    </div>
+</div>

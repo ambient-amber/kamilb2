@@ -1,0 +1,8 @@
+{% extends "backend/base.html.twig" %}
+
+{% block moduleTitle %}Статические страницы{% endblock %}
+{% block moduleSubTitle %}Редактирование{% endblock %}
+
+{% block content %}
+    {{ include('backend/page/_form.html.twig', {'button_label': 'Update'}) }}
+{% endblock %}
