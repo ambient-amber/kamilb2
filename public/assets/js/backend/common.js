@@ -152,7 +152,8 @@ $(document).ready(function(){
         var styles = {
             'overflow-y': 'scroll',
             'height': height,
-            'border': '1px solid #dee0e1'
+            'border': '1px solid #dee0e1',
+            'padding': '20px'
         };
 
         if (width) {

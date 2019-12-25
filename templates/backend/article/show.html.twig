@@ -18,6 +18,10 @@
                                 <th>url</th>
                                 <td>{{ article.url }}</td>
                             </tr>
+                            <tr>
+                                <th>image</th>
+                                <td><img src="{{ uploaded_hash_asset(article.imageHash) }}"></td>
+                            </tr>
                             {% for translation in article.articleTranslations %}
                                 <tr>
                                     <th>Поля с привязкой к языку</th>
