@@ -143,4 +143,24 @@ $(document).ready(function(){
         return false;
     });
     /* -------------------------- */
+
+    /* --- Блок со скроллом --- */
+    $.each($('.js_scrollable_block'), function(){
+        var $self = $(this);
+        var height = $self.attr('height') ? $self.attr('height') : '150px';
+        var width = $self.attr('width') ? $self.attr('width') : false;
+        var styles = {
+            'overflow-y': 'scroll',
+            'height': height,
+            'border': '1px solid #dee0e1'
+        };
+
+        if (width) {
+            styles['overflow-x'] = 'scroll';
+            styles['width'] = width;
+        }
+
+        $self.css(styles);
+    });
+    /* ----------------------- */
 });

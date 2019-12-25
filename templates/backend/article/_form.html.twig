@@ -1,5 +1,6 @@
 <div class="card">
     <div class="card-block">
+        {{ dump(article) }}
         {{ form_start(form) }}
             <div class="form-group row">
                 {{ form_label(
@@ -90,5 +91,9 @@
                 </tr>
             </table>
         {{ form_end(form) }}
+
+        {% if article.id %}
+            {{ include('backend/article/_delete_form.html.twig') }}
+        {% endif %}
     </div>
 </div>
