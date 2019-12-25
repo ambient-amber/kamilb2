@@ -29,51 +29,87 @@ class MenuBuilder
             ]
         );
 
-        // Пользователи
-        $menu->addChild('user', ['route' => 'user_index'])
-             ->setAttribute('dropdown', true)
-             ->setAttribute('icon_class', 'la la-users')
-             ->setAttribute('class', 'nav-item dropdown')
-             ->setLinkAttributes(['class' => 'nav-link dropdown-toggle']);
+        $menuItems = [
+            [
+                'key' => 'user',
+                'title' => 'Пользователи',
+                'route' => 'user_index',
+                'icon' => 'la la-users',
+                'children' => [
+                    ['title' => 'Список', 'route' => 'user_index'],
+                    ['title' => 'Добавить', 'route' => 'user_new']
+                ]
+            ],
+            [
+                'key' => 'popular_shop',
+                'title' => 'Популярные магазины',
+                'route' => 'popular_shop_index',
+                'icon' => 'la la-external-link',
+                'children' => [
+                    ['title' => 'Список', 'route' => 'popular_shop_index'],
+                    ['title' => 'Добавить', 'route' => 'popular_shop_new']
+                ]
+            ],
+            [
+                'key' => 'language',
+                'title' => 'Языки',
+                'route' => 'language_index',
+                'icon' => 'la la-language',
+            ],
+            [
+                'key' => 'article',
+                'title' => 'Статьи',
+                'route' => 'article_index',
+                'icon' => 'la la-newspaper-o',
+                'children' => [
+                    ['title' => 'Список', 'route' => 'article_index'],
+                    ['title' => 'Добавить', 'route' => 'article_new']
+                ]
+            ],
+            [
+                'key' => 'content_block',
+                'title' => 'Контентные блоки',
+                'route' => 'content_block_index',
+                'icon' => 'la la-puzzle-piece',
+                'children' => [
+                    ['title' => 'Список', 'route' => 'content_block_index'],
+                    ['title' => 'Добавить', 'route' => 'content_block_new']
+                ]
+            ],
+            [
+                'key' => 'page',
+                'title' => 'Статические страницы',
+                'route' => 'page_index',
+                'icon' => 'la la-file',
+                'children' => [
+                    ['title' => 'Список', 'route' => 'page_index'],
+                    ['title' => 'Добавить', 'route' => 'page_new']
+                ]
+            ],
+        ];
 
-        $menu['user']->addChild('List', ['route' => 'user_index']);
-        $menu['user']->addChild('Add', ['route' => 'user_new']);
+        foreach ($menuItems as $menuItem) {
+            $menu->addChild($menuItem['key'], ['route' => $menuItem['route']])
+                ->setAttribute('class', 'nav-item dropdown')
+                ->setLinkAttributes(['class' => 'nav-link'])
+            ;
 
-        // Популярные магазины
-        $menu->addChild('popular_shop', ['route' => 'popular_shop_index'])
-            ->setAttribute('dropdown', true)
-            ->setAttribute('icon_class', 'la la-external-link')
-            ->setAttribute('class', 'nav-item dropdown')
-            ->setLinkAttributes(['class' => 'nav-link dropdown-toggle']);
+            $addedMenuItem = $menu->getChild($menuItem['key']);
 
-        $menu['popular_shop']->addChild('List', ['route' => 'popular_shop_index']);
-        $menu['popular_shop']->addChild('Add', ['route' => 'popular_shop_new']);
+            if (!empty($menuItem['icon'])) {
+                $addedMenuItem->setAttribute('icon_class', $menuItem['icon']);
+            }
 
-        // Языки
-        $menu->addChild('language', ['route' => 'language_index'])
-            ->setAttribute('class', 'nav-item')
-            ->setAttribute('icon_class', 'la la-language')
-            ->setLinkAttributes(['class' => 'nav-link']);
+            if (!empty($menuItem['children'])) {
+                $addedMenuItem
+                    ->setLinkAttributes(['class' => 'nav-link dropdown-toggle'])
+                    ->setAttribute('dropdown', true);
 
-        // Статьи
-        $menu->addChild('article', ['route' => 'article_index'])
-            ->setAttribute('dropdown', true)
-            ->setAttribute('icon_class', 'la la-newspaper-o')
-            ->setAttribute('class', 'nav-item dropdown')
-            ->setLinkAttributes(['class' => 'nav-link dropdown-toggle']);
-
-        $menu['article']->addChild('List', ['route' => 'article_index']);
-        $menu['article']->addChild('Add', ['route' => 'article_new']);
-
-        // Контентные блоки
-        $menu->addChild('content_block', ['route' => 'content_block_index'])
-            ->setAttribute('dropdown', true)
-            ->setAttribute('icon_class', 'la la-puzzle-piece')
-            ->setAttribute('class', 'nav-item dropdown')
-            ->setLinkAttributes(['class' => 'nav-link dropdown-toggle']);
-
-        $menu['content_block']->addChild('List', ['route' => 'content_block_index']);
-        $menu['content_block']->addChild('Add', ['route' => 'content_block_new']);
+                foreach ($menuItem['children'] as $child) {
+                    $addedMenuItem->addChild($child['title'], ['route' => $child['route']]);
+                }
+            }
+        }
 
         return $menu;
     }
