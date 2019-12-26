@@ -44,7 +44,7 @@ class ImageResizeHelper
     {
         $width = empty($settings['width']) ? 0 : $settings['width'];
         $height = empty($settings['height']) ? 0 : $settings['height'];
-        $method = empty($settings['method']) ? 0 : $settings['method'];
+        $method = empty($settings['method']) ? 'exact' : $settings['method'];
         $bgColor = empty($settings['bg_color']) ? 'white' : $settings['bg_color'];
         $ignoreExistence = empty($settings['ignore_existence']) ? false : $settings['ignore_existence'];
 

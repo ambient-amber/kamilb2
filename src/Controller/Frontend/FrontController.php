@@ -2,6 +2,7 @@
 
 namespace App\Controller\Frontend;
 
+use App\Entity\Page;
 use App\Repository\PopularShopRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -16,6 +17,17 @@ class FrontController extends AbstractController
     {
         return $this->render('frontend/base.html.twig', [
             'popular_shops' => $popularShopRepository->findIndexItems()
+        ]);
+    }
+
+    public function footerPages()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $pageRepository = $em->getRepository(Page::class);
+        $footerPages = $pageRepository->findAll();
+
+        return $this->render('frontend/_footer_pages.html.twig', [
+            'footer_pages' => $footerPages
         ]);
     }
 }

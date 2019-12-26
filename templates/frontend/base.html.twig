@@ -102,18 +102,10 @@
         </main>
     {% endblock %}
 
-
     {% block footer %}
         <div class="footer">
             <div class="footer_inner">
-                <div class="footer_links">
-                    <a class="footer_links_item" href="#">Пользовательское соглашение</a>
-                    <a class="footer_links_item" href="#">Политика конфиденциальности</a>
-                    <a class="footer_links_item" href="#">Правила сайта</a>
-                    <a class="footer_links_item" href="#">Пользовательское соглашение</a>
-                    <a class="footer_links_item" href="#">Политика конфиденциальности</a>
-                    <a class="footer_links_item" href="#">Правила сайта</a>
-                </div>
+                {{ render(controller('App\\Controller\\FrontEnd\\FrontController::footerPages')) }}
 
                 <div class="footer_social">
                     <a href="#" class="footer_social_item fb">
