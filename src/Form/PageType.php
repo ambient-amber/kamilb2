@@ -4,7 +4,7 @@ namespace App\Form;
 
 use App\Entity\Page;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -16,14 +16,18 @@ class PageType extends AbstractType
             ->add('title')
             ->add('url')
             ->add('pub')
-            ->add(
-                'content',
-                TextareaType::class,
-                [
-                    'attr' => ['class' => 'js_tinymce_textarea']
-                ]
-            )
             ->add('showInFooter')
+            ->add(
+                'pageTranslations',
+                CollectionType::class,
+                [
+                    'entry_type' => PageTranslationType::class,
+                    'entry_options' => ['label' => false],
+                    'by_reference' => false,
+                    'allow_add' => true,
+                    'allow_delete' => true,
+                ]
+            );
         ;
     }
 

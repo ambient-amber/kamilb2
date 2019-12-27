@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -47,6 +49,16 @@ class Page
      * @ORM\Column(type="boolean")
      */
     private $showInFooter;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\PageTranslation", mappedBy="page", orphanRemoval=true)
+     */
+    private $pageTranslations;
+
+    public function __construct()
+    {
+        $this->pageTranslations = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -109,6 +121,37 @@ class Page
     public function setShowInFooter(string $showInFooter): self
     {
         $this->showInFooter = $showInFooter;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|PageTranslation[]
+     */
+    public function getPageTranslations(): Collection
+    {
+        return $this->pageTranslations;
+    }
+
+    public function addPageTranslation(PageTranslation $pageTranslation): self
+    {
+        if (!$this->pageTranslations->contains($pageTranslation)) {
+            $this->pageTranslations[] = $pageTranslation;
+            $pageTranslation->setPage($this);
+        }
+
+        return $this;
+    }
+
+    public function removePageTranslation(PageTranslation $pageTranslation): self
+    {
+        if ($this->pageTranslations->contains($pageTranslation)) {
+            $this->pageTranslations->removeElement($pageTranslation);
+            // set the owning side to null (unless already changed)
+            if ($pageTranslation->getPage() === $this) {
+                $pageTranslation->setPage(null);
+            }
+        }
 
         return $this;
     }

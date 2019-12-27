@@ -33,9 +33,15 @@ class Language
      */
     private $articleTranslations;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\PageTranslation", mappedBy="language", orphanRemoval=true)
+     */
+    private $pageTranslations;
+
     public function __construct()
     {
         $this->articleTranslations = new ArrayCollection();
+        $this->pageTranslations = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -92,6 +98,37 @@ class Language
             // set the owning side to null (unless already changed)
             if ($articleTranslation->getLanguage() === $this) {
                 $articleTranslation->setLanguage(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|PageTranslation[]
+     */
+    public function getPageTranslations(): Collection
+    {
+        return $this->pageTranslations;
+    }
+
+    public function addPageTranslation(PageTranslation $pageTranslation): self
+    {
+        if (!$this->pageTranslations->contains($pageTranslation)) {
+            $this->pageTranslations[] = $pageTranslation;
+            $pageTranslation->setLanguage($this);
+        }
+
+        return $this;
+    }
+
+    public function removePageTranslation(PageTranslation $pageTranslation): self
+    {
+        if ($this->pageTranslations->contains($pageTranslation)) {
+            $this->pageTranslations->removeElement($pageTranslation);
+            // set the owning side to null (unless already changed)
+            if ($pageTranslation->getLanguage() === $this) {
+                $pageTranslation->setLanguage(null);
             }
         }
 

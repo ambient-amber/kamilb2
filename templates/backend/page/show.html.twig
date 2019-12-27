@@ -15,10 +15,6 @@
                                 <td>{{ page.id }}</td>
                             </tr>
                             <tr>
-                                <th>Title</th>
-                                <td>{{ page.title }}</td>
-                            </tr>
-                            <tr>
                                 <th>Url</th>
                                 <td>{{ page.url }}</td>
                             </tr>
@@ -29,6 +25,14 @@
                             <tr>
                                 <th>ShowInFooter</th>
                                 <td>{{ page.showInFooter ? 'Yes' : 'No' }}</td>
+                            </tr>
+                            <tr>
+                                <th>Title</th>
+                                <td>
+                                    {% for translation in page.pageTranslations %}
+                                        {{ translation.title }}
+                                    {% endfor %}
+                                <td>
                             </tr>
                             <tr>
                                 <th>Content</th>

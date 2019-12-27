@@ -21,7 +21,11 @@
                         {% for page in pagination %}
                             <tr>
                                 <td>{{ page.id }}</td>
-                                <td>{{ page.title }}</td>
+                                <td>
+                                    {% for translation in page.pageTranslations %}
+                                        <p>{{ translation.title }}</p>
+                                    {% enfore %}
+                                </td>
                                 <td>{{ page.showInFooter ? 'Yes' : 'No' }}</td>
                                 <td>
                                     <a href="{{ path('page_show', {'id': page.id}) }}" title="look">

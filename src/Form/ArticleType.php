@@ -33,15 +33,17 @@ class ArticleType extends AbstractType
                     ]
                 ]
             )
-        ;
-
-        $builder->add('articleTranslations', CollectionType::class, [
-            'entry_type' => ArticleTranslationType::class,
-            'entry_options' => ['label' => false],
-            'by_reference' => false,
-            'allow_add' => true,
-            'allow_delete' => true,
-        ]);
+            ->add(
+                'articleTranslations',
+                CollectionType::class,
+                [
+                    'entry_type' => ArticleTranslationType::class,
+                    'entry_options' => ['label' => false],
+                    'by_reference' => false,
+                    'allow_add' => true,
+                    'allow_delete' => true,
+                ]
+            );
     }
 
     public function configureOptions(OptionsResolver $resolver)

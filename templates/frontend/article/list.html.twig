@@ -1,12 +1,14 @@
 {% extends "frontend/base.html.twig" %}
 
-{% block title %}Список статей{% endblock %}
+{% block title %}
+    {% trans %}article_list_title{% endtrans %}
+{% endblock %}
 
 {% block body %}
     <main>
         <div class="page_content_block">
             <div class="page_content_block_inner">
-                <h1>Статьи</h1>
+                <h1>{% trans %}article_list_title{% endtrans %}</h1>
 
                 {% if pagination %}
                     <div class="items_list">
