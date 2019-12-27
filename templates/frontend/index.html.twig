@@ -1,0 +1,89 @@
+{% extends "frontend/base.html.twig" %}
+
+{% block header %}
+    <div class="page_header">
+        <a href="#" class="article_list_spoiler"></a>
+
+        <div class="article_list">
+            <a href="/" class="article_list_item">Как отслеживать посылки?</a>
+            <a href="/" class="article_list_item">Как покупать в интернете?</a>
+        </div>
+
+        <div class="telegram_link_wrap">
+            <a href="#" class="telegram_link">{% trans %}telegram_bot{% endtrans %}</a>
+        </div>
+    </div>
+{% endblock %}
+
+{% block body %}
+    <main>
+        <div class="page_content_block">
+            <div class="track_block">
+                <div class="select_language">
+                    <a href="#" class="selected">ru</a>
+                    <a href="#">uz</a>
+                </div>
+                <a href="/" class="main_logo"></a>
+                <h1>
+                    {% trans %}mail_search{% endtrans %}
+                    {% trans %}track_package{% endtrans %}
+                </h1>
+
+                <div class="track_input_block">
+                    <div class="track_input_before"></div>
+                    <input class="track_input" type="text" maxlength="50" placeholder="{% trans %}enter_track_number{% endtrans %}: RF588134391SG"/>
+                    <div class="track_submit">
+                            <span class="text">
+                                {% trans %}track_package{% endtrans %}
+                            </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="track_result" id="track_result"></div>
+
+            <div class="your_track_instruction">
+                <div class="your_tracks">
+                    {% trans %}your_tracks{% endtrans %}:
+                    <span class="track_number">RU255658194NL</span>,
+                    <span class="track_number">RU255658194NL</span>,
+                    <span class="track_number">RU255658194NL</span>,
+                    <span class="track_number">RU255658194NL</span>
+                </div>
+
+                <div class="instruction">
+                    <b>{% trans %}tracking_hint_1{% endtrans %}</b> <br/>
+                    {% trans %}tracking_hint_2{% endtrans %}: LZ009818636CN, RB454004001SG
+                </div>
+
+                <div class="your_other_tracks">
+                    {% trans %}your_other_tracks{% endtrans %}:<br/>
+                    <span class="track_number">RU255658194NL</span>,
+                    <span class="track_number">RU255658194NL</span>,
+                    <span class="track_number">RU255658194NL</span>,
+                    <span class="track_number">RU255658194NL</span>
+                </div>
+            </div>
+
+            <div class="index_banner"></div>
+
+            {% if popular_shops %}
+                <div class="page_content_block">
+                    <div class="popular_shops">
+                        <div class="like_h1">
+                            {% trans %}popular_shops{% endtrans %}
+                        </div>
+
+                        <div class="shop_list">
+                            {% for popular_shop in popular_shops %}
+                                <a href="{{ popular_shop.url }}" class="shop_item" title="{{ popular_shop.title|e }}">
+                                    <img src="{{ uploaded_hash_asset(popular_shop.imageHash) }}" alt="{{ popular_shop.title|e }}">
+                                </a>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </main>
+{% endblock %}

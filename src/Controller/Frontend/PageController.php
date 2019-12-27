@@ -6,7 +6,6 @@ use App\Entity\Page;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Controller\Frontend\FrontController;
 
 /**
  * @Route("/page")

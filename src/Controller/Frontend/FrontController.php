@@ -15,7 +15,7 @@ class FrontController extends AbstractController
      */
     public function homepage(EntityManagerInterface $em, PopularShopRepository $popularShopRepository)
     {
-        return $this->render('frontend/base.html.twig', [
+        return $this->render('frontend/index.html.twig', [
             'popular_shops' => $popularShopRepository->findIndexItems()
         ]);
     }
