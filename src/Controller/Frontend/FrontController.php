@@ -20,11 +20,11 @@ class FrontController extends AbstractController
         ]);
     }
 
-    public function footerPages()
+    public function footerPages($locale)
     {
         $em = $this->getDoctrine()->getManager();
         $pageRepository = $em->getRepository(Page::class);
-        $footerPages = $pageRepository->findAll();
+        $footerPages = $pageRepository->findFooterItems($locale);
 
         return $this->render('frontend/_footer_pages.html.twig', [
             'footer_pages' => $footerPages

@@ -1,6 +1,5 @@
 <div class="card">
     <div class="card-block">
-        {{ dump(article) }}
         {{ form_start(form) }}
             <div class="form-group row">
                 {{ form_label(
@@ -86,7 +85,9 @@
                         <button class="btn btn-primary btn-sm js_save_with_tiny_mce">{{ button_label|default('Save') }}</button>
                     </td>
                     <td>
-                        <a class="btn btn-primary btn-sm js_add_translation" href="#">Add translation</a>
+                        <a class="btn btn-primary btn-sm js_add_translation" data-id="article_articleTranslations" href="#">
+                            Add translation
+                        </a>
                     </td>
                 </tr>
             </table>

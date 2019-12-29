@@ -1,6 +1,10 @@
 {% extends "frontend/base.html.twig" %}
 
-{% block title %}Как покупать в интернете по всему миру?{% endblock %}
+{% block title %}
+    {% for translation in article.articleTranslations %}
+        {{ translation.title }}
+    {% endfor %}
+{% endblock %}
 
 {% block body %}
     <main>

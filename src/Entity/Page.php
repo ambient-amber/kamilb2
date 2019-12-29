@@ -28,30 +28,20 @@ class Page
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $title;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
     private $url;
 
     /**
      * @ORM\Column(type="boolean")
      */
-    private $pub;
-
-    /**
-     * @ORM\Column(type="text")
-     */
-    private $content;
+    private $pub = true;
 
     /**
      * @ORM\Column(type="boolean")
      */
-    private $showInFooter;
+    private $showInFooter = false;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\PageTranslation", mappedBy="page", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\PageTranslation", mappedBy="page", orphanRemoval=true, cascade={"persist"})
      */
     private $pageTranslations;
 
@@ -63,18 +53,6 @@ class Page
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getTitle(): ?string
-    {
-        return $this->title;
-    }
-
-    public function setTitle(string $title): self
-    {
-        $this->title = $title;
-
-        return $this;
     }
 
     public function getUrl(): ?string
@@ -101,19 +79,7 @@ class Page
         return $this;
     }
 
-    public function getContent(): ?string
-    {
-        return $this->content;
-    }
-
-    public function setContent(string $content): self
-    {
-        $this->content = $content;
-
-        return $this;
-    }
-
-    public function getShowInFooter(): ?string
+    public function getShowInFooter(): ?bool
     {
         return $this->showInFooter;
     }

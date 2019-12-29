@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Page;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
+use Doctrine\ORM\Query\Expr;
 
 /**
  * @method Page|null find($id, $lockMode = null, $lockVersion = null)
@@ -19,32 +20,32 @@ class PageRepository extends ServiceEntityRepository
         parent::__construct($registry, Page::class);
     }
 
-    // /**
-    //  * @return Page[] Returns an array of Page objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function findFooterItems($languageTextId)
     {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('p.id', 'ASC')
-            ->setMaxResults(10)
+        return $this->createQueryBuilder('page')
+            ->select('page, trans')
+            ->join('page.pageTranslations', 'trans')
+            ->join('trans.language', 'language', Expr\Join::WITH, 'language.textId = :language_text_id')
+            ->andWhere('page.pub = 1')
+            ->andWhere('page.showInFooter = 1')
+            ->setParameter('language_text_id', $languageTextId)
             ->getQuery()
             ->getResult()
-        ;
+            ;
     }
-    */
 
-    /*
-    public function findOneBySomeField($value): ?Page
+    public function findByUrl($languageTextId, $url)
     {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
+        return $this->createQueryBuilder('page')
+            ->select('page, trans')
+            ->join('page.pageTranslations', 'trans')
+            ->join('trans.language', 'language', Expr\Join::WITH, 'language.textId = :language_text_id')
+            ->andWhere('page.pub = 1')
+            ->andWhere('page.url = :url')
+            ->setParameter('language_text_id', $languageTextId)
+            ->setParameter('url', $url)
             ->getQuery()
-            ->getOneOrNullResult()
-        ;
+            ->getResult()
+            ;
     }
-    */
 }

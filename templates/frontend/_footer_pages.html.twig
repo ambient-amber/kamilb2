@@ -1,5 +1,7 @@
 <div class="footer_links">
     {% for footer_page in footer_pages %}
-        <a class="footer_links_item" href="{{ path('page_show', {'url': footer_page.url}) }}">{{ footer_page.title }}</a>
+        <a class="footer_links_item" href="{{ path('page_item', {'url': footer_page.url}) }}">
+                {{ footer_page.pageTranslations.0.title }}
+        </a>
     {% endfor %}
 </div>

@@ -37,9 +37,11 @@
                             <tr>
                                 <th>Content</th>
                                 <td>
-                                    <div class="js_scrollable_block" data-height="150px">
-                                        {{ page.content|raw }}
-                                    </div>
+                                    {% for translation in page.pageTranslations %}
+                                        <div class="js_scrollable_block" data-height="150px">
+                                            {{ translation.content|raw }}
+                                        </div>
+                                    {% endfor %}
                                 </td>
                             </tr>
                         </tbody>

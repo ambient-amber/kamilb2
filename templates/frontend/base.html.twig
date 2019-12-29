@@ -38,7 +38,7 @@
     {% block footer %}
         <div class="footer">
             <div class="footer_inner">
-                {{ render(controller('App\\Controller\\FrontEnd\\FrontController::footerPages')) }}
+                {{ render(controller('App\\Controller\\Frontend\\FrontController::footerPages', { locale: app.request.locale })) }}
 
                 <div class="footer_social">
                     <a href="#" class="footer_social_item fb">

@@ -122,14 +122,17 @@ $(document).ready(function(){
 
     /* --------- Статьи --------- */
     $('.js_add_translation').click(function(){
-        var $collectionHolder = $('#article_articleTranslations');
+        var id = $(this).data('id');
+        var $collectionHolder = $('#' + id);
         var prototype = $collectionHolder.data('prototype');
         var index = $collectionHolder.find('fieldset').length;
         var newForm = prototype.replace(/__name__/g, index);
 
         $collectionHolder.append(newForm);
 
-        enable_editor('#article_articleTranslations_' + index + '_content');
+        enable_editor('#' + id + '_' + index + '_content');
+
+        return false;
     });
 
     $(document).on('click', '.js_delete_translation', function(){
@@ -153,7 +156,8 @@ $(document).ready(function(){
             'overflow-y': 'scroll',
             'height': height,
             'border': '1px solid #dee0e1',
-            'padding': '20px'
+            'padding': '20px',
+            'margin': '0 0 25px'
         };
 
         if (width) {

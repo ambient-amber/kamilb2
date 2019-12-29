@@ -15,13 +15,13 @@
                         {% for article in pagination %}
                             <div class="row">
                                 <div class="cell">
-                                    <a href="{{ path('article_list') }}/{{ article.url }}/">
+                                    <a href="{{ path('article_item', {'url': article.url}) }}/">
                                         <img src="{{ resize_hash_image(article.imageHash, {'width': 100, 'height': 100, 'method': 'exact', 'ignore_existence': true}) }}">
                                     </a>
                                 </div>
                                 <div class="cell">
                                     {% for translation in article.articleTranslations %}
-                                        <a class="items_list_link" href="{{ path('article_list') }}/{{ article.url }}/">{{ translation.title }}</a>
+                                        <a class="items_list_link" href="{{ path('article_item', {'url': article.url}) }}">{{ translation.title }}</a>
                                     {% endfor %}
                                 </div>
                             </div>
