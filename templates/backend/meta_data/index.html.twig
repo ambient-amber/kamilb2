@@ -1,6 +1,6 @@
 {% extends "backend/base.html.twig" %}
 
-{% block moduleTitle %}Контентные блоки{% endblock %}
+{% block moduleTitle %}Мета теги{% endblock %}
 {% block moduleSubTitle %}Список{% endblock %}
 
 {% block content %}
@@ -12,29 +12,38 @@
                         <thead>
                             <tr>
                                 <th>Id</th>
-                                <th>Text_id</th>
+                                <th>Url</th>
+                                <th>Is regexp</th>
+                                <th>Title</th>
                                 <th>Description</th>
+                                <th>Key words</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {% for content_block in pagination %}
+                            {% for meta_data in pagination %}
                                 <tr>
-                                    <td>{{ content_block.Id }}</td>
-                                    <td>{{ content_block.textId }}</td>
-                                    <td>{{ content_block.description }}</td>
+                                    <td>{{ meta_data.id }}</td>
+                                    <td>{{ meta_data.url }}</td>
+                                    <td>{{ meta_data.isRegExp ? 'yes' : 'no' }}</td>
+                                    <td>{{ meta_data.title }}</td>
+                                    <td>{{ meta_data.description }}</td>
+                                    <td>{{ meta_data.keyWords }}</td>
                                     <td>
-                                        <a href="{{ path('content_block_show', {'id': content_block.id}) }}" title="look">
+                                        <a href="{{ path('meta_data_show', {'id': meta_data.id}) }}" title="look">
                                             <span class="ks-icon la la-eye"></span>
                                         </a>
-                                        <a href="{{ path('content_block_edit', {'id': content_block.id}) }}" title="edit">
+                                        <a href="{{ path('meta_data_edit', {'id': meta_data.id}) }}" title="edit">
                                             <span class="ks-icon la la-pencil"></span>
+                                        </a>
+                                        <a href="{{ path('meta_data_pub_toggle', {'id': meta_data.id}) }}" class="pub_toggle_link {{ meta_data.pub ? 'active' : '' }}" title="toggle pub">
+                                            <i class="ks-icon la la-lightbulb-o"></i>
                                         </a>
                                     </td>
                                 </tr>
                             {% else %}
                                 <tr>
-                                    <td colspan="4">no records found</td>
+                                    <td colspan="7">no records found</td>
                                 </tr>
                             {% endfor %}
                         </tbody>
@@ -46,7 +55,7 @@
 
                     {{ knp_pagination_render(pagination) }}
 
-                    <a class="btn btn-primary btn-sm" href="{{ path('content_block_new') }}">Create new</a>
+                    <a class="btn btn-primary btn-sm" href="{{ path('meta_data_new') }}">Create new</a>
                 </div>
             </div>
         </div>

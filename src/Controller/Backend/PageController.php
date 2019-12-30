@@ -105,7 +105,7 @@ class PageController extends AbstractController
     /**
      * @Route("/{id}/pub_toggle", name="page_pub_toggle", methods={"GET","POST"})
      */
-    public function pub(Request $request, Page $page): JsonResponse
+    public function pub(Page $page): JsonResponse
     {
         $page->setPub(!$page->getPub());
         $this->getDoctrine()->getManager()->flush();

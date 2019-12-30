@@ -86,6 +86,16 @@ class MenuBuilder
                     ['title' => 'Добавить', 'route' => 'page_new']
                 ]
             ],
+            [
+                'key' => 'meta_data',
+                'title' => 'Мета теги',
+                'route' => 'meta_data_index',
+                'icon' => 'la la-tags',
+                'children' => [
+                    ['title' => 'Список', 'route' => 'meta_data_index'],
+                    ['title' => 'Добавить', 'route' => 'meta_data_new']
+                ]
+            ],
         ];
 
         foreach ($menuItems as $menuItem) {
