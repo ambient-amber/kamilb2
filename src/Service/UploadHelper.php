@@ -36,6 +36,27 @@ class UploadHelper
         $this->requestStackContext = $requestStackContext;
     }
 
+    public function uploadExternalFile($url)
+    {
+        $fileData = @file_get_contents($url);
+
+        if (!empty($fileData)) {
+            /*$tmpFile = tmpfile();
+            $tmpPath = stream_get_meta_data($tmpFile)['uri'];
+
+            $file = new UploadedFile($tmpPath, basename($url));*/
+
+            $tmpfile = tempnam(sys_get_temp_dir(), 'ext');
+            file_put_contents($tmpfile, $fileData);
+
+            echo '$tmpfile ' . $tmpfile . '<br/>';
+
+            $file = new UploadedFile($tmpfile, basename($url));
+
+            return $this->uploadHashFile($file);
+        }
+    }
+
     /**
      * Сохранение файла с генерацией уникального названия файла.
      *

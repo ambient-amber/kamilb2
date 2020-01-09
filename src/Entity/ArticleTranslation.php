@@ -38,6 +38,11 @@ class ArticleTranslation
      */
     private $article;
 
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $previewContent;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -87,6 +92,18 @@ class ArticleTranslation
     public function setArticle(?Article $article): self
     {
         $this->article = $article;
+
+        return $this;
+    }
+
+    public function getPreviewContent(): ?string
+    {
+        return $this->previewContent;
+    }
+
+    public function setPreviewContent(?string $previewContent): self
+    {
+        $this->previewContent = $previewContent;
 
         return $this;
     }

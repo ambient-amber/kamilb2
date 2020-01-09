@@ -49,6 +49,11 @@ class Article
      */
     private $url;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $source;
+
     public function __construct()
     {
         $this->articleTranslations = new ArrayCollection();
@@ -134,6 +139,18 @@ class Article
     public function setUrl(string $url): self
     {
         $this->url = $url;
+
+        return $this;
+    }
+
+    public function getSource(): ?string
+    {
+        return $this->source;
+    }
+
+    public function setSource(?string $source): self
+    {
+        $this->source = $source;
 
         return $this;
     }

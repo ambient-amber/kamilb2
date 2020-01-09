@@ -96,6 +96,15 @@ class MenuBuilder
                     ['title' => 'Добавить', 'route' => 'meta_data_new']
                 ]
             ],
+            [
+                'key' => 'parser',
+                'title' => 'Парсер',
+                'route' => 'parser_index',
+                'icon' => 'la la-magnet',
+                'children' => [
+                    ['title' => 'Парсер страницы', 'route' => 'parse_page'],
+                ]
+            ],
         ];
 
         foreach ($menuItems as $menuItem) {
