@@ -31,7 +31,6 @@ class ParserHelper
             'preview_content' => '',
             'content' => '',
             'image_src' => '',
-            'content_images' => [],
         ];
 
         $html = file_get_contents($url);
@@ -44,7 +43,16 @@ class ParserHelper
             if ($tags) {
                 $result['title'] = $crawler->filter($tags['title'])->text();
                 $result['preview_content'] = $crawler->filter($tags['preview_text'])->text();
-                $result['image_src'] = $crawler->filter($tags['image'])->attr('src');
+
+                $mainImageSrc = $crawler->filter($tags['image'])->attr('src');
+
+                if (!empty($mainImageSrc)) {
+                    $fileUploadResult = $this->uploadHelper->uploadExternalFile($mainImageSrc);
+
+                    if (!empty($fileUploadResult)) {
+                        $result['image_src'] = $this->uploadHelper->getPublicHashPath($fileUploadResult['hash_name']);
+                    }
+                }
 
                 $content = $crawler->filter($tags['content']);
 
@@ -63,8 +71,13 @@ class ParserHelper
                                 && strpos($contentElement->getAttribute('class'), $tags['image_div_class']) !== false
                             ) {
                                 $contentElementCrawler->filter('img')->each(function (Crawler $node) use(&$result) {
-                                    $result['content'] .= '<p><img src="' . $node->attr('data-original') . '"/></p>';
-                                    $result['content_images'][] = $node->attr('data-original');
+                                    $fileUploadResult = $this->uploadHelper->uploadExternalFile($node->attr('data-original'));
+
+                                    if (!empty($fileUploadResult)) {
+                                        $uploadedFilePath = $this->uploadHelper->getPublicHashPath($fileUploadResult['hash_name']);
+
+                                        $result['content'] .= '<p><img src="' . $uploadedFilePath . '"/></p>';
+                                    }
                                 });
                             }
                             break;

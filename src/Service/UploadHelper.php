@@ -4,6 +4,7 @@ namespace App\Service;
 
 use Symfony\Component\Asset\Context\RequestStackContext;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
 class UploadHelper
@@ -38,33 +39,30 @@ class UploadHelper
 
     public function uploadExternalFile($url)
     {
+        $result = [];
+
         $fileData = @file_get_contents($url);
 
         if (!empty($fileData)) {
-            /*$tmpFile = tmpfile();
-            $tmpPath = stream_get_meta_data($tmpFile)['uri'];
+            $tmpFile = tempnam(sys_get_temp_dir(), 'ext');
+            file_put_contents($tmpFile, $fileData);
 
-            $file = new UploadedFile($tmpPath, basename($url));*/
+            $file = new File($tmpFile, basename($url));
 
-            $tmpfile = tempnam(sys_get_temp_dir(), 'ext');
-            file_put_contents($tmpfile, $fileData);
-
-            echo '$tmpfile ' . $tmpfile . '<br/>';
-
-            $file = new UploadedFile($tmpfile, basename($url));
-
-            return $this->uploadHashFile($file);
+            $result = $this->uploadHashFile($file);
         }
+
+        return $result;
     }
 
     /**
      * Сохранение файла с генерацией уникального названия файла.
      *
-     * @param UploadedFile $file Объект файла
+     * @param File $file Объект файла
      *
      * @return array Оригинальное и сгенерированное название.
      */
-    public function uploadHashFile(UploadedFile $file)
+    public function uploadHashFile(File $file)
     {
         $newFileNamePath = $this->generateUniqueName($file);
 
@@ -74,18 +72,24 @@ class UploadHelper
     /**
      * Сохранение файла по известному пути с известным названием.
      *
-     * @param UploadedFile $file Объект файла
+     * @param File $file Объект файла
      * @param string $path Заданный путь загрузки
      * @param string $name Заданное название файла
      *
      * @return array Оригинальное и сгенерированное название.
      */
-    public function uploadFile(UploadedFile $file, $path, $name)
+    public function uploadFile(File $file, $path, $name)
     {
         $file->move($path, $name);
 
+        if ($file instanceof UploadedFile) {
+            $originalFilename = $file->getClientOriginalName();
+        } else {
+            $originalFilename = $file->getFilename();
+        }
+
         return [
-            'original_name' => pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME),
+            'original_name' => pathinfo($originalFilename, PATHINFO_FILENAME),
             'hash_name' => $name
         ];
     }
@@ -146,11 +150,11 @@ class UploadHelper
     /**
      * Создание уникального названия файла.
      *
-     * @param UploadedFile $file Объект файла
+     * @param File $file Объект файла
      *
      * @return array Новое уникальное название и путь, который оно образует.
      */
-    private function generateUniqueName(UploadedFile $file)
+    private function generateUniqueName(File $file)
     {
         $fileExtension = $file->guessExtension();
 

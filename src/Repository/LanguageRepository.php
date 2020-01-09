@@ -19,32 +19,14 @@ class LanguageRepository extends ServiceEntityRepository
         parent::__construct($registry, Language::class);
     }
 
-    // /**
-    //  * @return Language[] Returns an array of Language objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function findByTextId($textId)
     {
-        return $this->createQueryBuilder('�')
-            ->andWhere('�.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('�.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?Language
-    {
-        return $this->createQueryBuilder('�')
-            ->andWhere('�.exampleField = :val')
-            ->setParameter('val', $value)
+        return $this->createQueryBuilder('language')
+            ->andWhere('language.textId = :text_id')
+            ->setParameter('text_id', $textId)
+            ->setMaxResults(1)
             ->getQuery()
             ->getOneOrNullResult()
         ;
     }
-    */
 }

@@ -17,7 +17,7 @@ class TranslationHelper
         $translationResult = false;
 
         if (!empty($content)) {
-            $translationResult = $this->curl->connect(
+            $translationResponse = $this->curl->connect(
                 'https://translate.yandex.net/api/v1.5/tr.json/translate',
                 [
                     'key' => self::YANDEX_KEY,
@@ -28,6 +28,10 @@ class TranslationHelper
                 true,
                 ['Content-Type: application/x-www-form-urlencoded']
             );
+
+            if (!empty($translationResponse['code']) && $translationResponse['code'] == 200) {
+                $translationResult = $translationResponse['text'];
+            }
         }
 
         return $translationResult;
