@@ -30,7 +30,8 @@ class ParserHelper
             'title' => '',
             'preview_content' => '',
             'content' => '',
-            'image_src' => '',
+            'image_hash' => '',
+            'image_name' => '',
         ];
 
         $html = file_get_contents($url);
@@ -50,7 +51,8 @@ class ParserHelper
                     $fileUploadResult = $this->uploadHelper->uploadExternalFile($mainImageSrc);
 
                     if (!empty($fileUploadResult)) {
-                        $result['image_src'] = $this->uploadHelper->getPublicHashPath($fileUploadResult['hash_name']);
+                        $result['image_hash'] = $fileUploadResult['hash_name'];
+                        $result['image_name'] = $fileUploadResult['original_name'];
                     }
                 }
 

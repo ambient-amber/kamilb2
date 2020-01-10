@@ -58,7 +58,8 @@ class ParserController extends AbstractController
 
                     $article->setPub(false);
                     $article->setSource($sourceUrl);
-                    $article->setImageHash($parseResult['image_src']);
+                    $article->setImageHash($parseResult['image_hash']);
+                    $article->setImageName($parseResult['image_name']);
 
                     // ToDo переделать на stof/doctrine-extensions-bundle (Подумать как формировать, если url у статьи, а заголовки в переводах. Возможно перенести url в переводы или отказаться от url в пользу id)
                     $transliterator = \Transliterator::create('Any-Latin');

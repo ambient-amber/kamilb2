@@ -47,9 +47,13 @@ class UploadHelper
             $tmpFile = tempnam(sys_get_temp_dir(), 'ext');
             file_put_contents($tmpFile, $fileData);
 
-            $file = new File($tmpFile, basename($url));
+            $file = new File($tmpFile);
 
             $result = $this->uploadHashFile($file);
+
+            // Так как загрузка файла с генерацией названия работает со временным файлом,
+            // то его оригинальное название надо брать из внешней ссылки
+            $result['original_name'] = pathinfo($url, PATHINFO_BASENAME);
         }
 
         return $result;
