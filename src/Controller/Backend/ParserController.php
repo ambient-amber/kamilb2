@@ -9,6 +9,7 @@ use App\Repository\ArticleRepository;
 use App\Repository\LanguageRepository;
 use App\Service\ParserHelper;
 use App\Service\TranslationHelper;
+use App\Utils\Slugger;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -37,7 +38,8 @@ class ParserController extends AbstractController
         ParserHelper $parserHelper,
         TranslationHelper $translationHelper,
         ArticleRepository $articleRepository,
-        LanguageRepository $languageRepository
+        LanguageRepository $languageRepository,
+        Slugger $slugger
     ): Response {
         $form = $this->createForm(ParsePageType::class);
         $form->handleRequest($request);
@@ -57,12 +59,7 @@ class ParserController extends AbstractController
                     $article->setSource($sourceUrl);
                     $article->setImageHash($parseResult['image_hash']);
                     $article->setImageName($parseResult['image_name']);
-
-                    // ToDo переделать на stof/doctrine-extensions-bundle (Подумать как формировать, если url у статьи, а заголовки в переводах. Возможно перенести url в переводы или отказаться от url в пользу id)
-                    $transliterator = \Transliterator::create('Any-Latin');
-                    $transliteratorToASCII = \Transliterator::create('Latin-ASCII');
-                    $transliterateTitle = $transliteratorToASCII->transliterate($transliterator->transliterate($parseResult['title']));
-                    $article->setUrl($transliterateTitle);
+                    $article->setUrl($slugger->slugify($parseResult['title']));
 
                     // Добавление перевода на русском
                     $translation = new ArticleTranslation();

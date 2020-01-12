@@ -143,6 +143,10 @@ h2:after {
     padding: 1px 16px;
 }
 
+.page_content_block_inner {
+    padding: 0 96px;
+}
+
 .page_content_block img {
     max-width: 100%;
 }
@@ -166,8 +170,15 @@ h2:after {
     margin: 0;
 }
 
-.page_content_block_inner {
-    padding: 0 96px;
+.page_content_block .images_list {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 0 40px;
+}
+
+.page_content_block img {
+    display: block;
+    margin: 0 10px 0 0;
 }
 
 .page_content_block p {

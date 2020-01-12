@@ -32,7 +32,7 @@ class ArticleController extends AbstractController
     }
 
     /**
-     * @Route("/{url}/", name="article_item")
+     * @Route("/{url}", name="article_item")
      */
     public function item($url, ArticleRepository $repository, Request $request)
     {

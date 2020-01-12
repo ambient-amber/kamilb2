@@ -15,9 +15,11 @@
                         {% for article in pagination %}
                             <div class="row">
                                 <div class="cell">
-                                    <a href="{{ path('article_item', {'url': article.url}) }}/">
-                                        <img src="{{ resize_hash_image(article.imageHash, {'width': 100, 'height': 100, 'method': 'exact', 'ignore_existence': true}) }}">
-                                    </a>
+                                    {% if article.imageHash %}
+                                        <a href="{{ path('article_item', {'url': article.url}) }}/">
+                                            <img src="{{ resize_hash_image(article.imageHash, {'width': 100, 'height': 100, 'method': 'exact', 'ignore_existence': true}) }}">
+                                        </a>
+                                    {% endif %}
                                 </div>
                                 <div class="cell">
                                     {% for translation in article.articleTranslations %}

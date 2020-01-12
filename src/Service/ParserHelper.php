@@ -16,10 +16,11 @@ class ParserHelper
 
     private $siteTags = [
         'cosmo.ru' => [
-            'title' => 'h1',
-            'preview_text' => '.article-lead',
-            'image' => '.article-img',
-            'content' => '.article-body',
+            'title_selector' => 'h1',
+            'preview_text_selector' => '.article-lead',
+            'main_image_selector' => '.article-img',
+            'content_selector' => '.article-body',
+            'content_image_list_div_class' => 'article-pic-list',
             'image_div_class' => 'article-pic'
         ]
     ];
@@ -42,12 +43,19 @@ class ParserHelper
             $tags = isset($this->siteTags[$site]) ? $this->siteTags[$site] : false;
 
             if ($tags) {
-                $result['title'] = $crawler->filter($tags['title'])->text();
-                $result['preview_content'] = $crawler->filter($tags['preview_text'])->text();
+                // Заголовок
+                $title = $crawler->filter($tags['title_selector']);
+                $result['title'] = ($title->count()) ? $title->text() : '';
 
-                $mainImageSrc = $crawler->filter($tags['image'])->attr('src');
+                // Текст превью
+                $previewText = $crawler->filter($tags['preview_text_selector']);
+                $result['preview_content'] = ($previewText->count()) ? $previewText->text() : '';
 
-                if (!empty($mainImageSrc)) {
+                // Главная картинка
+                $mainImage = $crawler->filter($tags['main_image_selector']);
+
+                if ($mainImage->count()) {
+                    $mainImageSrc = $mainImage->attr('src');
                     $fileUploadResult = $this->uploadHelper->uploadExternalFile($mainImageSrc);
 
                     if (!empty($fileUploadResult)) {
@@ -56,31 +64,65 @@ class ParserHelper
                     }
                 }
 
-                $content = $crawler->filter($tags['content']);
+                // Контент
+                $content = $crawler->filter($tags['content_selector']);
 
                 foreach ($content->children() as $contentElement) {
                     $contentElementCrawler = new Crawler($contentElement);
 
                     switch ($contentElement->nodeName) {
                         case 'h2':
-                            $result['content'] .= '<h2>' . $contentElementCrawler->text() . '</h2>';
+                            $text = $contentElementCrawler->text();
+
+                            if (!empty($text)) {
+                                $result['content'] .= '<h2>' . $contentElementCrawler->text() . '</h2>';
+                            }
+
                             break;
                         case 'p':
-                            $result['content'] .= '<p>' . $contentElementCrawler->text() . '</p>';
+                            $text = $contentElementCrawler->text();
+
+                            if (!empty($text)) {
+                                $result['content'] .= '<p>' . $contentElementCrawler->text() . '</p>';
+                            }
+
                             break;
                         case 'div':
-                            if ($contentElement->hasAttribute('class')
-                                && strpos($contentElement->getAttribute('class'), $tags['image_div_class']) !== false
-                            ) {
+                            if ($contentElement->hasAttribute('class')) {
+                                if (strpos($contentElement->getAttribute('class'), $tags['image_div_class']) !== false) {
+                                    // Блок с картинкой
+                                    $contentElementCrawler->filter('img')->each(function (Crawler $node) use(&$result) {
+                                        $imagePathData = $node->attr('data-original');
+                                        $imagePathSrc = $node->attr('src');
+                                        $imageSrc = empty($imagePathData) ? $imagePathSrc : $imagePathData;
+
+                                        $fileUploadResult = $this->uploadHelper->uploadExternalFile($imageSrc);
+
+                                        if (!empty($fileUploadResult)) {
+                                            $uploadedFilePath = $this->uploadHelper->getPublicHashPath($fileUploadResult['hash_name']);
+                                            $result['content'] .= '<p><img src="' . $uploadedFilePath . '"/></p>';
+                                        }
+                                    });
+                                }
+                            }
+                            break;
+                        case 'ul':
+                            if (strpos($contentElement->getAttribute('class'), $tags['content_image_list_div_class']) !== false) {
+                                // Блок со списком картинок
+                                $result['content'] .= '<div class="images_list">';
                                 $contentElementCrawler->filter('img')->each(function (Crawler $node) use(&$result) {
-                                    $fileUploadResult = $this->uploadHelper->uploadExternalFile($node->attr('data-original'));
+                                    $imagePathData = $node->attr('data-original');
+                                    $imagePathSrc = $node->attr('src');
+                                    $imageSrc = empty($imagePathData) ? $imagePathSrc : $imagePathData;
+
+                                    $fileUploadResult = $this->uploadHelper->uploadExternalFile($imageSrc);
 
                                     if (!empty($fileUploadResult)) {
                                         $uploadedFilePath = $this->uploadHelper->getPublicHashPath($fileUploadResult['hash_name']);
-
-                                        $result['content'] .= '<p><img src="' . $uploadedFilePath . '"/></p>';
+                                        $result['content'] .= '<div class="images_list_item"><img src="' . $uploadedFilePath . '"></div>';
                                     }
                                 });
+                                $result['content'] .= '</div>';
                             }
                             break;
                     }
