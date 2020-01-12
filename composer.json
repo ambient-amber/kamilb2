@@ -33,7 +33,8 @@
         "symfony/yaml": "4.3.*",
         "ext-curl": "*",
         "ext-imagick": "*",
-        "ext-json": "*"
+        "ext-json": "*",
+        "ext-intl": "*"
     },
     "require-dev": {
         "symfony/debug-pack": "*",

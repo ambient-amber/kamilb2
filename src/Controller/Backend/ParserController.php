@@ -4,7 +4,6 @@ namespace App\Controller\Backend;
 
 use App\Entity\Article;
 use App\Entity\ArticleTranslation;
-use App\Entity\Parser;
 use App\Form\ParsePageType;
 use App\Repository\ArticleRepository;
 use App\Repository\LanguageRepository;
@@ -40,9 +39,7 @@ class ParserController extends AbstractController
         ArticleRepository $articleRepository,
         LanguageRepository $languageRepository
     ): Response {
-        $parser = new Parser();
-
-        $form = $this->createForm(ParsePageType::class, $parser);
+        $form = $this->createForm(ParsePageType::class);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

@@ -2,10 +2,8 @@
 
 namespace App\Form;
 
-use App\Entity\Parser;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class ParsePageType extends AbstractType
@@ -22,12 +20,5 @@ class ParsePageType extends AbstractType
                 ]
             )
         ;
-    }
-
-    public function configureOptions(OptionsResolver $resolver)
-    {
-        $resolver->setDefaults([
-            'data_class' => Parser::class,
-        ]);
     }
 }
