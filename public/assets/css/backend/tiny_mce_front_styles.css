@@ -42,6 +42,10 @@ p {
     margin: 0 0 40px;
 }
 
+img {
+    max-width: 100%;
+}
+
 .highlighted_block {
     margin: 50px 0;
     padding: 35px 96px;
@@ -94,4 +98,11 @@ p {
     display: flex;
     justify-content: space-between;
     margin: 0 0 40px;
+}
+
+.images_list_item {
+    margin: 0 10px 0 0;
+}
+.images_list_item img {
+    margin: 0;
 }

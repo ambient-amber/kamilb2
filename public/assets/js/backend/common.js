@@ -48,6 +48,7 @@ $(document).ready(function(){
             'searchreplace visualblocks visualchars codemirror fullscreen insertdatetime media nonbreaking',
             'save table contextmenu directionality template paste textcolor responsivefilemanager'
         ],
+        image_dimensions: false,
         image_advtab: true,
         plugin_preview_width: 800,
         content_css : '/assets/css/backend/tiny_mce_front_styles.css',
@@ -65,7 +66,12 @@ $(document).ready(function(){
                 title: "Фото с подписью",
                 description: "Фото с подписью",
                 url: "/assets/cosmo/libs/tinymce/templates/photo_with_description.htm",
-            }
+            },
+            {
+                title: "Несколько фото в одной строке",
+                description: "Несколько фото в одной строке",
+                url: "/assets/cosmo/libs/tinymce/templates/photos_in_one_row.htm",
+            },
         ],
         external_filemanager_path: '/assets/cosmo/libs/tinymce/plugins/filemanager/',
         filemanager_title: 'Responsive Filemanager',

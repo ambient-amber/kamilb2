@@ -5,7 +5,7 @@
      * Default overlay settings
      */
     $.LoadingOverlaySetup({
-        image: "assets/cosmo/assets/img/loaders/svg-loaders/three-dots.svg",
+        image: "/assets/cosmo/assets/img/loaders/svg-loaders/three-dots.svg",
         /*image       : "",
          fontawesome : "fa fa-refresh fa-spin",*/
         zIndex: 1,
