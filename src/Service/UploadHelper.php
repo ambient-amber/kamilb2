@@ -221,4 +221,24 @@ class UploadHelper
         // getBasePath needed if you deploy under a subdirectory
         return $this->requestStackContext->getBasePath() . '/' . $this->uploadsFolder . '/' . $path;
     }
+
+    /**
+     * Поиск и удаление файлов со сгенерированным названием в контенте.
+     *
+     * @param string $content Html контент
+     *
+     * @return void.
+     */
+    public function unloadHashFilesFromContent($content)
+    {
+        $pattern = '/"\/' . $this->uploadsFolder . '\/' . $this->uploadsHashFolder . '\/.*?\/.*?\/(.*?)"/';
+
+        if (preg_match_all($pattern, $content, $matches)) {
+            if (!empty($matches[1])) {
+                foreach ($matches[1] as $fileHashName) {
+                    $this->unloadHashFile($fileHashName);
+                }
+            }
+        }
+    }
 }

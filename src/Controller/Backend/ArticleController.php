@@ -118,6 +118,10 @@ class ArticleController extends AbstractController
         if ($this->isCsrfTokenValid('delete'.$article->getId(), $request->request->get('_token'))) {
             $uploadHelper->unloadHashFile($article->getImageHash());
 
+            foreach ($article->getArticleTranslations() as $translation) {
+                $uploadHelper->unloadHashFilesFromContent($translation->getContent());
+            }
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($article);
             $entityManager->flush();
