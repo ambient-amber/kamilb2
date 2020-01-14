@@ -54,6 +54,12 @@ class Article
      */
     private $source;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\ArticleCategory", inversedBy="articles")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $category;
+
     public function __construct()
     {
         $this->articleTranslations = new ArrayCollection();
@@ -151,6 +157,18 @@ class Article
     public function setSource(?string $source): self
     {
         $this->source = $source;
+
+        return $this;
+    }
+
+    public function getCategory(): ?ArticleCategory
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?ArticleCategory $category): self
+    {
+        $this->category = $category;
 
         return $this;
     }

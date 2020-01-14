@@ -38,10 +38,16 @@ class Language
      */
     private $pageTranslations;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\ArticleCategoryTranslation", mappedBy="language", orphanRemoval=true)
+     */
+    private $articleCategoryTranslations;
+
     public function __construct()
     {
         $this->articleTranslations = new ArrayCollection();
         $this->pageTranslations = new ArrayCollection();
+        $this->articleCategoryTranslations = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -129,6 +135,37 @@ class Language
             // set the owning side to null (unless already changed)
             if ($pageTranslation->getLanguage() === $this) {
                 $pageTranslation->setLanguage(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ArticleCategoryTranslation[]
+     */
+    public function getArticleCategoryTranslations(): Collection
+    {
+        return $this->articleCategoryTranslations;
+    }
+
+    public function addArticleCategoryTranslation(ArticleCategoryTranslation $articleCategoryTranslation): self
+    {
+        if (!$this->articleCategoryTranslations->contains($articleCategoryTranslation)) {
+            $this->articleCategoryTranslations[] = $articleCategoryTranslation;
+            $articleCategoryTranslation->setLanguage($this);
+        }
+
+        return $this;
+    }
+
+    public function removeArticleCategoryTranslation(ArticleCategoryTranslation $articleCategoryTranslation): self
+    {
+        if ($this->articleCategoryTranslations->contains($articleCategoryTranslation)) {
+            $this->articleCategoryTranslations->removeElement($articleCategoryTranslation);
+            // set the owning side to null (unless already changed)
+            if ($articleCategoryTranslation->getLanguage() === $this) {
+                $articleCategoryTranslation->setLanguage(null);
             }
         }
 

@@ -62,8 +62,10 @@ class MenuBuilder
                 'route' => 'article_index',
                 'icon' => 'la la-newspaper-o',
                 'children' => [
-                    ['title' => 'Список', 'route' => 'article_index'],
-                    ['title' => 'Добавить', 'route' => 'article_new']
+                    ['title' => 'Список статей', 'route' => 'article_index'],
+                    ['title' => 'Добавить статью', 'route' => 'article_new'],
+                    ['title' => 'Список категорий', 'route' => 'article_category_index'],
+                    ['title' => 'Добавить категорию', 'route' => 'article_category_new'],
                 ]
             ],
             [

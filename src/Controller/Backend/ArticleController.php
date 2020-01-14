@@ -42,7 +42,9 @@ class ArticleController extends AbstractController
     public function new(Request $request, UploadHelper $uploadHelper): Response
     {
         $article = new Article();
+
         $form = $this->createForm(ArticleType::class, $article);
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -82,6 +84,7 @@ class ArticleController extends AbstractController
     public function edit(Request $request, Article $article, UploadHelper $uploadHelper): Response
     {
         $form = $this->createForm(ArticleType::class, $article);
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

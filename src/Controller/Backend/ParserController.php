@@ -5,6 +5,7 @@ namespace App\Controller\Backend;
 use App\Entity\Article;
 use App\Entity\ArticleTranslation;
 use App\Form\ParsePageType;
+use App\Repository\ArticleCategoryRepository;
 use App\Repository\ArticleRepository;
 use App\Repository\LanguageRepository;
 use App\Service\ParserHelper;
@@ -39,6 +40,7 @@ class ParserController extends AbstractController
         TranslationHelper $translationHelper,
         ArticleRepository $articleRepository,
         LanguageRepository $languageRepository,
+        ArticleCategoryRepository $articleCategoryRepository,
         Slugger $slugger
     ): Response {
         $form = $this->createForm(ParsePageType::class);
@@ -46,6 +48,7 @@ class ParserController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $sourceUrl = $form['pageUrl']->getData();
+            $articleCategoryId = $form['category']->getData();
 
             // Проверка статьи на существование
             if (!$articleRepository->findBySource($sourceUrl)) {
@@ -56,6 +59,7 @@ class ParserController extends AbstractController
                     $article = new Article();
 
                     $article->setPub(false);
+                    $article->setCategory($articleCategoryRepository->findOneBy(['id' => $articleCategoryId]));
                     $article->setSource($sourceUrl);
                     $article->setImageHash($parseResult['image_hash']);
                     $article->setImageName($parseResult['image_name']);

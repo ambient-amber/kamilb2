@@ -3,6 +3,8 @@
 namespace App\Form;
 
 use App\Entity\Article;
+use App\Entity\ArticleCategory;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -12,10 +14,14 @@ use Symfony\Component\Validator\Constraints\Image;
 
 class ArticleType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    private $locale;
+
+    public function buildForm(FormBuilderInterface $builder, array $data)
     {
-        $shop = $options['data'] ?? null;
+        $shop = $data['data'] ?? null;
         $isEdit = $shop && $shop->getId();
+
+        $this->locale = $data['locale'];
 
         $builder
             ->add('url')
@@ -31,6 +37,28 @@ class ArticleType extends AbstractType
                             ['maxSize' => '5M']
                         )
                     ]
+                ]
+            )
+            ->add(
+                'category',
+                EntityType::class,
+                [
+                    'class' => ArticleCategory::class,
+                    'choice_label' => function(ArticleCategory $articleCategory) {
+                        $translations = $articleCategory->getArticleCategoryTranslations();
+
+                        foreach ($translations as $translation) {
+                            if ($this->locale == $translation->getLanguage()->getTextId()) {
+                                $returnValue = $translation->getTitle();
+                            }
+                        }
+
+                        if (!isset($returnValue)) {
+                            $returnValue = 'У категории не задан заголовок';
+                        }
+
+                        return $returnValue;
+                    }
                 ]
             )
             ->add(
@@ -50,6 +78,9 @@ class ArticleType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Article::class,
+            'locale' => 'ru'
         ]);
+
+        $resolver->setAllowedTypes('locale', 'string');
     }
 }
