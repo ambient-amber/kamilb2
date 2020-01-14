@@ -12,8 +12,8 @@ class Slugger
         $value = $transliteratorToASCII->transliterate($transliterator->transliterate($value));
 
         return preg_replace(
-            ['/\s+/'],
-            ['-'],
+            ['/\s+/', '/[^a-z0-9-]/i'],
+            ['-', ''],
             mb_strtolower(trim(strip_tags($value)), 'UTF-8')
         );
     }

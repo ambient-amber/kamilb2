@@ -89,3 +89,9 @@ p {
 .img_description p {
     margin: 0;
 }
+
+.images_list {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 0 40px;
+}
