@@ -16,20 +16,13 @@
 <body>
 <div class="page_wrapper">
     {% block header %}
-        {# Header внутренних страниц, на главной странице переопределение блока в index.html.twig #}
         <div class="page_header">
             <a href="#" class="article_list_spoiler"></a>
 
             <a href="/" class="inner_page_logo"></a>
 
-            <div class="article_list">
-                <a href="/" class="article_list_item">Как отслеживать посылки?</a>
-                <a href="/" class="article_list_item">Как покупать в интернете?</a>
-            </div>
-
-            <div class="telegram_link_wrap">
-                <a href="#" class="telegram_link">Телеграм бот</a>
-            </div>
+            {{ render(controller('App\\Controller\\Frontend\\FrontController::headerArticleCategories', { url: app.request.requestUri, locale: app.request.locale })) }}
+            {{ render(controller('App\\Controller\\Frontend\\FrontController::headerLanguages', { url: app.request.requestUri, locale: app.request.locale })) }}
         </div>
     {% endblock %}
 

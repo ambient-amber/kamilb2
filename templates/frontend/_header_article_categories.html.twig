@@ -1,0 +1,7 @@
+<div class="article_list">
+        {% for article_category in article_categories %}
+            <a href="{{ path('article_category', {'category_url': article_category.url}) }}" class="article_list_item {% if article_category.selected %}selected{% endif %}">
+                    {{ article_category.title }}
+            </a>
+        {% endfor %}
+</div>

@@ -115,25 +115,19 @@ h2:after {
     display: flex;
 }
 
-.page_header .telegram_link_wrap {
+.header_language_list {
     display: flex;
     margin-left: auto;
     margin-right: 0;
 }
 
-.telegram_link {
-    position: relative;
-    padding-left: 22px !important;
+.header_language_item {
+    display: inline-block;
+    margin: 0 10px 0 0;
+    color: #BEBED2;
 }
-.telegram_link:before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 50%;
-    margin: -7px 0 0;
-    width: 13px;
-    height: 13px;
-    background: url('/assets/img/telegram.png') no-repeat;
+.header_language_item.selected {
+    color: #646473;
 }
 
 /* --- Content --- */
@@ -418,6 +412,16 @@ h2:after {
     font-size: 16px;
 }
 /* -------------------- */
+
+/* --- Пагинация --- */
+.pagination {
+    display: flex;
+}
+
+.pagination .page-item {
+    display: flex;
+}
+/* ---------------- */
 
 /* --- Footer --- */
 .footer {

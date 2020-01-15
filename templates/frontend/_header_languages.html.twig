@@ -1,0 +1,7 @@
+<div class="header_language_list">
+    {% for page_language in page_languages %}
+        <a class="header_language_item {% if page_language.selected %}selected{% endif %}" href="{{ page_language.url }}">
+                {{ page_language.text_id_title }}
+        </a>
+    {% endfor %}
+</div>

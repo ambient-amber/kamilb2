@@ -34,7 +34,7 @@ class PageRepository extends ServiceEntityRepository
             ;
     }
 
-    public function findByUrl($languageTextId, $url)
+    public function findActiveByUrl($languageTextId, $url)
     {
         return $this->createQueryBuilder('page')
             ->select('page, trans')
@@ -45,7 +45,7 @@ class PageRepository extends ServiceEntityRepository
             ->setParameter('language_text_id', $languageTextId)
             ->setParameter('url', $url)
             ->getQuery()
-            ->getResult()
+            ->getOneOrNullResult()
             ;
     }
 }

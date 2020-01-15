@@ -19,10 +19,10 @@ class PageController extends AbstractController
      */
     public function item($url, PageRepository $pageRepository, Request $request): Response
     {
-        $item = $pageRepository->findByUrl($request->getLocale(), $url);
+        $item = $pageRepository->findActiveByUrl($request->getLocale(), $url);
 
         return $this->render('frontend/page/item.html.twig', [
-            'page' => array_shift($item),
+            'page' => $item
         ]);
     }
 }

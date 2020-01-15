@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\ArticleCategory;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
+use Doctrine\ORM\Query\Expr;
 
 /**
  * @method ArticleCategory|null find($id, $lockMode = null, $lockVersion = null)
@@ -19,32 +20,29 @@ class ArticleCategoryRepository extends ServiceEntityRepository
         parent::__construct($registry, ArticleCategory::class);
     }
 
-    // /**
-    //  * @return ArticleCategory[] Returns an array of ArticleCategory objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function findActive($locale)
     {
-        return $this->createQueryBuilder('a')
-            ->andWhere('a.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('a.id', 'ASC')
-            ->setMaxResults(10)
+        return $this->createQueryBuilder('a_category')
+            ->select('a_category, trans')
+            ->join('a_category.articleCategoryTranslations', 'trans')
+            ->join('trans.language', 'language', Expr\Join::WITH, 'language.textId = :language_text_id')
+            ->andWhere('a_category.pub = 1')
+            ->setParameter('language_text_id', $locale)
+            ->orderBy('a_category.id', 'ASC')
             ->getQuery()
             ->getResult()
-        ;
+            ;
     }
-    */
 
-    /*
-    public function findOneBySomeField($value): ?ArticleCategory
+    public function findActiveByUrl($url)
     {
-        return $this->createQueryBuilder('a')
-            ->andWhere('a.exampleField = :val')
-            ->setParameter('val', $value)
+        return $this->createQueryBuilder('a_category')
+            ->andWhere('a_category.url = :url')
+            ->andWhere('a_category.pub = 1')
+            ->setParameter('url', $url)
+            ->orderBy('a_category.id', 'ASC')
             ->getQuery()
             ->getOneOrNullResult()
         ;
     }
-    */
 }

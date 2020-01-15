@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Article;
+use App\Entity\ArticleCategory;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 use Doctrine\ORM\Query\Expr;
@@ -20,20 +21,22 @@ class ArticleRepository extends ServiceEntityRepository
         parent::__construct($registry, Article::class);
     }
 
-    public function findActiveItems($languageTextId)
+    public function findActiveByCategory(ArticleCategory $category, $locale)
     {
         return $this->createQueryBuilder('article')
             ->select('article, trans')
             ->join('article.articleTranslations', 'trans')
             ->join('trans.language', 'language', Expr\Join::WITH, 'language.textId = :language_text_id')
+            ->andWhere('article.category = :category')
             ->andWhere('article.pub = 1')
-            ->setParameter('language_text_id', $languageTextId)
+            ->setParameter('language_text_id', $locale)
+            ->setParameter('category', $category)
             ->getQuery()
             ->getResult()
         ;
     }
 
-    public function findByUrl($languageTextId, $url)
+    public function findActiveByUrl($languageTextId, $url)
     {
         return $this->createQueryBuilder('article')
             ->select('article, trans')
@@ -44,7 +47,7 @@ class ArticleRepository extends ServiceEntityRepository
             ->setParameter('language_text_id', $languageTextId)
             ->setParameter('url', $url)
             ->getQuery()
-            ->getResult()
+            ->getOneOrNullResult()
         ;
     }
 

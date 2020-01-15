@@ -6,6 +6,7 @@
 parameters:
     locale: 'ru'
     app_locales: en|ru|uz|
+    default_locale: '%locale%'
 
 services:
     # default configuration for services in *this* file

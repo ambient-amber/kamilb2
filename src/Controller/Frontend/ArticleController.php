@@ -2,6 +2,7 @@
 
 namespace App\Controller\Frontend;
 
+use App\Repository\ArticleCategoryRepository;
 use App\Repository\ArticleRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -14,32 +15,44 @@ use Symfony\Component\Routing\Annotation\Route;
 class ArticleController extends AbstractController
 {
     /**
-     * @Route("/", name="article_list")
+     * @Route("/{category_url}/", name="article_category")
      */
-    public function list(Request $request, PaginatorInterface $paginator, ArticleRepository $repository)
-    {
-        $queryBuilder = $repository->findActiveItems($request->getLocale());
+    public function category(
+        $category_url,
+        Request $request,
+        PaginatorInterface $paginator,
+        ArticleRepository $articleRepository,
+        ArticleCategoryRepository $articleCategoryRepository
+    ) {
+        $category = $articleCategoryRepository->findActiveByUrl($category_url);
+        $queryBuilder = $articleRepository->findActiveByCategory($category, $request->getLocale());
 
         $pagination = $paginator->paginate(
             $queryBuilder,
             $request->query->getInt('page', 1),
-            10
+            1
         );
 
-        return $this->render('frontend/article/list.html.twig', [
+        return $this->render('frontend/article/category.html.twig', [
             'pagination' => $pagination,
         ]);
     }
 
     /**
-     * @Route("/{url}", name="article_item")
+     * @Route("/{category_url}/{article_url}/", name="article_item")
      */
-    public function item($url, ArticleRepository $repository, Request $request)
-    {
-        $item = $repository->findByUrl($request->getLocale(), $url);
+    public function item(
+        $category_url,
+        $article_url,
+        ArticleRepository $articleRepository,
+        ArticleCategoryRepository $articleCategoryRepository,
+        Request $request
+    ) {
+        $category = $articleCategoryRepository->findActiveByUrl($category_url);
+        $article = $articleRepository->findActiveByUrl($request->getLocale(), $article_url);
 
         return $this->render('frontend/article/item.html.twig', [
-            'article' => array_shift($item)
+            'article' => $article
         ]);
     }
 }
