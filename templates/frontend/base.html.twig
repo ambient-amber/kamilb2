@@ -17,11 +17,18 @@
 <div class="page_wrapper">
     {% block header %}
         <div class="page_header">
+            <a href="/" class="header_logo_link">
+                <img src="/assets/img/header_logo.png">
+            </a>
+
             <a href="#" class="article_list_spoiler"></a>
 
-            <a href="/" class="inner_page_logo"></a>
-
             {{ render(controller('App\\Controller\\Frontend\\FrontController::headerArticleCategories', { url: app.request.requestUri, locale: app.request.locale })) }}
+
+            <a href="#" class="header_subscribe">
+                <img src="/assets/img/subscribe_bell.svg">
+            </a>
+
             {{ render(controller('App\\Controller\\Frontend\\FrontController::headerLanguages', { url: app.request.requestUri, locale: app.request.locale })) }}
         </div>
     {% endblock %}

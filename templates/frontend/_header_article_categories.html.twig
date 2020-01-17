@@ -1,7 +1,7 @@
-<div class="article_list">
+<div class="header_article_category_list">
         {% for article_category in article_categories %}
-            <a href="{{ path('article_category', {'category_url': article_category.url}) }}" class="article_list_item {% if article_category.selected %}selected{% endif %}">
-                    {{ article_category.title }}
+            <a href="{{ path('article_category', {'category_url': article_category.url}) }}" class="header_article_category_list_item {% if article_category.selected %}selected{% endif %}">
+                    <span>{{ article_category.title }}</span>
             </a>
         {% endfor %}
 </div>

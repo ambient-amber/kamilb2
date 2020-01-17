@@ -60,4 +60,18 @@ class ArticleRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
+
+    public function increaseViewsCount(Article $article)
+    {
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQuery(
+            'UPDATE App\Entity\Article a
+            SET a.viewsCount = a.viewsCount + 1
+            WHERE a.id = :article_id
+        ')
+        ->setParameter('article_id', $article->getId());
+
+        $query->execute();
+    }
 }

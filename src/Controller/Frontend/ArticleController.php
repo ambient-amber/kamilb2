@@ -30,7 +30,7 @@ class ArticleController extends AbstractController
         $pagination = $paginator->paginate(
             $queryBuilder,
             $request->query->getInt('page', 1),
-            1
+            8
         );
 
         return $this->render('frontend/article/category.html.twig', [
@@ -50,6 +50,8 @@ class ArticleController extends AbstractController
     ) {
         $category = $articleCategoryRepository->findActiveByUrl($category_url);
         $article = $articleRepository->findActiveByUrl($request->getLocale(), $article_url);
+
+        $articleRepository->increaseViewsCount($article);
 
         return $this->render('frontend/article/item.html.twig', [
             'article' => $article

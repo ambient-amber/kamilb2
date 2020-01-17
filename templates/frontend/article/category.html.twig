@@ -11,23 +11,27 @@
                 <h1>{% trans %}article_list_title{% endtrans %}</h1>
 
                 {% if pagination %}
-                    <div class="items_list">
-                        {% for article in pagination %}
-                            <div class="row">
-                                <div class="cell">
-                                    {% if article.imageHash %}
-                                        <a href="{{ path('article_item', {'category_url': article.category.url, 'article_url': article.url}) }}/">
-                                            <img src="{{ resize_hash_image(article.imageHash, {'width': 100, 'height': 100, 'method': 'exact', 'ignore_existence': true}) }}">
-                                        </a>
-                                    {% endif %}
-                                </div>
-                                <div class="cell">
+                    <div class="content_items_with_banner">
+                        <div class="content_items">
+                            {% for article in pagination %}
+                                <div class="content_item">
+                                    <div class="content_item_image_block">
+                                        {% if article.imageHash %}
+                                            <a href="{{ path('article_item', {'category_url': article.category.url, 'article_url': article.url}) }}/">
+                                                <img src="{{ resize_hash_image(article.imageHash, {'width': 100, 'height': 100, 'method': 'exact', 'ignore_existence': true}) }}">
+                                            </a>
+                                        {% endif %}
+
+                                        {{ dump(article.statuses) }}
+                                    </div>
+
                                     {% for translation in article.articleTranslations %}
-                                        <a class="items_list_link" href="{{ path('article_item', {'category_url': article.category.url, 'article_url': article.url}) }}">{{ translation.title }}</a>
+                                        <a href="{{ path('article_item', {'category_url': article.category.url, 'article_url': article.url}) }}">{{ translation.title }}</a>
                                     {% endfor %}
                                 </div>
-                            </div>
-                        {% endfor %}
+                            {% endfor %}
+                        </div>
+                        <div class="content_banner"></div>
                     </div>
 
                     {{ knp_pagination_render(pagination, '@frontend/_pagination.html.twig') }}

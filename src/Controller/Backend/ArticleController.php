@@ -93,7 +93,9 @@ class ArticleController extends AbstractController
             if (!empty($plainImage)) {
                 $uploadedFile = $uploadHelper->uploadHashFile($plainImage);
 
-                $uploadHelper->unloadHashFile($article->getImageHash());
+                if (!empty($article->getImageHash())) {
+                    $uploadHelper->unloadHashFile($article->getImageHash());
+                }
 
                 $article->setImageHash($uploadedFile['hash_name']);
                 $article->setImageName($uploadedFile['original_name']);
