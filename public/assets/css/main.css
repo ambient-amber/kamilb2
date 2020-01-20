@@ -505,12 +505,34 @@ h2:after {
 /* --- Пагинация --- */
 .pagination {
     display: flex;
+    margin: 0 0 64px;
 }
 
-.pagination .page-item {
-    display: flex;
+.pagination_item_link {
+    display: block;
+    padding: 0 8px;
 }
-/* ---------------- */
+
+.pagination_item_link_number {
+    display: block;
+    padding: 8px 5px;
+    border-bottom: 1px solid #EBEBF0;
+    color: #646473;
+    font-size: 12px;
+    line-height: 16px;
+}
+.pagination_item_link.active .pagination_item_link_number,
+.pagination_item_link:hover .pagination_item_link_number {
+    color: #8200FA;
+    border-color: #8200FA;
+}
+.pagination_item_link.disabled .pagination_item_link_number,
+.pagination_item_link.disabled:hover .pagination_item_link_number {
+    color: #646473;
+    border-color: #EBEBF0;
+}
+
+    /* ---------------- */
 
 /* --- Footer --- */
 .footer {
