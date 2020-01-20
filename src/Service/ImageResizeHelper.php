@@ -62,10 +62,10 @@ class ImageResizeHelper
             if (!file_exists($dimensionsImageNameFullPath) || $ignoreExistence) {
                 $imagick = new Imagick($fullPath);
 
-                $imagick->resizeImage($width, $height, Imagick::FILTER_POINT, $blur = 1, true);
-
                 switch ($method) {
                     case 'exact':
+                        $imagick->resizeImage($width, $height, Imagick::FILTER_POINT, $blur = 1, true);
+
                         $newWidth = $imagick->getImageWidth();
                         $newHeight = $imagick->getImageHeight();
 
@@ -74,6 +74,15 @@ class ImageResizeHelper
 
                         $imagick->setImageBackgroundColor($bgColor);
                         $imagick->extentImage($width, $height, $offLeft, $offTop);
+
+                        break;
+
+                    case 'scale_best_fit':
+                        $imagick->scaleImage($width, $height, true);
+
+                        break;
+                    case 'scale':
+                        $imagick->scaleImage($width, $height);
 
                         break;
                 }

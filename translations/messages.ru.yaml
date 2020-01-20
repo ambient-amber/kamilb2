@@ -9,3 +9,6 @@ telegram_bot: Телеграм бот
 enter_track_number: Введите код отслеживания, например
 no_active_articles: Пока нет опубликованных статей
 article_list_title: Статьи
+new_status_title: Новое
+minute_plural_forms: минута|минуты|минут
+back_in_time_word: назад

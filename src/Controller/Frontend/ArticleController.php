@@ -25,6 +25,7 @@ class ArticleController extends AbstractController
         ArticleCategoryRepository $articleCategoryRepository
     ) {
         $category = $articleCategoryRepository->findActiveByUrl($category_url);
+
         $queryBuilder = $articleRepository->findActiveByCategory($category, $request->getLocale());
 
         $pagination = $paginator->paginate(
@@ -35,6 +36,7 @@ class ArticleController extends AbstractController
 
         return $this->render('frontend/article/category.html.twig', [
             'pagination' => $pagination,
+            'category' => $category
         ]);
     }
 
@@ -49,6 +51,7 @@ class ArticleController extends AbstractController
         Request $request
     ) {
         $category = $articleCategoryRepository->findActiveByUrl($category_url);
+
         $article = $articleRepository->findActiveByUrl($request->getLocale(), $article_url);
 
         $articleRepository->increaseViewsCount($article);

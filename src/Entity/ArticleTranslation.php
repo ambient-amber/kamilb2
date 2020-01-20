@@ -43,6 +43,8 @@ class ArticleTranslation
      */
     private $previewContent;
 
+    public $previewContentShirtLength = 85;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -99,6 +101,17 @@ class ArticleTranslation
     public function getPreviewContent(): ?string
     {
         return $this->previewContent;
+    }
+
+    public function getPreviewContentShirt(): ?string
+    {
+        $previewContentShirt = $this->previewContent;
+
+        if (mb_strlen($previewContentShirt) > $this->previewContentShirtLength) {
+            $previewContentShirt = mb_substr($previewContentShirt, 0, $this->previewContentShirtLength) . '...';
+        }
+
+        return $previewContentShirt;
     }
 
     public function setPreviewContent(?string $previewContent): self

@@ -60,8 +60,6 @@ class Article
      */
     private $category;
 
-    private $statuses = [];
-
     /**
      * @ORM\Column(type="datetime", options={"default": "CURRENT_TIMESTAMP"})
      */
@@ -75,6 +73,8 @@ class Article
     public function __construct()
     {
         $this->articleTranslations = new ArrayCollection();
+        $this->dateInsert = new \DateTime();
+        $this->viewsCount = 0;
     }
 
     public function getId(): ?int
@@ -187,24 +187,22 @@ class Article
 
     public function getStatuses(): array
     {
+        $statuses = [];
+
         $interval = date_diff(
             date_create(date('Y-m-d H:i:s')),
             date_create($this->getDateInsert()->format('Y-m-d H:i:s'))
         );
 
         if ($interval->format('%d') < 1) {
-            $this->addStatus([
+            $statuses['new'] = [
                 'text_id' => 'new',
-                'title' => 'Новинка'
-            ]);
+                'title_id' => 'new_status_title',
+                'minutes_ago' => $interval->format('%i')
+            ];
         }
 
-        return $this->statuses;
-    }
-
-    public function addStatus(array $status): void
-    {
-        $this->statuses[] = $status;
+        return $statuses;
     }
 
     public function getDateInsert(): ?\DateTimeInterface
