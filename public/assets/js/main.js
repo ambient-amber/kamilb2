@@ -1,4 +1,6 @@
 $(document).ready(function(){
+    // ------------------------------------------
+
     var _window = $(window);
 
     _window.on('scroll', function(){
@@ -16,30 +18,6 @@ $(document).ready(function(){
          $('.article_list').toggleClass('visible');
 
          return false;
-    });
-
-    // ------------------------------------------
-
-    var $track_input = $('.track_input');
-    var track_number;
-
-    $('.track_submit').click(function(){
-        track_number = $track_input.val();
-
-        if (track_number) {
-            YQV5.trackSingle({
-                //Обязательно, укажите id контейнера.
-                YQ_ContainerId: "track_result",
-                //Не обязательно, укажите высоту результата отслеживания, максимальная высота 800px, Значение по умолчанию - 560 пикселей.
-                YQ_Height: 800,
-                //Не обязательно, выберите перевозчика, по умолчанию - автоопределение.
-                YQ_Fc: "0",
-                //Не обязательно, укажите язык пользовательского интерфейса, по умолчанию язык будет определен по настройкам браузера.
-                YQ_Lang: "ru",
-                //Обязательно, укажите номер, который необходимо отслеживать.
-                YQ_Num: track_number
-            });
-        }
     });
 
     // ------------------------------------------
