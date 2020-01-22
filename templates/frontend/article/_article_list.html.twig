@@ -53,9 +53,13 @@
                 </div>
             {% endfor %}
         </div>
-        {#<div class="content_banner_vertical">
-            <img src="{{ resize_hash_image('8dcbb88517e511315ee18420cc19e2ad.jpeg', {'width': 160, 'height': 0, 'method': 'scale', 'ignore_existence': true}) }}">
-        </div>#}
+        <div class="content_promo_vertical">
+            <div class="content_promo_vertical_inner">
+                <div class="content_promo_vertical_item">
+                    <img src="{{ resize_hash_image('8dcbb88517e511315ee18420cc19e2ad.jpeg', {'width': 160, 'height': 0, 'method': 'scale', 'ignore_existence': true}) }}">
+                </div>
+            </div>
+        </div>
     </div>
 
     {{ knp_pagination_render(pagination, '@frontend/_pagination.html.twig') }}

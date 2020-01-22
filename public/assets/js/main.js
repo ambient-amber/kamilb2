@@ -1,36 +1,66 @@
 $(document).ready(function(){
     // ------------------------------------------
 
-    var _window = $(window);
+    $(window).on('scroll', function(){
+        var scroll_top = $(window).scrollTop();
+        var $header = $('.page_header');
+        var $footer = $('.footer');
+        var $verticalPromo = $('.content_promo_vertical');
 
-    _window.on('scroll', function(){
-        var scroll_top = _window.scrollTop();
-        var header = $('.page_header');
+        var headerOuterHeight = $header.outerHeight();
+        var footerOffsetTop = $footer.offset().top;
+        var footerOuterHeight = $footer.outerHeight();
+        var windowHeight = $(window).height();
+        var verticalPromoMargin = 20;
 
         if (scroll_top > 0) {
-            header.addClass('fixed');
+            $header.addClass('fixed');
         } else {
-            header.removeClass('fixed');
+            $header.removeClass('fixed');
+        }
+
+        if ($verticalPromo.length) {
+            var $verticalPromoOffsetTop = $verticalPromo.offset().top;
+            var $verticalPromoInner = $('.content_promo_vertical_inner');
+            var verticalPromoInnerOuterHeight = $verticalPromoInner.outerHeight();
+
+            // Скроллить баннеры имеет смысл, если они помещаются в окно
+            if ((windowHeight - headerOuterHeight) > verticalPromoInnerOuterHeight) {
+                // Скролл с учетом плавающего хэдера
+                if ((scroll_top + headerOuterHeight) > $verticalPromoOffsetTop) {
+                    $verticalPromoInner.addClass('fixed');
+
+                    if ((scroll_top + verticalPromoInnerOuterHeight + verticalPromoMargin) < (footerOffsetTop - headerOuterHeight)) {
+                        // Проверка, чтобы баннеры не налезали на футер
+                        $verticalPromoInner.css({
+                            top: headerOuterHeight + verticalPromoMargin,
+                            bottom: ''
+                        });
+                    } else {
+                        // Меняем позиционирование с верхнего на нижнее
+                        $verticalPromoInner.css({
+                            top: '',
+                            bottom: footerOuterHeight + verticalPromoMargin
+                        });
+                    }
+                } else {
+                    $verticalPromoInner
+                        .removeClass('fixed')
+                        .css({
+                            top: '',
+                            bottom: ''
+                        });
+                }
+            }
         }
     });
+
+    // ------------------------------------------
 
     $('.article_list_spoiler').click(function(){
          $('.article_list').toggleClass('visible');
 
          return false;
-    });
-
-    // ------------------------------------------
-
-    $('.track_number').click(function(){
-        var trackNumber = $(this).text();
-
-        $('.track_input').val(trackNumber);
-        $('.track_submit').click();
-
-        $('.your_track_instruction .your_tracks').hide();
-        $('.your_track_instruction .instruction').hide();
-        $('.your_track_instruction .your_other_tracks').show();
     });
 
     // ------------------------------------------

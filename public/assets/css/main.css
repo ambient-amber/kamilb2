@@ -304,12 +304,23 @@ h2:after {
     color: #BEBED2;
 }
 
-.content_banner_vertical {
+.content_promo_vertical {
     width: 160px;
     margin: 0 0 0 32px;
 }
 
-.index_banner {
+.content_promo_vertical_inner.fixed {
+    position: fixed;
+}
+
+.content_promo_vertical_item {
+    margin: 15px 0 0;
+}
+.content_promo_vertical_item:first-child {
+    margin: 0;
+}
+
+.index_promo {
     max-width: 736px;
     height: 128px;
     margin: 32px auto;
