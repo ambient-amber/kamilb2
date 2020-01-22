@@ -14,11 +14,21 @@
                         </div>
                     </div>
 
-                    <div class="tabs_content js_tabs_content selected" data-tab_id="last_articles">
-                        {% include '@frontend/article/_article_list.html.twig' with {'pagination': last_pagination} %}
-                    </div>
-                    <div class="tabs_content js_tabs_content" data-tab_id="popular_articles">
-                        {% include '@frontend/article/_article_list.html.twig' with {'pagination': popular_pagination} %}
+                    <div class="content_items_wrap">
+                        <div class="tabs_content tabs_content_flex js_tabs_content selected" data-tab_id="last_articles">
+                            {% include '@frontend/article/_article_list.html.twig' with {'pagination': last_pagination} %}
+                        </div>
+                        <div class="tabs_content tabs_content_flex js_tabs_content" data-tab_id="popular_articles">
+                            {% include '@frontend/article/_article_list.html.twig' with {'pagination': popular_pagination} %}
+                        </div>
+
+                        <div class="content_promo_vertical">
+                            <div class="content_promo_vertical_inner">
+                                <div class="content_promo_vertical_item">
+                                    <img src="{{ resize_hash_image('8dcbb88517e511315ee18420cc19e2ad.jpeg', {'width': 160, 'height': 0, 'method': 'scale', 'ignore_existence': true}) }}">
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

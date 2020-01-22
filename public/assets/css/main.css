@@ -397,6 +397,7 @@ h2:after {
 .pagination {
     display: flex;
     margin: 0 0 64px;
+    width: 100%;
 }
 
 .pagination_item_link {
@@ -447,6 +448,12 @@ h2:after {
 }
 .tabs_content.selected {
     display: block;
+}
+.tabs_content.tabs_content_flex.selected {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    flex: 1 0;
 }
 /* ----------- */
 
