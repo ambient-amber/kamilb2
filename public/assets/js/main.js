@@ -81,7 +81,20 @@ $(document).ready(function(){
         $tabs
             .find('.js_tabs_content').removeClass('selected')
             .filter('[data-tab_id="' + selectedTabId + '"]').addClass('selected');
+
+        window.location.hash = selectedTabId;
     });
+
+    if (location.hash) {
+        var cleanHash = location.hash.replace('#','');
+        var $hashTabTitle = $('.js_tabs_title[data-tab_id="' + cleanHash + '"]');
+        var $hashTabContent = $('.js_tabs_content[data-tab_id="' + cleanHash + '"]');
+
+        if ($hashTabTitle.length && $hashTabContent.length) {
+            $hashTabTitle.siblings().removeClass('selected').end().addClass('selected');
+            $hashTabContent.siblings().removeClass('selected').end().addClass('selected');
+        }
+    }
 
     // ------------------------------------------
 });

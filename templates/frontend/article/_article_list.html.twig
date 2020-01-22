@@ -41,14 +41,14 @@
                         </a>
 
                         <span class="content_item_time">
-                                            {% if article.statuses.new is defined %}
-                                                {{ article.statuses.new.minutes_ago }}
-                                                {{ plural_ending(article.statuses.new.minutes_ago, 'minute_plural_forms'|trans) }}
-                                                {% trans %}back_in_time_word{% endtrans %}
-                                            {% else %}
-                                                {{ article.dateInsert|date("Y-m-d H:i") }}
-                                            {% endif %}
-                                        </span>
+                            {% if article.statuses.new is defined %}
+                                {{ article.statuses.new.minutes_ago }}
+                                {{ plural_ending(article.statuses.new.minutes_ago, 'minute_plural_forms'|trans) }}
+                                {% trans %}back_in_time_word{% endtrans %}
+                            {% else %}
+                                {{ article.dateInsert|date("Y-m-d H:i") }}
+                            {% endif %}
+                        </span>
                     </div>
                 </div>
             {% endfor %}

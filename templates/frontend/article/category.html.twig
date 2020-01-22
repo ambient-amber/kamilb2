@@ -10,18 +10,18 @@
             <div class="page_content_block_inner">
                 <div class="tabs js_tabs">
                     <div class="tabs_titles">
-                        <div class="tabs_title js_tabs_title selected" data-tab_id="last_ones">
-                            Последние
+                        <div class="tabs_title js_tabs_title selected" data-tab_id="last_articles">
+                            {% trans %}last_ones{% endtrans %}
                         </div>
-                        <div class="tabs_title js_tabs_title" data-tab_id="popular_ones">
-                            Популярные
+                        <div class="tabs_title js_tabs_title" data-tab_id="popular_articles">
+                            {% trans %}popular_ones{% endtrans %}
                         </div>
                     </div>
 
-                    <div class="tabs_content js_tabs_content selected" data-tab_id="last_ones">
+                    <div class="tabs_content js_tabs_content selected" data-tab_id="last_articles">
                         {% include '@frontend/article/_article_list.html.twig' with {'pagination': last_pagination} %}
                     </div>
-                    <div class="tabs_content js_tabs_content" data-tab_id="popular_ones">
+                    <div class="tabs_content js_tabs_content" data-tab_id="popular_articles">
                         {% include '@frontend/article/_article_list.html.twig' with {'pagination': popular_pagination} %}
                     </div>
                 </div>

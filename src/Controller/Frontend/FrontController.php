@@ -20,19 +20,19 @@ class FrontController extends AbstractController
     {
         $lastPagination = $paginator->paginate(
             $articleRepository->findLastActive($request->getLocale()),
-            $request->query->getInt('last_items_page', 1),
+            $request->query->getInt('last_articles_page', 1),
             8,
             [
-                'pageParameterName' => 'last_items_page'
+                'pageParameterName' => 'last_articles_page'
             ]
         );
 
         $popularPagination = $paginator->paginate(
             $articleRepository->findPopularActive($request->getLocale()),
-            $request->query->getInt('popular_items_page', 1),
-            1,
+            $request->query->getInt('popular_articles_page', 1),
+            8,
             [
-                'pageParameterName' => 'popular_items_page'
+                'pageParameterName' => 'popular_articles_page'
             ]
         );
 
