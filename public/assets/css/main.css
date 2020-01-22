@@ -145,7 +145,7 @@ h2:after {
 /* --- Content --- */
 .page_content_block {
     max-width: 928px;
-    margin: 0 auto;
+    margin: 30px auto 0;
 }
 
 .page_content_block img {
@@ -309,126 +309,6 @@ h2:after {
     margin: 0 0 0 32px;
 }
 
-/* --- Track block --- */
-.track_block {
-    text-align: center;
-    position: relative;
-    margin: 96px 0 64px;
-    background: url('/assets/img/track_block_back.png') center bottom no-repeat;
-}
-
-.track_block a {
-    color: #828296;
-    margin: 0 0 0 17px;
-}
-.track_block a:first-child {
-    margin: 0;
-}
-.track_block a.selected {
-    color: #303030;
-    cursor: default;
-}
-
-.select_language {
-    text-transform: uppercase;
-    position: absolute;
-    right: 0;
-    top: 0;
-}
-
-.track_block h1 {
-    font-weight: bold;
-    font-size: 32px;
-    text-align: center;
-    color: #828296;
-    margin: 48px 0 32px;
-}
-
-.track_input_block {
-    display: flex;
-    border: 1px solid #F0F0F5;
-    box-shadow: 0 10px 30px #F0F0F5;
-    border-radius: 10px;
-    overflow: hidden;
-}
-
-.track_input_before {
-    width: 64px;
-    height: 64px;
-    background: #fff url('/assets/img/47.png') center center no-repeat;
-}
-
-.track_input {
-    flex: 1 auto;
-    outline: none;
-    border: none;
-}
-
-.track_submit {
-    background: #8200FA;
-    position: relative;
-    font-weight: bold;
-    font-size: 18px;
-    color: #FFFFFF;
-    text-transform: uppercase;
-    text-align: center;
-    line-height: 64px;
-    cursor: pointer;
-    border: 1px solid #000000;
-    border-top-right-radius: 10px;
-    border-bottom-right-radius: 10px;
-}
-
-.track_submit .text {
-    display: inline-block;
-    padding: 0 35px;
-    white-space: nowrap;
-}
-
-.track_submit:before {
-    content: '';
-    position: absolute;
-    left: -1px;
-    top: 0;
-    border: 32px solid transparent;
-    border-left: 13px solid #fff;
-}
-
-.track_result {
-    margin: 0 0 40px;
-}
-
-.your_track_instruction {
-    max-width: 736px;
-    padding: 32px;
-    margin: 0 auto;
-    border: 2px solid #F0F0F5;
-    box-sizing: border-box;
-    border-radius: 5px;
-}
-
-.your_tracks {
-    margin: 0 0 32px;
-    line-height: 29px;
-}
-
-.track_number {
-    color: #8200FA;
-    cursor: pointer;
-}
-
-.your_other_tracks {
-    display: none;
-    line-height: 23px;
-}
-
-.your_track_instruction .instruction {
-    font-size: 14px;
-    line-height: 29px;
-    color: #303030;
-}
-/* ------------------- */
-
 .index_banner {
     max-width: 736px;
     height: 128px;
@@ -531,8 +411,33 @@ h2:after {
     color: #646473;
     border-color: #EBEBF0;
 }
+/* ---------------- */
 
-    /* ---------------- */
+/* --- Табы --- */
+.tabs_titles {
+    display: flex;
+    margin: 0 0 16px;
+}
+
+.tabs_title {
+    margin: 0 25px 0 0;
+    color: #BEBED2;
+    font-size: 12px;
+    line-height: 16px;
+}
+.tabs_title.selected,
+.tabs_title:hover {
+    cursor: pointer;
+    color: #646473;
+}
+
+.tabs_content {
+    display: none;
+}
+.tabs_content.selected {
+    display: block;
+}
+/* ----------- */
 
 /* --- Footer --- */
 .footer {

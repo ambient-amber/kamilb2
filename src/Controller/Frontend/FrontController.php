@@ -5,9 +5,10 @@ namespace App\Controller\Frontend;
 use App\Entity\ArticleCategory;
 use App\Entity\Language;
 use App\Entity\Page;
-use App\Repository\PopularShopRepository;
-use Doctrine\ORM\EntityManagerInterface;
+use App\Repository\ArticleRepository;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 class FrontController extends AbstractController
@@ -15,10 +16,29 @@ class FrontController extends AbstractController
     /**
      * @Route("/", name="app_homepage")
      */
-    public function homepage(EntityManagerInterface $em, PopularShopRepository $popularShopRepository)
+    public function homepage(ArticleRepository $articleRepository, PaginatorInterface $paginator, Request $request)
     {
+        $lastPagination = $paginator->paginate(
+            $articleRepository->findLastActive($request->getLocale()),
+            $request->query->getInt('last_items_page', 1),
+            8,
+            [
+                'pageParameterName' => 'last_items_page'
+            ]
+        );
+
+        $popularPagination = $paginator->paginate(
+            $articleRepository->findPopularActive($request->getLocale()),
+            $request->query->getInt('popular_items_page', 1),
+            1,
+            [
+                'pageParameterName' => 'popular_items_page'
+            ]
+        );
+
         return $this->render('frontend/index.html.twig', [
-            'popular_shops' => $popularShopRepository->findIndexItems()
+            'last_pagination' => $lastPagination,
+            'popular_pagination' => $popularPagination
         ]);
     }
 

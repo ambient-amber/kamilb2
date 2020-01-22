@@ -64,11 +64,23 @@ $(document).ready(function(){
         var contentBlock = $(self.attr('href'));
         var contentBlockHeight = contentBlock.outerHeight();
 
-        console.log(contentBlockHeight);
-
         $.scrollTo(contentBlock, {duration: 1000, offset: -contentBlockHeight});
 
         return false;
+    });
+
+    // ------------------------------------------
+
+    $('.js_tabs_title').click(function(){
+        var $tabs = $(this).closest('.js_tabs');
+        var selectedTabId = $(this).data('tab_id');
+
+        $tabs.find('.js_tabs_title').removeClass('selected');
+        $(this).addClass('selected');
+
+        $tabs
+            .find('.js_tabs_content').removeClass('selected')
+            .filter('[data-tab_id="' + selectedTabId + '"]').addClass('selected');
     });
 
     // ------------------------------------------

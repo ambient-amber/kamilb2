@@ -1,12 +1,6 @@
 mail_search: Pochta izlash
-track_package: kuzatib boring
-your_tracks: Sizning izlaringiz
-your_other_tracks: Sizning boshqa yo'llaringiz
-tracking_hint_1: Paketni kuzatish uchun sotuvchidan olingan parcha kodini qidirishga qo'shing.
-tracking_hint_2: Kod tartibi etkazib berish xizmatiga bog'liq va farq qilishi mumkin
 popular_shops: Ommaviy do'konlar
 telegram_bot: Telegram bot
-enter_track_number: Masalan, kuzatuv kodini kiriting
 no_active_articles: Hali e'lon qilingan maqolalar yo'q
 article_list_title: Maqolalar
 new_status_title: Yangi

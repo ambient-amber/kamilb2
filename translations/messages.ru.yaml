@@ -1,12 +1,6 @@
 mail_search: Поиск почтовых отправлений
-track_package: отследить посылку
-your_tracks: Ваши треки
-your_other_tracks: Другие ваши треки
-tracking_hint_1: Чтобы отслеживать посылку, добавьте в поиск трек-код, полученный у продавца.
-tracking_hint_2: Формат кода зависит от службы доставки и может отличаться
 popular_shops: Популярные магазины
 telegram_bot: Телеграм бот
-enter_track_number: Введите код отслеживания, например
 no_active_articles: Пока нет опубликованных статей
 article_list_title: Статьи
 new_status_title: Новое

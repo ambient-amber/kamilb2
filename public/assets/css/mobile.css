@@ -62,12 +62,6 @@
     }
     /* -------------- */
 
-    /* --- Track block --- */
-    .track_block h1 {
-        font-size: 24px;
-    }
-    /* ------------------- */
-
     /* --- Content --- */
     .popular_shops {
         margin: 32px auto 40px;
@@ -83,13 +77,4 @@
         margin: 0 0 21px;
     }
     /* -------------- */
-}
-
-@media (max-width: 450px) {
-    /* --- Track block --- */
-    .your_track_instruction {
-        padding: 0;
-        border: none;
-    }
-    /* ------------------- */
 }

@@ -26,16 +26,27 @@ class ArticleController extends AbstractController
     ) {
         $category = $articleCategoryRepository->findActiveByUrl($category_url);
 
-        $queryBuilder = $articleRepository->findActiveByCategory($category, $request->getLocale());
+        $lastPagination = $paginator->paginate(
+            $articleRepository->findLastActiveByCategory($category, $request->getLocale()),
+            $request->query->getInt('last_items_page', 1),
+            8,
+            [
+                'pageParameterName' => 'last_items_page'
+            ]
+        );
 
-        $pagination = $paginator->paginate(
-            $queryBuilder,
-            $request->query->getInt('page', 1),
-            8
+        $popularPagination = $paginator->paginate(
+            $articleRepository->findPopularActiveByCategory($category, $request->getLocale()),
+            $request->query->getInt('popular_items_page', 1),
+            8,
+            [
+                'pageParameterName' => 'popular_items_page'
+            ]
         );
 
         return $this->render('frontend/article/category.html.twig', [
-            'pagination' => $pagination,
+            'last_pagination' => $lastPagination,
+            'popular_pagination' => $popularPagination,
             'category' => $category
         ]);
     }

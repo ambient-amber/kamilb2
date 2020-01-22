@@ -21,7 +21,7 @@ class ArticleRepository extends ServiceEntityRepository
         parent::__construct($registry, Article::class);
     }
 
-    public function findActiveByCategory(ArticleCategory $category, $locale)
+    public function findLastActiveByCategory(ArticleCategory $category, $locale)
     {
         return $this->createQueryBuilder('article')
             ->select('article, trans')
@@ -29,11 +29,58 @@ class ArticleRepository extends ServiceEntityRepository
             ->join('trans.language', 'language', Expr\Join::WITH, 'language.textId = :language_text_id')
             ->andWhere('article.category = :category')
             ->andWhere('article.pub = 1')
+            ->orderBy('article.dateInsert', 'DESC')
             ->setParameter('language_text_id', $locale)
             ->setParameter('category', $category)
             ->getQuery()
             ->getResult()
         ;
+    }
+
+    public function findLastActive($locale)
+    {
+        return $this->createQueryBuilder('article')
+            ->select('article, trans')
+            ->join('article.articleTranslations', 'trans')
+            ->join('trans.language', 'language', Expr\Join::WITH, 'language.textId = :language_text_id')
+            ->andWhere('article.pub = 1')
+            ->orderBy('article.dateInsert', 'DESC')
+            ->setParameter('language_text_id', $locale)
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
+    public function findPopularActiveByCategory(ArticleCategory $category, $locale)
+    {
+        return $this->createQueryBuilder('article')
+            ->select('article, trans')
+            ->join('article.articleTranslations', 'trans')
+            ->join('trans.language', 'language', Expr\Join::WITH, 'language.textId = :language_text_id')
+            ->andWhere('article.category = :category')
+            ->andWhere('article.pub = 1')
+            ->andWhere('article.viewsCount > 0')
+            ->orderBy('article.viewsCount', 'DESC')
+            ->setParameter('language_text_id', $locale)
+            ->setParameter('category', $category)
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
+    public function findPopularActive($locale)
+    {
+        return $this->createQueryBuilder('article')
+            ->select('article, trans')
+            ->join('article.articleTranslations', 'trans')
+            ->join('trans.language', 'language', Expr\Join::WITH, 'language.textId = :language_text_id')
+            ->andWhere('article.pub = 1')
+            ->andWhere('article.viewsCount > 0')
+            ->orderBy('article.viewsCount', 'DESC')
+            ->setParameter('language_text_id', $locale)
+            ->getQuery()
+            ->getResult()
+            ;
     }
 
     public function findActiveByUrl($languageTextId, $url)

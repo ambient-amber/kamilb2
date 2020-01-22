@@ -1,0 +1,64 @@
+{% if pagination %}
+    <div class="content_items_wrap">
+        <div class="content_items">
+            {% for article in pagination %}
+                <div class="content_item">
+                    <div class="content_item_image_block">
+                        {% if article.imageHash %}
+                            <a class="content_item_image_link" href="{{ path('article_item', {'category_url': article.category.url, 'article_url': article.url}) }}">
+                                <img src="{{ resize_hash_image(article.imageHash, {'width': 500, 'height': 0, 'method': 'scale', 'ignore_existence': true}) }}">
+                            </a>
+                        {% endif %}
+
+                        {% if article.statuses|length > 0 %}
+                            <div class="content_item_statuses">
+                                <div class="content_item_statuses_inner">
+                                    {% for item_status in article.statuses %}
+                                        <div class="content_item_status status_{{ item_status.text_id }}">
+                                            {{ item_status.title_id|trans }}
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    {% for translation in article.articleTranslations %}
+                        <div class="content_item_title_block">
+                            <a class="content_item_title_link" href="{{ path('article_item', {'category_url': article.category.url, 'article_url': article.url}) }}">{{ translation.title }}</a>
+                        </div>
+
+                        <div class="content_item_preview_content">
+                            {{ translation.previewContentShirt }}
+                        </div>
+                    {% endfor %}
+
+                    <div class="content_item_time_category_block">
+                        <a class="content_item_category_link" href="{{ path('article_category', {'category_url': article.category.url}) }}">
+                            {% for category_translation in article.category.articleCategoryTranslations %}
+                                {{ category_translation.title }}
+                            {% endfor %}
+                        </a>
+
+                        <span class="content_item_time">
+                                            {% if article.statuses.new is defined %}
+                                                {{ article.statuses.new.minutes_ago }}
+                                                {{ plural_ending(article.statuses.new.minutes_ago, 'minute_plural_forms'|trans) }}
+                                                {% trans %}back_in_time_word{% endtrans %}
+                                            {% else %}
+                                                {{ article.dateInsert|date("Y-m-d H:i") }}
+                                            {% endif %}
+                                        </span>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        {#<div class="content_banner_vertical">
+            <img src="{{ resize_hash_image('8dcbb88517e511315ee18420cc19e2ad.jpeg', {'width': 160, 'height': 0, 'method': 'scale', 'ignore_existence': true}) }}">
+        </div>#}
+    </div>
+
+    {{ knp_pagination_render(pagination, '@frontend/_pagination.html.twig') }}
+{% else %}
+    <p>{% trans %}no_active_articles{% endtrans %}</p>
+{% endif %}
