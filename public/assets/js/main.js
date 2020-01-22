@@ -13,11 +13,7 @@ $(document).ready(function(){
         var windowHeight = $(window).height();
         var verticalPromoMargin = 20;
 
-        if (scroll_top > 0) {
-            $header.addClass('fixed');
-        } else {
-            $header.removeClass('fixed');
-        }
+        $header.toggleClass('fixed', scroll_top >= 0);
 
         if ($verticalPromo.length) {
             var $verticalPromoOffsetTop = $verticalPromo.offset().top;
