@@ -2,18 +2,25 @@ $(document).ready(function(){
     // ------------------------------------------
 
     $(window).on('scroll', function(){
-        var scroll_top = $(window).scrollTop();
+        var $pageWrapper = $('.page_wrapper');
         var $header = $('.page_header');
         var $footer = $('.footer');
         var $verticalPromo = $('.content_promo_vertical');
 
+        var scroll_top = $(window).scrollTop();
         var headerOuterHeight = $header.outerHeight();
         var footerOffsetTop = $footer.offset().top;
         var footerOuterHeight = $footer.outerHeight();
         var windowHeight = $(window).height();
         var verticalPromoMargin = 20;
 
-        $header.toggleClass('fixed', scroll_top >= 0);
+        if (scroll_top >= headerOuterHeight) {
+            $header.addClass('fixed');
+            $pageWrapper.css('padding-top', headerOuterHeight);
+        } else {
+            $header.removeClass('fixed');
+            $pageWrapper.css('padding-top', '');
+        }
 
         if ($verticalPromo.length) {
             var $verticalPromoOffsetTop = $verticalPromo.offset().top;
@@ -23,10 +30,10 @@ $(document).ready(function(){
             // Скроллить баннеры имеет смысл, если они помещаются в окно
             if ((windowHeight - headerOuterHeight) > verticalPromoInnerOuterHeight) {
                 // Скролл с учетом плавающего хэдера
-                if ((scroll_top + headerOuterHeight) > $verticalPromoOffsetTop) {
+                if (scroll_top > $verticalPromoOffsetTop) {
                     $verticalPromoInner.addClass('fixed');
 
-                    if ((scroll_top + verticalPromoInnerOuterHeight + verticalPromoMargin) < (footerOffsetTop - headerOuterHeight)) {
+                    if ((scroll_top + verticalPromoInnerOuterHeight + verticalPromoMargin) < footerOffsetTop) {
                         // Проверка, чтобы баннеры не налезали на футер
                         $verticalPromoInner.css({
                             top: headerOuterHeight + verticalPromoMargin,
@@ -75,6 +82,16 @@ $(document).ready(function(){
 
     // ------------------------------------------
 
+    // Добавление hash таба каждой ссылке пагинации
+    $.each($('.js_tabs_content'), function(){
+        let tabId = $(this).data('tab_id');
+
+        $.each($(this).find('a.pagination_item_link'), function(){
+            $(this).attr('href', $(this).attr('href') + '#' + tabId);
+        });
+    });
+
+    // Переключение табов
     $('.js_tabs_title').click(function(){
         var $tabs = $(this).closest('.js_tabs');
         var selectedTabId = $(this).data('tab_id');
@@ -89,6 +106,7 @@ $(document).ready(function(){
         window.location.hash = selectedTabId;
     });
 
+    // Активация выбранного таба при загрузке страницы
     if (location.hash) {
         var cleanHash = location.hash.replace('#','');
         var $hashTabTitle = $('.js_tabs_title[data-tab_id="' + cleanHash + '"]');

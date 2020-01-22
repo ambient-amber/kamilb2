@@ -29,7 +29,7 @@ class ArticleController extends AbstractController
         $lastPagination = $paginator->paginate(
             $articleRepository->findLastActiveByCategory($category, $request->getLocale()),
             $request->query->getInt('last_items_page', 1),
-            2,
+            8,
             [
                 'pageParameterName' => 'last_items_page'
             ]
@@ -38,7 +38,7 @@ class ArticleController extends AbstractController
         $popularPagination = $paginator->paginate(
             $articleRepository->findPopularActiveByCategory($category, $request->getLocale()),
             $request->query->getInt('popular_items_page', 1),
-            2,
+            8,
             [
                 'pageParameterName' => 'popular_items_page'
             ]
