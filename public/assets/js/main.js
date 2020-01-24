@@ -4,16 +4,13 @@ $(document).ready(function(){
     $(window).on('scroll', function(){
         var $pageWrapper = $('.page_wrapper');
         var $header = $('.page_header');
-        var $footer = $('.footer');
         var $verticalPromo = $('.content_promo_vertical');
 
         var scroll_top = $(window).scrollTop();
         var headerOuterHeight = $header.outerHeight();
-        var footerOffsetTop = $footer.offset().top;
-        var footerOuterHeight = $footer.outerHeight();
         var windowHeight = $(window).height();
-        var verticalPromoMargin = 20;
 
+        // Плавающий header
         if (scroll_top >= headerOuterHeight) {
             $header.addClass('fixed');
             $pageWrapper.css('padding-top', headerOuterHeight);
@@ -22,7 +19,9 @@ $(document).ready(function(){
             $pageWrapper.css('padding-top', '');
         }
 
+        // Плавающие баннеры
         if ($verticalPromo.length) {
+            var verticalPromoMargin = 20;
             var $verticalPromoOffsetTop = $verticalPromo.offset().top;
             var $verticalPromoInner = $('.content_promo_vertical_inner');
             var verticalPromoInnerOuterHeight = $verticalPromoInner.outerHeight();
@@ -30,29 +29,14 @@ $(document).ready(function(){
             // Скроллить баннеры имеет смысл, если они помещаются в окно
             if ((windowHeight - headerOuterHeight) > verticalPromoInnerOuterHeight) {
                 // Скролл с учетом плавающего хэдера
-                if (scroll_top > $verticalPromoOffsetTop) {
-                    $verticalPromoInner.addClass('fixed');
-
-                    if ((scroll_top + verticalPromoInnerOuterHeight + verticalPromoMargin) < footerOffsetTop) {
-                        // Проверка, чтобы баннеры не налезали на футер
-                        $verticalPromoInner.css({
-                            top: headerOuterHeight + verticalPromoMargin,
-                            bottom: ''
-                        });
-                    } else {
-                        // Меняем позиционирование с верхнего на нижнее
-                        $verticalPromoInner.css({
-                            top: '',
-                            bottom: footerOuterHeight + verticalPromoMargin
-                        });
-                    }
+                if ((scroll_top + headerOuterHeight) > $verticalPromoOffsetTop) {
+                    $verticalPromoInner
+                        .addClass('sticky')
+                        .css('top', headerOuterHeight + verticalPromoMargin);
                 } else {
                     $verticalPromoInner
-                        .removeClass('fixed')
-                        .css({
-                            top: '',
-                            bottom: ''
-                        });
+                        .removeClass('sticky')
+                        .css('top', '');
                 }
             }
         }
