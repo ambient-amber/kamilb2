@@ -307,10 +307,12 @@ h2:after {
 .content_promo_vertical {
     width: 160px;
     margin: 0 0 0 32px;
+    padding: 0 0 20px;
+    position: relative;
 }
 
-.content_promo_vertical_inner.fixed {
-    position: fixed;
+.content_promo_vertical_inner.sticky {
+    position: sticky;
 }
 
 .content_promo_vertical_item {
