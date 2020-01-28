@@ -107,6 +107,16 @@ class MenuBuilder
                     ['title' => 'Парсер страницы', 'route' => 'parse_page'],
                 ]
             ],
+            [
+                'key' => 'banner',
+                'title' => 'Баннеры',
+                'route' => 'banner_index',
+                'icon' => 'la la-columns',
+                'children' => [
+                    ['title' => 'Список', 'route' => 'banner_index'],
+                    ['title' => 'Добавить', 'route' => 'banner_new']
+                ]
+            ],
         ];
 
         foreach ($menuItems as $menuItem) {

@@ -1,0 +1,125 @@
+<div class="card">
+    <div class="card-block">
+        {{ form_start(form) }}
+            <div class="form-group row">
+                {{ form_label(
+                    form.link,
+                    null,
+                    {'label_attr': {'class': 'col-sm-2 form-control-label'}})
+                }}
+
+                <div class="col-sm-10">
+                    {{ form_widget(form.link, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_help(form.link) }}
+                    {{ form_errors(form.link) }}
+                </div>
+            </div>
+
+            <div class="form-group row">
+                {{ form_label(
+                    form.pub,
+                    null,
+                    {'label_attr': {'class': 'col-sm-2 form-control-label'}})
+                }}
+
+                <div class="col-sm-10">
+                    {{ form_widget(form.pub) }}
+                    {{ form_help(form.pub) }}
+                    {{ form_errors(form.pub) }}
+                </div>
+            </div>
+
+            <div class="form-group row">
+                {{ form_label(
+                    form.onIndex,
+                    null,
+                    {'label_attr': {'class': 'col-sm-2 form-control-label'}})
+                }}
+
+                <div class="col-sm-10">
+                    {{ form_widget(form.onIndex) }}
+                    {{ form_help(form.onIndex) }}
+                    {{ form_errors(form.onIndex) }}
+                </div>
+            </div>
+
+            <div class="form-group row">
+                {{ form_label(
+                    form.onArticle,
+                    null,
+                    {'label_attr': {'class': 'col-sm-2 form-control-label'}})
+                }}
+
+                <div class="col-sm-10">
+                    {{ form_widget(form.onArticle) }}
+                    {{ form_help(form.onArticle) }}
+                    {{ form_errors(form.onArticle) }}
+                </div>
+            </div>
+
+            <div class="form-group row">
+                {{ form_label(
+                    form.onArticleCategory,
+                    null,
+                    {'label_attr': {'class': 'col-sm-2 form-control-label'}})
+                }}
+
+                <div class="col-sm-10">
+                    {{ form_widget(form.onArticleCategory) }}
+                    {{ form_help(form.onArticleCategory) }}
+                    {{ form_errors(form.onArticleCategory) }}
+                </div>
+            </div>
+
+
+
+            <div class="form-group row">
+                {{ form_label(
+                    form.plainImage,
+                    null,
+                    {'label_attr': {'class': 'col-sm-2 form-control-label'}})
+                }}
+
+                <div class="col-sm-3">
+                    {% if banner.imageHash %}
+                        <img src="{{ uploaded_hash_asset(banner.imageHash) }}">
+                    {% else %}
+                        <p>Preview image is not selected</p>
+                    {% endif %}
+                </div>
+
+                <div class="col-sm-4">
+                    <button class="btn btn-primary ks-btn-file">
+                        <span class="la la-cloud-upload ks-icon"></span>
+                        <span class="ks-text">Choose preview image</span>
+                        <input
+                            type="file"
+                            name="{{ form.plainImage.vars.full_name }}"
+                            {% if form.plainImage.vars.required %}required{% endif %}
+                        >
+                    </button>
+
+                    {{ form_help(form.plainImage) }}
+                    {{ form_errors(form.plainImage) }}
+
+                    {% do form.plainImage.setRendered() %}
+                </div>
+            </div>
+
+            <table>
+                <tr>
+                    <td>
+                        <a class="btn btn-primary btn-sm" href="{{ path('banner_index') }}">back to list</a>
+                    </td>
+                    <td>
+                        <button class="btn btn-primary btn-sm">{{ button_label|default('Save') }}</button>
+                    </td>
+                </tr>
+            </table>
+        {{ form_end(form) }}
+
+        {% if banner.id %}
+            {{ include('backend/banner/_delete_form.html.twig') }}
+        {% endif %}
+    </div>
+</div>
