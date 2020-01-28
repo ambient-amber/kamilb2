@@ -26,7 +26,7 @@ class BannerType extends AbstractType
                 'plainImage',
                 FileType::class,
                 [
-                    'required' => $isEdit ? false : true,
+                    'required' => false,
                     'mapped' => false,
                     'constraints' => [
                         new Image(

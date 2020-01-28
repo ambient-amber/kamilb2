@@ -26,13 +26,17 @@
                             {% include '@frontend/article/_article_list.html.twig' with {'pagination': popular_pagination} %}
                         </div>
 
-                        <div class="content_promo_vertical">
-                            <div class="content_promo_vertical_inner">
-                                <div class="content_promo_vertical_item">
-                                    <img src="{{ resize_hash_image('8dcbb88517e511315ee18420cc19e2ad.jpeg', {'width': 160, 'height': 0, 'method': 'scale', 'ignore_existence': true}) }}">
+                        {% if banners is not empty %}
+                            <div class="content_promo_vertical">
+                                <div class="content_promo_vertical_inner">
+                                    {% for banner in banners %}
+                                        <div class="content_promo_vertical_item">
+                                            <img src="{{ resize_hash_image(banner.imageHash, {'width': 160, 'height': 0, 'method': 'scale', 'ignore_existence': true}) }}">
+                                        </div>
+                                    {% endfor %}
                                 </div>
                             </div>
-                        </div>
+                        {% endif %}
                     </div>
                 </div>
             </div>

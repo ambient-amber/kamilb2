@@ -4,6 +4,7 @@ namespace App\Controller\Frontend;
 
 use App\Repository\ArticleCategoryRepository;
 use App\Repository\ArticleRepository;
+use App\Repository\BannerRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -22,7 +23,8 @@ class ArticleController extends AbstractController
         Request $request,
         PaginatorInterface $paginator,
         ArticleRepository $articleRepository,
-        ArticleCategoryRepository $articleCategoryRepository
+        ArticleCategoryRepository $articleCategoryRepository,
+        BannerRepository $bannerRepository
     ) {
         $category = $articleCategoryRepository->findActiveByUrl($category_url);
 
@@ -44,10 +46,13 @@ class ArticleController extends AbstractController
             ]
         );
 
+        $banners = $bannerRepository->findArticleCategoryItems();
+
         return $this->render('frontend/article/category.html.twig', [
             'last_pagination' => $lastPagination,
             'popular_pagination' => $popularPagination,
-            'category' => $category
+            'category' => $category,
+            'banners' => $banners
         ]);
     }
 
@@ -57,9 +62,9 @@ class ArticleController extends AbstractController
     public function item(
         $category_url,
         $article_url,
+        Request $request,
         ArticleRepository $articleRepository,
-        ArticleCategoryRepository $articleCategoryRepository,
-        Request $request
+        ArticleCategoryRepository $articleCategoryRepository
     ) {
         $category = $articleCategoryRepository->findActiveByUrl($category_url);
 

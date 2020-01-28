@@ -6,6 +6,7 @@ use App\Entity\ArticleCategory;
 use App\Entity\Language;
 use App\Entity\Page;
 use App\Repository\ArticleRepository;
+use App\Repository\BannerRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,8 +17,12 @@ class FrontController extends AbstractController
     /**
      * @Route("/", name="app_homepage")
      */
-    public function homepage(ArticleRepository $articleRepository, PaginatorInterface $paginator, Request $request)
-    {
+    public function homepage(
+        ArticleRepository $articleRepository,
+        BannerRepository $bannerRepository,
+        PaginatorInterface $paginator,
+        Request $request
+    ) {
         $lastPagination = $paginator->paginate(
             $articleRepository->findLastActive($request->getLocale()),
             $request->query->getInt('last_articles_page', 1),
@@ -36,9 +41,12 @@ class FrontController extends AbstractController
             ]
         );
 
+        $banners = $bannerRepository->findIndexItems();
+
         return $this->render('frontend/index.html.twig', [
             'last_pagination' => $lastPagination,
-            'popular_pagination' => $popularPagination
+            'popular_pagination' => $popularPagination,
+            'banners' => $banners,
         ]);
     }
 

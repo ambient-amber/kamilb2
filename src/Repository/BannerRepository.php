@@ -19,32 +19,39 @@ class BannerRepository extends ServiceEntityRepository
         parent::__construct($registry, Banner::class);
     }
 
-    // /**
-    //  * @return Banner[] Returns an array of Banner objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function findIndexItems()
     {
         return $this->createQueryBuilder('b')
-            ->andWhere('b.exampleField = :val')
-            ->setParameter('val', $value)
+            ->andWhere('b.pub = 1')
+            ->andWhere('b.onIndex = 1')
             ->orderBy('b.id', 'ASC')
-            ->setMaxResults(10)
+            ->setMaxResults(3)
             ->getQuery()
             ->getResult()
         ;
     }
-    */
 
-    /*
-    public function findOneBySomeField($value): ?Banner
+    public function findArticleCategoryItems()
     {
         return $this->createQueryBuilder('b')
-            ->andWhere('b.exampleField = :val')
-            ->setParameter('val', $value)
+            ->andWhere('b.pub = 1')
+            ->andWhere('b.onArticleCategory = 1')
+            ->orderBy('b.id', 'ASC')
+            ->setMaxResults(3)
             ->getQuery()
-            ->getOneOrNullResult()
-        ;
+            ->getResult()
+            ;
     }
-    */
+
+    public function findArticleItems()
+    {
+        return $this->createQueryBuilder('b')
+            ->andWhere('b.pub = 1')
+            ->andWhere('b.onArticle = 1')
+            ->orderBy('b.id', 'ASC')
+            ->setMaxResults(3)
+            ->getQuery()
+            ->getResult()
+            ;
+    }
 }
