@@ -22,6 +22,9 @@ class BannerType extends AbstractType
             ->add('onIndex')
             ->add('onArticle')
             ->add('onArticleCategory')
+            ->add('onMobile')
+            ->add('onTablet')
+            ->add('onDesktop')
             ->add(
                 'plainImage',
                 FileType::class,

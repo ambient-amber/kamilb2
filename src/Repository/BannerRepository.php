@@ -19,11 +19,12 @@ class BannerRepository extends ServiceEntityRepository
         parent::__construct($registry, Banner::class);
     }
 
-    public function findIndexItems()
+    public function findIndexDescktopItems()
     {
         return $this->createQueryBuilder('b')
             ->andWhere('b.pub = 1')
             ->andWhere('b.onIndex = 1')
+            ->andWhere('b.onDesktop = 1')
             ->orderBy('b.id', 'ASC')
             ->setMaxResults(3)
             ->getQuery()
@@ -31,11 +32,64 @@ class BannerRepository extends ServiceEntityRepository
         ;
     }
 
-    public function findArticleCategoryItems()
+    public function findIndexMobileItems()
+    {
+        return $this->createQueryBuilder('b')
+            ->andWhere('b.pub = 1')
+            ->andWhere('b.onIndex = 1')
+            ->andWhere('b.onMobile = 1')
+            ->orderBy('b.id', 'ASC')
+            ->setMaxResults(3)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    public function findIndexTabletItems()
+    {
+        return $this->createQueryBuilder('b')
+            ->andWhere('b.pub = 1')
+            ->andWhere('b.onIndex = 1')
+            ->andWhere('b.onTablet = 1')
+            ->orderBy('b.id', 'ASC')
+            ->setMaxResults(3)
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
+    public function findArticleCategoryDesktopItems()
     {
         return $this->createQueryBuilder('b')
             ->andWhere('b.pub = 1')
             ->andWhere('b.onArticleCategory = 1')
+            ->andWhere('b.onDesktop = 1')
+            ->orderBy('b.id', 'ASC')
+            ->setMaxResults(3)
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
+    public function findArticleCategoryMobileItems()
+    {
+        return $this->createQueryBuilder('b')
+            ->andWhere('b.pub = 1')
+            ->andWhere('b.onArticleCategory = 1')
+            ->andWhere('b.onMobile = 1')
+            ->orderBy('b.id', 'ASC')
+            ->setMaxResults(3)
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
+    public function findArticleCategoryTabletItems()
+    {
+        return $this->createQueryBuilder('b')
+            ->andWhere('b.pub = 1')
+            ->andWhere('b.onArticleCategory = 1')
+            ->andWhere('b.onTablet = 1')
             ->orderBy('b.id', 'ASC')
             ->setMaxResults(3)
             ->getQuery()

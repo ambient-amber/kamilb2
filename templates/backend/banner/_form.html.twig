@@ -71,7 +71,47 @@
                 </div>
             </div>
 
+            <div class="form-group row">
+                {{ form_label(
+                    form.onMobile,
+                    null,
+                    {'label_attr': {'class': 'col-sm-2 form-control-label'}})
+                }}
 
+                <div class="col-sm-10">
+                    {{ form_widget(form.onMobile) }}
+                    {{ form_help(form.onMobile) }}
+                    {{ form_errors(form.onMobile) }}
+                </div>
+            </div>
+
+            <div class="form-group row">
+                {{ form_label(
+                    form.onTablet,
+                    null,
+                    {'label_attr': {'class': 'col-sm-2 form-control-label'}})
+                }}
+
+                <div class="col-sm-10">
+                    {{ form_widget(form.onTablet) }}
+                    {{ form_help(form.onTablet) }}
+                    {{ form_errors(form.onTablet) }}
+                </div>
+            </div>
+
+            <div class="form-group row">
+                {{ form_label(
+                    form.onDesktop,
+                    null,
+                    {'label_attr': {'class': 'col-sm-2 form-control-label'}})
+                }}
+
+                <div class="col-sm-10">
+                    {{ form_widget(form.onDesktop) }}
+                    {{ form_help(form.onDesktop) }}
+                    {{ form_errors(form.onDesktop) }}
+                </div>
+            </div>
 
             <div class="form-group row">
                 {{ form_label(

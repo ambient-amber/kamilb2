@@ -23,6 +23,8 @@ class FrontController extends AbstractController
         PaginatorInterface $paginator,
         Request $request
     ) {
+        $mobileDetector = $this->get('mobile_detect.mobile_detector.default');
+
         $lastPagination = $paginator->paginate(
             $articleRepository->findLastActive($request->getLocale()),
             $request->query->getInt('last_articles_page', 1),
@@ -41,7 +43,13 @@ class FrontController extends AbstractController
             ]
         );
 
-        $banners = $bannerRepository->findIndexItems();
+        if ($mobileDetector->isMobile()) {
+            $banners = $bannerRepository->findIndexMobileItems();
+        } else if ($mobileDetector->isTablet()) {
+            $banners = $bannerRepository->findIndexTabletItems();
+        } else {
+            $banners = $bannerRepository->findIndexDescktopItems();
+        }
 
         return $this->render('frontend/index.html.twig', [
             'last_pagination' => $lastPagination,

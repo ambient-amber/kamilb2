@@ -1,53 +1,71 @@
 {% if pagination is not empty %}
     <div class="content_items">
-        {% for article in pagination %}
-            <div class="content_item">
-                <div class="content_item_image_block">
-                    {% if article.imageHash %}
-                        <a class="content_item_image_link" href="{{ path('article_item', {'category_url': article.category.url, 'article_url': article.url}) }}">
-                            <img src="{{ resize_hash_image(article.imageHash, {'width': 500, 'height': 0, 'method': 'scale', 'ignore_existence': true}) }}">
-                        </a>
-                    {% endif %}
-
-                    {% if article.statuses|length > 0 %}
-                        <div class="content_item_statuses">
-                            <div class="content_item_statuses_inner">
-                                {% for item_status in article.statuses %}
-                                    <div class="content_item_status status_{{ item_status.text_id }}">
-                                        {{ item_status.title_id|trans }}
-                                    </div>
-                                {% endfor %}
-                            </div>
+        {% for i, article in pagination %}
+            {% if i == 3 and banners is not empty and (is_mobile_view() or is_tablet_view()) %}
+                {% for banner in banners %}
+                    <div class="content_item">
+                        <div class="content_promo_list_item">
+                            {% if banner.link %}
+                                <a href="{{ banner.link }}">
+                                    <img src="{{ resize_hash_image(banner.imageHash, {'width': 500, 'height': 0, 'method': 'scale', 'ignore_existence': true}) }}">
+                                </a>
+                            {% else %}
+                                <img src="{{ resize_hash_image(banner.imageHash, {'width': 500, 'height': 0, 'method': 'scale', 'ignore_existence': true}) }}">
+                            {% endif %}
                         </div>
-                    {% endif %}
-                </div>
-
-                {% for translation in article.articleTranslations %}
-                    <div class="content_item_title_block">
-                        <a class="content_item_title_link" href="{{ path('article_item', {'category_url': article.category.url, 'article_url': article.url}) }}">{{ translation.title }}</a>
-                    </div>
-
-                    <div class="content_item_preview_content">
-                        {{ translation.previewContentShirt }}
                     </div>
                 {% endfor %}
+            {% endif %}
 
-                <div class="content_item_time_category_block">
-                    <a class="content_item_category_link" href="{{ path('article_category', {'category_url': article.category.url}) }}">
-                        {% for category_translation in article.category.articleCategoryTranslations %}
-                            {{ category_translation.title }}
-                        {% endfor %}
-                    </a>
-
-                    <span class="content_item_time">
-                        {% if article.statuses.new is defined %}
-                            {{ article.statuses.new.minutes_ago }}
-                            {{ plural_ending(article.statuses.new.minutes_ago, 'minute_plural_forms'|trans) }}
-                            {% trans %}back_in_time_word{% endtrans %}
-                        {% else %}
-                            {{ article.dateInsert|date("Y-m-d H:i") }}
+            <div class="content_item">
+                <div class="content_item_inner">
+                    <div class="content_item_image_block">
+                        {% if article.imageHash %}
+                            <a class="content_item_image_link" href="{{ path('article_item', {'category_url': article.category.url, 'article_url': article.url}) }}">
+                                <img src="{{ resize_hash_image(article.imageHash, {'width': 500, 'height': 0, 'method': 'scale', 'ignore_existence': true}) }}">
+                            </a>
                         {% endif %}
-                    </span>
+
+                        {% if article.statuses|length > 0 %}
+                            <div class="content_item_statuses">
+                                <div class="content_item_statuses_inner">
+                                    {% for item_status in article.statuses %}
+                                        <div class="content_item_status status_{{ item_status.text_id }}">
+                                            {{ item_status.title_id|trans }}
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    {% for translation in article.articleTranslations %}
+                        <div class="content_item_title_block">
+                            <a class="content_item_title_link" href="{{ path('article_item', {'category_url': article.category.url, 'article_url': article.url}) }}">{{ translation.title }}</a>
+                        </div>
+
+                        <div class="content_item_preview_content">
+                            {{ translation.previewContentShirt }}
+                        </div>
+                    {% endfor %}
+
+                    <div class="content_item_time_category_block">
+                        <a class="content_item_category_link" href="{{ path('article_category', {'category_url': article.category.url}) }}">
+                            {% for category_translation in article.category.articleCategoryTranslations %}
+                                {{ category_translation.title }}
+                            {% endfor %}
+                        </a>
+
+                        <span class="content_item_time">
+                            {% if article.statuses.new is defined %}
+                                {{ article.statuses.new.minutes_ago }}
+                                {{ plural_ending(article.statuses.new.minutes_ago, 'minute_plural_forms'|trans) }}
+                                {% trans %}back_in_time_word{% endtrans %}
+                            {% else %}
+                                {{ article.dateInsert|date("Y-m-d H:i") }}
+                            {% endif %}
+                        </span>
+                    </div>
                 </div>
             </div>
         {% endfor %}

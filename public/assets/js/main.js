@@ -1,6 +1,42 @@
 $(document).ready(function(){
     // ------------------------------------------
 
+    // Определения функций
+
+    // Высота блоков баннеров в каждом отдельном списке (мобильная, планшетная версии)
+    function calculateContentItemsPromoHeight() {
+        $.each($('.content_items'), function(){
+            // Условия вывода шаблонов в зависимости от устройства в шаблонах.
+            // Элементов content_promo_list_item в десктопной версии нет.
+            let $contentItemsBlocks = $(this);
+            let $contentPromoListItems = $contentItemsBlocks.find('.content_promo_list_item');
+            let contentItemsHeights = [];
+            let contentItemsAverageHeight = 0;
+
+            if ($contentPromoListItems.length) {
+                $.each($contentItemsBlocks.find('.content_item_inner'), function(){
+                    contentItemsHeights.push($(this).height());
+                });
+
+                let contentItemsHeightsSum = contentItemsHeights.reduce(function(a, b){
+                    return a + b;
+                }, 0);
+
+                contentItemsAverageHeight = Math.round(contentItemsHeightsSum / contentItemsHeights.length);
+
+                $.each($contentPromoListItems, function(){
+                    $(this).css({
+                        height: contentItemsAverageHeight,
+                        overflow: 'hidden'
+                    });
+                });
+            }
+        });
+    }
+
+    // ------------------------------------------
+
+    // События при скроле
     $(window).on('scroll', function(){
         var $pageWrapper = $('.page_wrapper');
         var $header = $('.page_header');
@@ -41,6 +77,17 @@ $(document).ready(function(){
             }
         }
     });
+
+    // ------------------------------------------
+
+    // События при изменении размеров окна
+    $(window).resize(function(){
+        calculateContentItemsPromoHeight();
+    });
+
+    // ------------------------------------------
+
+    calculateContentItemsPromoHeight();
 
     // ------------------------------------------
 

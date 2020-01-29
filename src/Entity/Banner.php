@@ -12,6 +12,9 @@ use Doctrine\ORM\Mapping as ORM;
  *          @ORM\Index(name = "is_index_page_index", columns = {"on_index"}),
  *          @ORM\Index(name = "is_article_page_index", columns = {"on_article"}),
  *          @ORM\Index(name = "is_article_category_page_index", columns = {"on_article_category"}),
+ *          @ORM\Index(name = "is_mobile_index", columns = {"on_mobile"}),
+ *          @ORM\Index(name = "is_tablet_index", columns = {"on_tablet"}),
+ *          @ORM\Index(name = "is_desktop_index", columns = {"on_desktop"}),
  *     }
  * )
  */
@@ -58,6 +61,21 @@ class Banner
      * @ORM\Column(type="boolean")
      */
     private $onArticleCategory;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $onMobile;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $onTablet;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $onDesktop;
 
     public function getId(): ?int
     {
@@ -144,6 +162,42 @@ class Banner
     public function setOnArticleCategory(bool $onArticleCategory): self
     {
         $this->onArticleCategory = $onArticleCategory;
+
+        return $this;
+    }
+
+    public function getOnMobile(): ?bool
+    {
+        return $this->onMobile;
+    }
+
+    public function setOnMobile(bool $onMobile): self
+    {
+        $this->onMobile = $onMobile;
+
+        return $this;
+    }
+
+    public function getOnTablet(): ?bool
+    {
+        return $this->onTablet;
+    }
+
+    public function setOnTablet(bool $onTablet): self
+    {
+        $this->onTablet = $onTablet;
+
+        return $this;
+    }
+
+    public function getOnDesktop(): ?bool
+    {
+        return $this->onDesktop;
+    }
+
+    public function setOnDesktop(bool $onDesktop): self
+    {
+        $this->onDesktop = $onDesktop;
 
         return $this;
     }
