@@ -19,7 +19,7 @@ class BannerRepository extends ServiceEntityRepository
         parent::__construct($registry, Banner::class);
     }
 
-    public function findIndexDescktopItems()
+    public function findIndexDesktopItems()
     {
         return $this->createQueryBuilder('b')
             ->andWhere('b.pub = 1')

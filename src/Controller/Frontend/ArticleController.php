@@ -6,6 +6,7 @@ use App\Repository\ArticleCategoryRepository;
 use App\Repository\ArticleRepository;
 use App\Repository\BannerRepository;
 use Knp\Component\Pager\PaginatorInterface;
+use SunCat\MobileDetectBundle\DeviceDetector\MobileDetector;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -24,7 +25,8 @@ class ArticleController extends AbstractController
         PaginatorInterface $paginator,
         ArticleRepository $articleRepository,
         ArticleCategoryRepository $articleCategoryRepository,
-        BannerRepository $bannerRepository
+        BannerRepository $bannerRepository,
+        MobileDetector $mobileDetector
     ) {
         $category = $articleCategoryRepository->findActiveByUrl($category_url);
 
@@ -46,7 +48,13 @@ class ArticleController extends AbstractController
             ]
         );
 
-        $banners = $bannerRepository->findArticleCategoryItems();
+        if ($mobileDetector->isMobile()) {
+            $banners = $bannerRepository->findArticleCategoryMobileItems();
+        } else if ($mobileDetector->isTablet()) {
+            $banners = $bannerRepository->findArticleCategoryTabletItems();
+        } else {
+            $banners = $bannerRepository->findArticleCategoryDesktopItems();
+        }
 
         return $this->render('frontend/article/category.html.twig', [
             'last_pagination' => $lastPagination,
