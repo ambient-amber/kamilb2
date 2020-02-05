@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "aa87885cf2b6175ad37c26e63c58565b",
+    "content-hash": "1838fcd003c9953a5456b4f822364414",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -2245,61 +2245,6 @@
                 "controllers"
             ],
             "time": "2019-07-08T08:31:25+00:00"
-        },
-        {
-            "name": "suncat/mobile-detect-bundle",
-            "version": "v1.1.1",
-            "target-dir": "SunCat/MobileDetectBundle",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/suncat2000/MobileDetectBundle.git",
-                "reference": "06007fec624587fd90e8963b796fc84fff64d4d8"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/suncat2000/MobileDetectBundle/zipball/06007fec624587fd90e8963b796fc84fff64d4d8",
-                "reference": "06007fec624587fd90e8963b796fc84fff64d4d8",
-                "shasum": ""
-            },
-            "require-dev": {
-                "phpunit/phpunit": "^4.8.35|^5.4.3|^6.0",
-                "satooshi/php-coveralls": "^2.0.0",
-                "symfony/phpunit-bridge": "~2.7|~3.3|~4.0"
-            },
-            "type": "symfony-bundle",
-            "autoload": {
-                "psr-0": {
-                    "SunCat\\MobileDetectBundle": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Nikolay Ivlev",
-                    "email": "nikolay.kotovsky@gmail.com"
-                },
-                {
-                    "name": "Henri Vesala",
-                    "email": "henri.vesala@gmail.com"
-                },
-                {
-                    "name": "netmikey",
-                    "homepage": "https://github.com/netmikey"
-                }
-            ],
-            "description": "Symfony2/3/4 bundle for detect mobile devices, managing mobile view types, redirect to mobile version.",
-            "homepage": "https://github.com/suncat2000/MobileDetectBundle",
-            "keywords": [
-                "mobile",
-                "mobile detect",
-                "mobile redirect",
-                "mobile view managing",
-                "symfony mobile"
-            ],
-            "time": "2018-05-02T10:20:57+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",

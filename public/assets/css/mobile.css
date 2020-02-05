@@ -27,42 +27,15 @@
     }
     /* -------------- */
 
-    /* --- Header --- */
-    .page_header .article_list_spoiler {
-        display: flex;
-        margin: 0 45px 0 0;
-    }
-
-    .page_header .inner_page_logo {
-        margin: 0;
-    }
-
-    .page_header .article_list {
-        position: absolute;
-        top: 100%;
-        left: 0;
-        width: 100%;
-        margin: 1px 0 0;
-        box-sizing: border-box;
-        display: none;
-        padding: 32px 0;
-        flex-direction: column;
-        background: #fff;
-        text-align: center;
-    }
-    .page_header .article_list.visible {
-        display: flex;
-        z-index: 1;
-    }
-
-    .page_header .article_list_item {
-        margin: 0;
-        font-size: 14px;
-        padding: 16px 24px;
-    }
-    /* -------------- */
-
     /* --- Content --- */
+    .content_items {
+        flex-direction: column;
+    }
+
+    .content_item {
+        flex: 0;
+    }
+
     .popular_shops {
         margin: 32px auto 40px;
     }

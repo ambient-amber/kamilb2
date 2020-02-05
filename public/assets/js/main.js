@@ -34,6 +34,21 @@ $(document).ready(function(){
         });
     }
 
+    // Скрытие меню, если оно больше не помещается в ширину экрана
+    function calculatePageHeaderCondition() {
+        var $pageHeader = $('.page_header');
+        var pageHeaderWidth = $pageHeader.width();
+        var pageHeaderInnerWidth = 0;
+
+        $.each($pageHeader.find('.js_header_count_width_el'), function(){
+            pageHeaderInnerWidth += $(this).outerWidth();
+        });
+
+        if (pageHeaderInnerWidth > pageHeaderWidth) {
+            $pageHeader.addClass('mobile_version');
+        }
+    }
+
     // ------------------------------------------
 
     // События при скроле
@@ -83,16 +98,18 @@ $(document).ready(function(){
     // События при изменении размеров окна
     $(window).resize(function(){
         calculateContentItemsPromoHeight();
+        calculatePageHeaderCondition();
     });
 
     // ------------------------------------------
 
     calculateContentItemsPromoHeight();
+    calculatePageHeaderCondition();
 
     // ------------------------------------------
 
-    $('.article_list_spoiler').click(function(){
-         $('.article_list').toggleClass('visible');
+    $('.js_mobile_menu_spoiler_button').click(function(){
+         $('.header_article_category_list').toggleClass('visible');
 
          return false;
     });

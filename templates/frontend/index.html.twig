@@ -22,7 +22,7 @@
                             {% include '@frontend/article/_article_list.html.twig' with {'pagination': popular_pagination} %}
                         </div>
 
-                        {% if is_full_view() and banners is not empty %}
+                        {% if banners is not empty %}
                             <div class="content_promo_vertical">
                                 <div class="content_promo_vertical_inner">
                                     {% for banner in banners %}

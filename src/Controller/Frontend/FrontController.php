@@ -11,7 +11,6 @@ use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
-use SunCat\MobileDetectBundle\DeviceDetector\MobileDetector;
 
 class FrontController extends AbstractController
 {
@@ -22,8 +21,7 @@ class FrontController extends AbstractController
         ArticleRepository $articleRepository,
         BannerRepository $bannerRepository,
         PaginatorInterface $paginator,
-        Request $request,
-        MobileDetector $mobileDetector
+        Request $request
     ) {
         $lastPagination = $paginator->paginate(
             $articleRepository->findLastActive($request->getLocale()),
@@ -43,13 +41,15 @@ class FrontController extends AbstractController
             ]
         );
 
-        if ($mobileDetector->isMobile()) {
+        /*if ($mobileDetector->isMobile()) {
             $banners = $bannerRepository->findIndexMobileItems();
         } else if ($mobileDetector->isTablet()) {
             $banners = $bannerRepository->findIndexTabletItems();
         } else {
             $banners = $bannerRepository->findIndexDesktopItems();
-        }
+        }*/
+
+        $banners = $bannerRepository->findIndexDesktopItems();
 
         return $this->render('frontend/index.html.twig', [
             'last_pagination' => $lastPagination,

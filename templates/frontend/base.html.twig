@@ -17,19 +17,25 @@
 <div class="page_wrapper">
     {% block header %}
         <div class="page_header">
-            <a href="/" class="header_logo_link">
+            <a href="/" class="header_logo_link js_header_count_width_el">
                 <img src="/assets/img/header_logo.png">
             </a>
 
-            <a href="#" class="article_list_spoiler"></a>
+            <div class="header_article_category_list js_header_count_width_el">
+                {{ render(controller('App\\Controller\\Frontend\\FrontController::headerArticleCategories', { url: app.request.requestUri, locale: app.request.locale })) }}
+            </div>
 
-            {{ render(controller('App\\Controller\\Frontend\\FrontController::headerArticleCategories', { url: app.request.requestUri, locale: app.request.locale })) }}
-
-            <a href="#" class="header_subscribe">
+            <a href="#" class="header_subscribe js_header_count_width_el">
                 <img src="/assets/img/subscribe_bell.svg">
             </a>
 
-            {{ render(controller('App\\Controller\\Frontend\\FrontController::headerLanguages', { url: app.request.requestUri, locale: app.request.locale })) }}
+            <div class="header_language_list js_header_count_width_el">
+                {{ render(controller('App\\Controller\\Frontend\\FrontController::headerLanguages', { url: app.request.requestUri, locale: app.request.locale })) }}
+            </div>
+
+            <a href="#" class="article_list_spoiler js_mobile_menu_spoiler_button">
+                <img src="/assets/img/menu_spoiler.png">
+            </a>
         </div>
     {% endblock %}
 
@@ -41,11 +47,11 @@
                 {{ render(controller('App\\Controller\\Frontend\\FrontController::footerPages', { locale: app.request.locale })) }}
 
                 <div class="footer_social">
-                    <a href="#" class="footer_social_item fb">
+                    {#<a href="#" class="footer_social_item fb">
                         <span class="text">Facebook</span>
-                    </a>
+                    </a>#}
                     <a href="#" class="footer_social_item tg_bot">
-                        <span class="text">{% trans %}telegram_bot{% endtrans %}</span>
+                        <span class="text">{% trans %}our_telegram{% endtrans %}</span>
                     </a>
                 </div>
             </div>

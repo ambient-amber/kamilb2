@@ -62,8 +62,7 @@ h2:after {
     display: flex;
     width: 100%;
     min-height: 48px;
-    top: 0;
-    left: 0;
+    padding: 0 30px;
     box-sizing: border-box;
     position: relative;
     background: #fff;
@@ -71,22 +70,20 @@ h2:after {
 }
 .page_header.fixed {
     position: fixed;
+    top: 0;
+    left: 0;
     z-index: 2;
 }
 
 .header_logo_link {
     display: flex;
     align-items: center;
-    padding: 0 30px 0 80px;
+    padding: 0 30px 0 0;
     border-right: 1px solid #EBEBF0;
 }
 
 .page_header .article_list_spoiler {
     display: none;
-    width: 16px;
-    height: 16px;
-    padding: 0;
-    background: url('/assets/img/menu_spoiler.png');
 }
 
 .header_article_category_list {
@@ -106,6 +103,9 @@ h2:after {
 }
 .header_article_category_list_item:first-child {
     margin: 0;
+}
+.header_article_category_list_item.selected {
+    color: #8200FA;
 }
 .header_article_category_list_item.selected:after,
 .header_article_category_list_item:hover:after {
@@ -129,7 +129,7 @@ h2:after {
 .header_language_list {
     display: flex;
     align-items: center;
-    padding: 0 80px 0 30px;
+    padding: 0 0 0 30px;
     border-left: 1px solid #EBEBF0;
 }
 
@@ -142,10 +142,51 @@ h2:after {
     color: #646473;
 }
 
+.mobile_version .header_article_category_list,
+.mobile_version .header_subscribe {
+    display: none;
+}
+
+.mobile_version .header_article_category_list.visible {
+    display: flex;
+    position: absolute;
+    z-index: 1;
+    min-height: 100vh;
+    width: 100%;
+    box-sizing: border-box;
+    top: 100%;
+    left: 0;
+    margin: 1px 0 0;
+    flex-direction: column;
+    align-items: center;
+    padding: 24px;
+    background: #fff;
+
+}
+
+.mobile_version .header_article_category_list_item {
+    margin: 0;
+    padding: 16px 0;
+    font-size: 14px;
+}
+
+.mobile_version .header_language_list {
+    flex: 1;
+    justify-content: flex-end;
+}
+
+.mobile_version .article_list_spoiler {
+    display: flex;
+    align-items: center;
+    padding: 0 0 0 30px;
+    border-left: 1px solid #EBEBF0;
+}
+
 /* --- Content --- */
 .page_content_block {
     max-width: 928px;
     margin: 30px auto 0;
+    padding: 0 25px;
 }
 
 .page_content_block img {
