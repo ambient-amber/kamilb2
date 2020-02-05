@@ -17,6 +17,7 @@ services:
         bind:
             $uploadsFolder: 'uploads'
             $uploadsHashFolder: 'hash'
+            $projectDir: '%kernel.project_dir%'
             $uploadsPath: '%kernel.project_dir%/public/uploads/'
             $uploadsHashPath: '%kernel.project_dir%/public/uploads/hash/'
             $locales: '%app_locales%'

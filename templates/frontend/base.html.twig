@@ -26,7 +26,7 @@
             </div>
 
             <a href="#" class="header_subscribe js_header_count_width_el">
-                <img src="/assets/img/subscribe_bell.svg">
+                {{ svg_content('subscribe_bell.svg')|raw }}
             </a>
 
             <div class="header_language_list js_header_count_width_el">
@@ -47,10 +47,8 @@
                 {{ render(controller('App\\Controller\\Frontend\\FrontController::footerPages', { locale: app.request.locale })) }}
 
                 <div class="footer_social">
-                    {#<a href="#" class="footer_social_item fb">
-                        <span class="text">Facebook</span>
-                    </a>#}
-                    <a href="#" class="footer_social_item tg_bot">
+                    <a href="#" class="footer_social_item">
+                        {{ svg_content('telegram_icon.svg')|raw }}
                         <span class="text">{% trans %}our_telegram{% endtrans %}</span>
                     </a>
                 </div>

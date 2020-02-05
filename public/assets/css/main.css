@@ -125,6 +125,9 @@ h2:after {
     align-items: center;
     padding: 0 30px 0 0;
 }
+.header_subscribe:hover svg * {
+    fill: #8200FA;
+}
 
 .header_language_list {
     display: flex;
@@ -532,7 +535,7 @@ h2:after {
 
 .footer_social_item {
     margin: 0 0 0 16px;
-    padding: 10px 24px 10px 40px;
+    padding: 10px 17px;
     text-align: right;
     position: relative;
     background: #F0F0F5;
@@ -542,20 +545,14 @@ h2:after {
 .footer_social_item:first-child {
     margin: 0;
 }
-.footer_social_item:before {
-    content: '';
-    position: absolute;
-    left: 19px;
-    top: 50%;
-    width: 12px;
-    height: 12px;
-    margin: -6px 0 0;
+.footer_social_item:hover {
+    color: #8200FA;
+}
+.footer_social_item:hover svg * {
+    fill: #8200FA;
 }
 
-.footer_social_item.fb:before {
-    background: url('/assets/img/fb_icon_small.png') 0 0 no-repeat;
-}
-.footer_social_item.tg_bot:before {
-    background: url('/assets/img/telegram.png') 0 0 no-repeat;
+.footer_social_item svg {
+    margin: 0 10px 0 0;
 }
 /* -------------- */

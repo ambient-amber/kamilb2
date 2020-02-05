@@ -12,10 +12,12 @@ use Twig\TwigFunction;
 class AppExtension extends AbstractExtension implements ServiceSubscriberInterface
 {
     private $container;
+    private $projectDir;
 
-    public function __construct(ContainerInterface $container)
+    public function __construct(ContainerInterface $container, string $projectDir)
     {
         $this->container = $container;
+        $this->projectDir = $projectDir;
     }
 
     public function getFunctions(): array
@@ -26,6 +28,7 @@ class AppExtension extends AbstractExtension implements ServiceSubscriberInterfa
             new TwigFunction('resize_image', [$this, 'getResizedImage']),
             new TwigFunction('resize_hash_image', [$this, 'getResizedHashImage']),
             new TwigFunction('plural_ending', [$this, 'getPluralEnding']),
+            new TwigFunction('svg_content', [$this, 'getSvgContent']),
         ];
     }
 
@@ -73,21 +76,6 @@ class AppExtension extends AbstractExtension implements ServiceSubscriberInterfa
     }
 
     /**
-     * Изменение размеров изображения
-     *
-     * @param string $path Путь до файла в папке uploads
-     * @param array $settings Опции изменения размеров изображения
-     *
-     * @return string Путь до нового изображения с новыми размерами
-     */
-    public function getResizedImage(string $path, $settings): string
-    {
-        return $this->container
-            ->get(ImageResizeHelper::class)
-            ->resizeImage($path, $settings);
-    }
-
-    /**
      * Получение окончания слова в зависимости от количества
      *
      * @param int $count Количество
@@ -115,6 +103,11 @@ class AppExtension extends AbstractExtension implements ServiceSubscriberInterfa
         }
 
         return $resultForm;
+    }
+
+    public function getSvgContent($fileName, $dir = '/public/assets/img/')
+    {
+        return file_get_contents($this->projectDir . $dir . $fileName);
     }
 
     public static function getSubscribedServices()
