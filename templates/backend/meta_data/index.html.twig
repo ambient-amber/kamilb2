@@ -13,6 +13,7 @@
                             <tr>
                                 <th>Id</th>
                                 <th>Url</th>
+                                <th>Language</th>
                                 <th>Is regexp</th>
                                 <th>Title</th>
                                 <th>Description</th>
@@ -25,6 +26,7 @@
                                 <tr>
                                     <td>{{ meta_data.id }}</td>
                                     <td>{{ meta_data.url }}</td>
+                                    <td>{{ meta_data.language.textId }}</td>
                                     <td>{{ meta_data.isRegExp ? 'yes' : 'no' }}</td>
                                     <td>{{ meta_data.title }}</td>
                                     <td>{{ meta_data.description }}</td>
@@ -43,7 +45,7 @@
                                 </tr>
                             {% else %}
                                 <tr>
-                                    <td colspan="7">no records found</td>
+                                    <td colspan="8">no records found</td>
                                 </tr>
                             {% endfor %}
                         </tbody>

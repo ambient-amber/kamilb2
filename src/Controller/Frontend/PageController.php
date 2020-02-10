@@ -2,8 +2,8 @@
 
 namespace App\Controller\Frontend;
 
-use App\Entity\Page;
 use App\Repository\PageRepository;
+use App\Service\MetaDataHelper;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,12 +17,25 @@ class PageController extends AbstractController
     /**
      * @Route("/{url}/", name="page_item", methods={"GET"})
      */
-    public function item($url, PageRepository $pageRepository, Request $request): Response
-    {
+    public function item(
+        $url,
+        PageRepository $pageRepository,
+        Request $request,
+        MetaDataHelper $metaDataHelper
+    ) {
         $item = $pageRepository->findActiveByUrl($request->getLocale(), $url);
 
+        $metaData = $metaDataHelper->getMetaData(
+            $request,
+            [
+                'title' => $item->getPageTranslations()[0]->getTitle(),
+                'description' => $item->getPageTranslations()[0]->getTitle(),
+            ]
+        );
+
         return $this->render('frontend/page/item.html.twig', [
-            'page' => $item
+            'page' => $item,
+            'meta_data' => $metaData,
         ]);
     }
 }

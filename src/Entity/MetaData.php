@@ -10,10 +10,12 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @ORM\Table(
  *     indexes = {
  *         @ORM\Index(name = "pub_index", columns = {"pub"}),
+ *         @ORM\Index(name = "sort_index", columns = {"sort"}),
+ *         @ORM\Index(name = "url_language_uniq", columns = {"url", "language_id"}),
  *     }
  * )
  * @UniqueEntity(
- *     fields={"url"},
+ *     fields={"url", "language"},
  *     message="Meta data for this url allready exists"
  * )
  */
@@ -55,6 +57,28 @@ class MetaData
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $keyWords;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Language", inversedBy="metaData")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $language;
+
+    /**
+     * @ORM\Column(type="integer", options={"default": 0})
+     */
+    private $sort;
+
+    /**
+     * @ORM\Column(type="boolean", options={"default": 0})
+     */
+    private $isTemplate;
+
+    public function __construct()
+    {
+        $this->sort = 0;
+        $this->isTemplate = 0;
+    }
 
     public function getId(): ?int
     {
@@ -129,6 +153,42 @@ class MetaData
     public function setKeyWords(?string $keyWords): self
     {
         $this->keyWords = $keyWords;
+
+        return $this;
+    }
+
+    public function getLanguage(): ?Language
+    {
+        return $this->language;
+    }
+
+    public function setLanguage(?Language $language): self
+    {
+        $this->language = $language;
+
+        return $this;
+    }
+
+    public function getSort(): ?int
+    {
+        return $this->sort;
+    }
+
+    public function setSort(int $sort): self
+    {
+        $this->sort = $sort;
+
+        return $this;
+    }
+
+    public function getIsTemplate(): ?bool
+    {
+        return $this->isTemplate;
+    }
+
+    public function setIsTemplate(bool $isTemplate): self
+    {
+        $this->isTemplate = $isTemplate;
 
         return $this;
     }

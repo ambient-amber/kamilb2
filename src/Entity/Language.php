@@ -43,11 +43,17 @@ class Language
      */
     private $articleCategoryTranslations;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\MetaData", mappedBy="language", orphanRemoval=true)
+     */
+    private $metaData;
+
     public function __construct()
     {
         $this->articleTranslations = new ArrayCollection();
         $this->pageTranslations = new ArrayCollection();
         $this->articleCategoryTranslations = new ArrayCollection();
+        $this->metaData = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -166,6 +172,37 @@ class Language
             // set the owning side to null (unless already changed)
             if ($articleCategoryTranslation->getLanguage() === $this) {
                 $articleCategoryTranslation->setLanguage(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|MetaData[]
+     */
+    public function getMetaData(): Collection
+    {
+        return $this->metaData;
+    }
+
+    public function addMetaData(MetaData $metaData): self
+    {
+        if (!$this->metaData->contains($metaData)) {
+            $this->metaData[] = $metaData;
+            $metaData->setLanguage($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMetaData(MetaData $metaData): self
+    {
+        if ($this->metaData->contains($metaData)) {
+            $this->metaData->removeElement($metaData);
+            // set the owning side to null (unless already changed)
+            if ($metaData->getLanguage() === $this) {
+                $metaData->setLanguage(null);
             }
         }
 

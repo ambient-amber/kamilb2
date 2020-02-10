@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\MetaData;
+use Doctrine\ORM\Query\ResultSetMapping;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
@@ -19,32 +20,38 @@ class MetaDataRepository extends ServiceEntityRepository
         parent::__construct($registry, MetaData::class);
     }
 
-    // /**
-    //  * @return MetaData[] Returns an array of MetaData objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function findActiveByUrl($uri, $languageTextId)
     {
-        return $this->createQueryBuilder('m')
-            ->andWhere('m.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('m.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
+        $conn = $this->getEntityManager()->getConnection();
 
-    /*
-    public function findOneBySomeField($value): ?MetaData
-    {
-        return $this->createQueryBuilder('m')
-            ->andWhere('m.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        $stmt = $conn->prepare('
+            SELECT
+                meta.title,
+                meta.description,
+                meta.key_words,
+                meta.is_template,
+                if(
+                    meta.is_regexp,
+                    :url REGEXP meta.url,
+                    :url = meta.url
+                ) as check_url
+            FROM
+                meta_data meta
+                JOIN language on language.id = meta.language_id
+            WHERE
+                meta.pub = 1
+                AND language.text_id = :language_text_id
+            HAVING
+                check_url
+            ORDER BY sort DESC
+            LIMIT 1
+        ');
+
+        $stmt->execute([
+            'url' => $uri,
+            'language_text_id' => $languageTextId,
+        ]);
+
+        return $stmt->fetch();
     }
-    */
 }

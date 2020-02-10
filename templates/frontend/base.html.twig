@@ -2,7 +2,20 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>{% block title %}Welcome!{% endblock %}</title>
+
+    {% if meta_data is defined and meta_data is not empty %}
+        {% block meta_title %}
+            <title>{{ meta_data.title }}</title>
+        {% endblock %}
+
+        {% block meta_description %}
+            <meta name="description" content="{{ meta_data.description }}">
+        {% endblock %}
+
+        {% block meta_keywords %}
+            <meta name="keywords" content="{{ meta_data.key_words }}">
+        {% endblock %}
+    {% endif %}
 
     {% block stylesheets %}
         <link rel="stylesheet" href="{{ asset('assets/css/normalize.css') }}" />

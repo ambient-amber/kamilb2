@@ -9,6 +9,7 @@ use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Service\MetaDataHelper;
 
 /**
  * @Route("/article")
@@ -24,9 +25,10 @@ class ArticleController extends AbstractController
         PaginatorInterface $paginator,
         ArticleRepository $articleRepository,
         ArticleCategoryRepository $articleCategoryRepository,
-        BannerRepository $bannerRepository
+        BannerRepository $bannerRepository,
+        MetaDataHelper $metaDataHelper
     ) {
-        $category = $articleCategoryRepository->findActiveByUrl($category_url);
+        $category = $articleCategoryRepository->findActiveByUrl($category_url, $request->getLocale());
 
         $lastPagination = $paginator->paginate(
             $articleRepository->findLastActiveByCategory($category, $request->getLocale()),
@@ -46,6 +48,13 @@ class ArticleController extends AbstractController
             ]
         );
 
+        $metaData = $metaDataHelper->getMetaData(
+            $request,
+            [
+                'title' => $category->getArticleCategoryTranslations()[0]->getTitle()
+            ]
+        );
+
         /*if ($mobileDetector->isMobile()) {
             $banners = $bannerRepository->findArticleCategoryMobileItems();
         } else if ($mobileDetector->isTablet()) {
@@ -60,7 +69,8 @@ class ArticleController extends AbstractController
             'last_pagination' => $lastPagination,
             'popular_pagination' => $popularPagination,
             'category' => $category,
-            'banners' => $banners
+            'banners' => $banners,
+            'meta_data' => $metaData
         ]);
     }
 
@@ -72,16 +82,26 @@ class ArticleController extends AbstractController
         $article_url,
         Request $request,
         ArticleRepository $articleRepository,
-        ArticleCategoryRepository $articleCategoryRepository
+        ArticleCategoryRepository $articleCategoryRepository,
+        MetaDataHelper $metaDataHelper
     ) {
-        $category = $articleCategoryRepository->findActiveByUrl($category_url);
+        $category = $articleCategoryRepository->findActiveByUrl($category_url, $request->getLocale());
 
         $article = $articleRepository->findActiveByUrl($request->getLocale(), $article_url);
 
         $articleRepository->increaseViewsCount($article);
 
+        $metaData = $metaDataHelper->getMetaData(
+            $request,
+            [
+                'title' => $article->getArticleTranslations()[0]->getTitle(),
+                'description' => $article->getArticleTranslations()[0]->getPreviewContent(),
+            ]
+        );
+
         return $this->render('frontend/article/item.html.twig', [
-            'article' => $article
+            'article' => $article,
+            'meta_data' => $metaData
         ]);
     }
 }

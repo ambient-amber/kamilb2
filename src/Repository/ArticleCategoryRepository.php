@@ -34,12 +34,16 @@ class ArticleCategoryRepository extends ServiceEntityRepository
             ;
     }
 
-    public function findActiveByUrl($url)
+    public function findActiveByUrl($url, $locale)
     {
         return $this->createQueryBuilder('a_category')
+            ->select('a_category, trans')
+            ->join('a_category.articleCategoryTranslations', 'trans')
+            ->join('trans.language', 'language', Expr\Join::WITH, 'language.textId = :language_text_id')
             ->andWhere('a_category.url = :url')
             ->andWhere('a_category.pub = 1')
             ->setParameter('url', $url)
+            ->setParameter('language_text_id', $locale)
             ->orderBy('a_category.id', 'ASC')
             ->getQuery()
             ->getOneOrNullResult()
