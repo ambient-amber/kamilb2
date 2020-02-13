@@ -1,7 +1,7 @@
 {% if pagination is not empty %}
     <div class="content_items">
         {% for i, article in pagination %}
-            {% if i == 3 and banners is not empty %}
+            {% if i == 3 and banners is not empty and device is defined and device != 'desktop' %}
                 {% for banner in banners %}
                     <div class="content_item">
                         <div class="content_promo_list_item">

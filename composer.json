@@ -11,6 +11,7 @@
         "ext-json": "*",
         "knplabs/knp-menu-bundle": "^2.0",
         "knplabs/knp-paginator-bundle": "^4.0",
+        "mobiledetect/mobiledetectlib": "^2.8",
         "sensio/framework-extra-bundle": "^5.4",
         "symfony/apache-pack": "^1.0",
         "symfony/asset": "4.3.*",

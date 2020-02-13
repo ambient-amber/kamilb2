@@ -5,6 +5,7 @@ namespace App\Controller\Frontend;
 use App\Repository\ArticleCategoryRepository;
 use App\Repository\ArticleRepository;
 use App\Repository\BannerRepository;
+use App\Service\DeviceDetectHelper;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -26,7 +27,8 @@ class ArticleController extends AbstractController
         ArticleRepository $articleRepository,
         ArticleCategoryRepository $articleCategoryRepository,
         BannerRepository $bannerRepository,
-        MetaDataHelper $metaDataHelper
+        MetaDataHelper $metaDataHelper,
+        DeviceDetectHelper $deviceDetectHelper
     ) {
         $category = $articleCategoryRepository->findActiveByUrl($category_url, $request->getLocale());
 
@@ -55,22 +57,17 @@ class ArticleController extends AbstractController
             ]
         );
 
-        /*if ($mobileDetector->isMobile()) {
-            $banners = $bannerRepository->findArticleCategoryMobileItems();
-        } else if ($mobileDetector->isTablet()) {
-            $banners = $bannerRepository->findArticleCategoryTabletItems();
-        } else {
-            $banners = $bannerRepository->findArticleCategoryDesktopItems();
-        }*/
+        $device = $deviceDetectHelper->getDevice();
 
-        $banners = $bannerRepository->findArticleCategoryDesktopItems();
+        $banners = $bannerRepository->findFrontendBanners($device, 'article_category');
 
         return $this->render('frontend/article/category.html.twig', [
             'last_pagination' => $lastPagination,
             'popular_pagination' => $popularPagination,
             'category' => $category,
             'banners' => $banners,
-            'meta_data' => $metaData
+            'meta_data' => $metaData,
+            'device' => $device
         ]);
     }
 
@@ -83,7 +80,9 @@ class ArticleController extends AbstractController
         Request $request,
         ArticleRepository $articleRepository,
         ArticleCategoryRepository $articleCategoryRepository,
-        MetaDataHelper $metaDataHelper
+        BannerRepository $bannerRepository,
+        MetaDataHelper $metaDataHelper,
+        DeviceDetectHelper $deviceDetectHelper
     ) {
         $category = $articleCategoryRepository->findActiveByUrl($category_url, $request->getLocale());
 
@@ -99,9 +98,15 @@ class ArticleController extends AbstractController
             ]
         );
 
+        $device = $deviceDetectHelper->getDevice();
+
+        $banners = $bannerRepository->findFrontendBanners($device, 'article_category');
+
         return $this->render('frontend/article/item.html.twig', [
             'article' => $article,
-            'meta_data' => $metaData
+            'meta_data' => $metaData,
+            'banners' => $banners,
+            'device' => $device
         ]);
     }
 }

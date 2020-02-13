@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Banner;
+use Doctrine\ORM\QueryBuilder;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
@@ -19,93 +20,56 @@ class BannerRepository extends ServiceEntityRepository
         parent::__construct($registry, Banner::class);
     }
 
-    public function findIndexDesktopItems()
+    public function findFrontendBanners(string $device, string $pageType)
     {
-        return $this->createQueryBuilder('b')
+        $qb = $this->createQueryBuilder('b')
             ->andWhere('b.pub = 1')
-            ->andWhere('b.onIndex = 1')
-            ->andWhere('b.onDesktop = 1')
             ->orderBy('b.id', 'ASC')
-            ->setMaxResults(3)
-            ->getQuery()
-            ->getResult()
-        ;
+            ->setMaxResults(3);
+
+        $this->addDeviceFilter($qb, $device);
+        $this->addPageTypeFilter($qb, $pageType);
+
+        $query = $qb->getQuery();
+
+        return $query->execute();
     }
 
-    public function findIndexMobileItems()
+    private function addDeviceFilter(QueryBuilder $qb, $device)
     {
-        return $this->createQueryBuilder('b')
-            ->andWhere('b.pub = 1')
-            ->andWhere('b.onIndex = 1')
-            ->andWhere('b.onMobile = 1')
-            ->orderBy('b.id', 'ASC')
-            ->setMaxResults(3)
-            ->getQuery()
-            ->getResult()
-        ;
+        $clause = false;
+
+        switch ($device) {
+            case 'desktop':
+                $clause = 'b.onDesktop = 1';
+                break;
+            case 'tablet':
+                $clause = 'b.onTablet = 1';
+                break;
+            case 'mobile':
+                $clause = 'b.onMobile = 1';
+                break;
+        }
+
+        return $qb->andWhere($clause);
     }
 
-    public function findIndexTabletItems()
+    private function addPageTypeFilter(QueryBuilder $qb, $pageType)
     {
-        return $this->createQueryBuilder('b')
-            ->andWhere('b.pub = 1')
-            ->andWhere('b.onIndex = 1')
-            ->andWhere('b.onTablet = 1')
-            ->orderBy('b.id', 'ASC')
-            ->setMaxResults(3)
-            ->getQuery()
-            ->getResult()
-            ;
-    }
+        $clause = false;
 
-    public function findArticleCategoryDesktopItems()
-    {
-        return $this->createQueryBuilder('b')
-            ->andWhere('b.pub = 1')
-            ->andWhere('b.onArticleCategory = 1')
-            ->andWhere('b.onDesktop = 1')
-            ->orderBy('b.id', 'ASC')
-            ->setMaxResults(3)
-            ->getQuery()
-            ->getResult()
-            ;
-    }
+        switch ($pageType) {
+            case 'index':
+                $clause = 'b.onIndex = 1';
+                break;
+            case 'article_category':
+                $clause = 'b.onArticleCategory = 1';
+                break;
+            case 'article':
+                $clause = 'b.onArticle = 1';
+                break;
+        }
 
-    public function findArticleCategoryMobileItems()
-    {
-        return $this->createQueryBuilder('b')
-            ->andWhere('b.pub = 1')
-            ->andWhere('b.onArticleCategory = 1')
-            ->andWhere('b.onMobile = 1')
-            ->orderBy('b.id', 'ASC')
-            ->setMaxResults(3)
-            ->getQuery()
-            ->getResult()
-            ;
-    }
-
-    public function findArticleCategoryTabletItems()
-    {
-        return $this->createQueryBuilder('b')
-            ->andWhere('b.pub = 1')
-            ->andWhere('b.onArticleCategory = 1')
-            ->andWhere('b.onTablet = 1')
-            ->orderBy('b.id', 'ASC')
-            ->setMaxResults(3)
-            ->getQuery()
-            ->getResult()
-            ;
-    }
-
-    public function findArticleItems()
-    {
-        return $this->createQueryBuilder('b')
-            ->andWhere('b.pub = 1')
-            ->andWhere('b.onArticle = 1')
-            ->orderBy('b.id', 'ASC')
-            ->setMaxResults(3)
-            ->getQuery()
-            ->getResult()
-            ;
+        return $qb->andWhere($clause);
     }
 }

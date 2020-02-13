@@ -8,6 +8,7 @@ use App\Entity\Page;
 use App\Repository\ArticleRepository;
 use App\Repository\BannerRepository;
 use App\Service\MetaDataHelper;
+use App\Service\DeviceDetectHelper;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -23,7 +24,8 @@ class FrontController extends AbstractController
         BannerRepository $bannerRepository,
         PaginatorInterface $paginator,
         Request $request,
-        MetaDataHelper $metaDataHelper
+        MetaDataHelper $metaDataHelper,
+        DeviceDetectHelper $deviceDetectHelper
     ) {
         $lastPagination = $paginator->paginate(
             $articleRepository->findLastActive($request->getLocale()),
@@ -45,21 +47,16 @@ class FrontController extends AbstractController
 
         $metaData = $metaDataHelper->getMetaData($request);
 
-        /*if ($mobileDetector->isMobile()) {
-            $banners = $bannerRepository->findIndexMobileItems();
-        } else if ($mobileDetector->isTablet()) {
-            $banners = $bannerRepository->findIndexTabletItems();
-        } else {
-            $banners = $bannerRepository->findIndexDesktopItems();
-        }*/
+        $device = $deviceDetectHelper->getDevice();
 
-        $banners = $bannerRepository->findIndexDesktopItems();
+        $banners = $bannerRepository->findFrontendBanners($device, 'index');
 
         return $this->render('frontend/index.html.twig', [
             'last_pagination' => $lastPagination,
             'popular_pagination' => $popularPagination,
             'banners' => $banners,
             'meta_data' => $metaData,
+            'device' => $device,
         ]);
     }
 
