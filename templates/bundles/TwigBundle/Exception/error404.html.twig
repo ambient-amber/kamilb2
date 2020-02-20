@@ -1,0 +1,17 @@
+{% extends "frontend/base.html.twig" %}
+
+{% block body %}
+    <main>
+        <div class="page_content_block">
+            <div class="page_content_block_inner">
+                <div class="page_404">
+                    <h1>404</h1>
+
+                    <p>
+                        Запрошенная страница не найдена. Проверьте опечатки в URL или <a href="{{ path('app_homepage') }}">вернитесь на домашнюю сраницу</a>.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}

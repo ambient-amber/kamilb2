@@ -25,6 +25,10 @@ class PageController extends AbstractController
     ) {
         $item = $pageRepository->findActiveByUrl($request->getLocale(), $url);
 
+        if (!$item) {
+            throw $this->createNotFoundException('page not found');
+        }
+
         $metaData = $metaDataHelper->getMetaData(
             $request,
             [

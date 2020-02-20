@@ -32,6 +32,10 @@ class ArticleController extends AbstractController
     ) {
         $category = $articleCategoryRepository->findActiveByUrl($category_url, $request->getLocale());
 
+        if (!$category) {
+            throw $this->createNotFoundException('category not found');
+        }
+
         $lastPagination = $paginator->paginate(
             $articleRepository->findLastActiveByCategory($category, $request->getLocale()),
             $request->query->getInt('last_items_page', 1),
@@ -86,7 +90,15 @@ class ArticleController extends AbstractController
     ) {
         $category = $articleCategoryRepository->findActiveByUrl($category_url, $request->getLocale());
 
+        if (!$category) {
+            throw $this->createNotFoundException('category not found');
+        }
+
         $article = $articleRepository->findActiveByUrl($request->getLocale(), $article_url);
+
+        if (!$article) {
+            throw $this->createNotFoundException('article not found');
+        }
 
         $articleRepository->increaseViewsCount($article);
 
