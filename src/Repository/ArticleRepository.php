@@ -5,8 +5,7 @@ namespace App\Repository;
 use App\Entity\Article;
 use App\Entity\ArticleCategory;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use mysql_xdevapi\Exception;
-use Symfony\Bridge\Doctrine\RegistryInterface;
+use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\ORM\Query\Expr;
 
 /**
@@ -17,7 +16,7 @@ use Doctrine\ORM\Query\Expr;
  */
 class ArticleRepository extends ServiceEntityRepository
 {
-    public function __construct(RegistryInterface $registry)
+    public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Article::class);
     }
@@ -86,21 +85,17 @@ class ArticleRepository extends ServiceEntityRepository
 
     public function findActiveByUrl($languageTextId, $url)
     {
-        try {
-            return $this->createQueryBuilder('article')
-                ->select('article, trans')
-                ->join('article.articleTranslations', 'trans')
-                ->join('trans.language', 'language', Expr\Join::WITH, 'language.textId = :language_text_id')
-                ->andWhere('article.pub = 1')
-                ->andWhere('article.url = :url')
-                ->setParameter('language_text_id', $languageTextId)
-                ->setParameter('url', $url)
-                ->getQuery()
-                ->getOneOrNullResult()
-                ;
-        } catch(Exception $e) {
-
-        }
+        return $this->createQueryBuilder('article')
+            ->select('article, trans')
+            ->join('article.articleTranslations', 'trans')
+            ->join('trans.language', 'language', Expr\Join::WITH, 'language.textId = :language_text_id')
+            ->andWhere('article.pub = 1')
+            ->andWhere('article.url = :url')
+            ->setParameter('language_text_id', $languageTextId)
+            ->setParameter('url', $url)
+            ->getQuery()
+            ->getOneOrNullResult()
+            ;
     }
 
     public function findBySource($source)

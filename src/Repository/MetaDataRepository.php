@@ -3,9 +3,8 @@
 namespace App\Repository;
 
 use App\Entity\MetaData;
-use Doctrine\ORM\Query\ResultSetMapping;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Symfony\Bridge\Doctrine\RegistryInterface;
+use Doctrine\Common\Persistence\ManagerRegistry;
 
 /**
  * @method MetaData|null find($id, $lockMode = null, $lockVersion = null)
@@ -15,7 +14,7 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
  */
 class MetaDataRepository extends ServiceEntityRepository
 {
-    public function __construct(RegistryInterface $registry)
+    public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, MetaData::class);
     }
