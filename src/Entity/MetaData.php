@@ -29,7 +29,7 @@ class MetaData
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255, unique=true)
+     * @ORM\Column(type="string", length=191, unique=true)
      */
     private $url;
 
@@ -44,7 +44,7 @@ class MetaData
     private $isRegexp;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=191, nullable=true)
      */
     private $title;
 
@@ -54,7 +54,7 @@ class MetaData
     private $description;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=191, nullable=true)
      */
     private $keyWords;
 
