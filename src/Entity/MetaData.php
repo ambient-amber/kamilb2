@@ -29,7 +29,7 @@ class MetaData
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=191, unique=true)
+     * @ORM\Column(type="string", length=191)
      */
     private $url;
 

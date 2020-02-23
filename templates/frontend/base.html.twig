@@ -33,7 +33,7 @@
     {% block header %}
         <div class="page_header">
             <a href="/" class="header_logo_link js_header_count_width_el">
-                <img src="/assets/img/header_logo.png">
+                <img src="{{ asset('/public/assets/img/header_logo.png') }}">
             </a>
 
             <div class="header_article_category_list js_header_count_width_el">
@@ -49,7 +49,7 @@
             </div>
 
             <a href="#" class="article_list_spoiler js_mobile_menu_spoiler_button">
-                <img src="/assets/img/menu_spoiler.png">
+                <img src="{{ asset('/public/assets/img/menu_spoiler.png') }}" />
             </a>
         </div>
     {% endblock %}
