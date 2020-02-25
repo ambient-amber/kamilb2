@@ -20,6 +20,7 @@ services:
             $projectDir: '%kernel.project_dir%'
             $uploadsPath: '%kernel.project_dir%/public/uploads/'
             $uploadsHashPath: '%kernel.project_dir%/public/uploads/hash/'
+            $uploadsHashDepthLvl: 1
             $locales: '%app_locales%'
             $defaultLocale: '%locale%'
 

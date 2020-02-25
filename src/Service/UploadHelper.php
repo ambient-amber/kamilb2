@@ -11,8 +11,8 @@ class UploadHelper
 {
     public $uploadsFolder;
     public $uploadsHashFolder;
-
     public $uploadsPath;
+    public $uploadsHashDepthLvl;
     public $uploadsHashPath;
     private $requestStackContext;
 
@@ -21,6 +21,7 @@ class UploadHelper
         string $uploadsHashFolder,
         string $uploadsPath,
         string $uploadsHashPath,
+        int $uploadsHashDepthLvl,
         RequestStackContext $requestStackContext
     ) {
         /*
@@ -33,6 +34,7 @@ class UploadHelper
         $this->uploadsFolder = $uploadsFolder;
         $this->uploadsPath = $uploadsPath;
         $this->uploadsHashPath = $uploadsHashPath;
+        $this->uploadsHashDepthLvl = $uploadsHashDepthLvl;
 
         $this->requestStackContext = $requestStackContext;
     }
@@ -186,8 +188,9 @@ class UploadHelper
     {
         $fileNameParts = str_split($fileName, 3);
 
-        if (!empty($fileNameParts[0]) && !empty($fileNameParts[1])) {
-            $path = $fileNameParts[0] . '/' . $fileNameParts[1] . '/';
+        if (count($fileNameParts) >= $this->uploadsHashDepthLvl) {
+            $fileNameParts = array_slice($fileNameParts, 0, $this->uploadsHashDepthLvl);
+            $path = implode('/', $fileNameParts) . '/';
         } else {
             throw new FileException('Could not parse path to file ' . $fileName);
         }
