@@ -23,7 +23,6 @@ final class Version20200225213636 extends AbstractMigration
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
         $this->addSql('ALTER TABLE article_category_translation ADD preview_content LONGTEXT DEFAULT NULL');
-        $this->addSql('DROP INDEX UNIQ_3E558020F47645AE ON meta_data');
     }
 
     public function down(Schema $schema) : void
@@ -32,6 +31,5 @@ final class Version20200225213636 extends AbstractMigration
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
         $this->addSql('ALTER TABLE article_category_translation DROP preview_content');
-        $this->addSql('CREATE UNIQUE INDEX UNIQ_3E558020F47645AE ON meta_data (url)');
     }
 }
