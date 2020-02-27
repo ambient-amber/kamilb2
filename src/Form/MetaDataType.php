@@ -26,6 +26,7 @@ class MetaDataType extends AbstractType
             ->add('pub')
             ->add('isRegexp')
             ->add('isTemplate')
+            ->add('sort')
             ->add('title')
             ->add('description')
             ->add('keyWords')

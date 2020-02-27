@@ -93,26 +93,41 @@ $(document).ready(function(){
         },
     };
 
-    function enable_editor(selector) {
+    function enable_editor(id) {
+        var $element = $('#' + id);
         var tinymce_settings_full = $.extend(true, {}, tinymce_settings);
 
-        tinymce_settings_full.selector = selector;
-        tinymce_settings_full.height = 400;
-        tinymce_settings_full.menu = {
-            edit: {title: 'Edit', items: 'undo redo | cut copy paste pastetext | selectall'},
-            insert: {title: 'Insert', items: 'link image | nonbreaking hr charmap | hidden_text image_comparison image_slider'},
-            view: {title: 'View', items: 'visualblocks visualaid'},
-            format: {title: 'Format', items: 'bold italic underline strikethrough superscript subscript | formats | content_layout_left | removeformat'},
-            table: {title: 'Table', items: 'inserttable tableprops deletetable | cell row column'},
-            tools: {title: 'Tools', items: 'typograf code'}
-        };
+        if ($element.length) {
+            tinymce_settings_full.selector = '#' + id;
 
-        tinymce_settings_full.toolbar = 'undo redo | styleselect | fontsizeselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image responsivefilemanager media | fullscreen preview code template';
+            if ($element.hasClass('js_tinymce_simple')) {
+                // Сокращенный редактор
+                tinymce_settings_full.height = 200;
+                tinymce_settings_full.menu = false;
+                tinymce_settings_full.menubar = false;
+                tinymce_settings_full.toolbar_items_size = 'small';
+                tinymce_settings_full.toolbar = 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist | link image responsivefilemanager';
+            } else {
+                // Полноценный редактор
+                tinymce_settings_full.height = 400;
+                tinymce_settings_full.menu = {
+                    edit: {title: 'Edit', items: 'undo redo | cut copy paste pastetext | selectall'},
+                    insert: {title: 'Insert', items: 'link image | nonbreaking hr charmap | hidden_text image_comparison image_slider'},
+                    view: {title: 'View', items: 'visualblocks visualaid'},
+                    format: {title: 'Format', items: 'bold italic underline strikethrough superscript subscript | formats | content_layout_left | removeformat'},
+                    table: {title: 'Table', items: 'inserttable tableprops deletetable | cell row column'},
+                    tools: {title: 'Tools', items: 'typograf code'}
+                };
+                tinymce_settings_full.toolbar = 'undo redo | styleselect | fontsizeselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image responsivefilemanager media | fullscreen preview code template';
+            }
+        }
 
         tinymce.init(tinymce_settings_full);
     }
 
-    enable_editor('.js_tinymce_textarea');
+    $.each($('.js_tinymce_textarea'), function(){
+        enable_editor($(this).attr('id'));
+    });
 
     // Заполнение настоящей textarea перед отправкой формы добавления/редактирования для избежания ошибки валидации
     $('.js_save_with_tiny_mce').click(function(e){
@@ -136,7 +151,10 @@ $(document).ready(function(){
 
         $collectionHolder.append(newForm);
 
-        enable_editor('#' + id + '_' + index + '_content');
+        // Через id, а не класс, чтобы заново не инициализировать другие формы
+        $.each($collectionHolder.find('.js_tinymce_textarea'), function(){
+            enable_editor($(this).attr('id'));
+        });
 
         return false;
     });

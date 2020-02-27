@@ -15,6 +15,22 @@ class MetaDataHelper
         $this->metaDataRepository = $metaDataRepository;
     }
 
+    /**
+     * Получение title, description, keys по ссылке.
+     * Из ссылки удаляется упоминание языка. Элементы мета даты связаны через колонку в БД.
+     * Мета данные могут быть указаны явными значенниями или шаблонами:
+     * #title#, #description#, #category_title#, #category_description#
+     * При подстановке из значений удаляются html теги.
+     *
+     * Ссылка может быть статическим значением или регулярным выражением.
+     * Например ^/article/.*[^/]/(\?.*)? с шаблонами для всех категорий статей
+     * Или /page/polzovatelcskoe-soglashenie/ с явными значениями.
+     *
+     * @param Request $request
+     * @param array $templateValues Массив значений от сущности для подстановки в шаблоны
+     *
+     * @return array.
+     */
     public function getMetaData(Request $request, $templateValues = [])
     {
         $uri = $request->getRequestUri();
@@ -39,7 +55,11 @@ class MetaDataHelper
 
             if (!empty($templates[1])) {
                 foreach ($templates[1] as $k => $template) {
-                    $templateValue = isset($templateValues[$template]) ? $templateValues[$template] : '';
+                    if (isset($templateValues[$template])) {
+                        $templateValue = preg_replace('/<.*?>/', '', $templateValues[$template]);
+                    } else {
+                        $templateValue = '';
+                    }
 
                     $value = str_replace($templates[0][$k], $templateValue, $value);
                 }

@@ -33,6 +33,11 @@ class ArticleCategoryTranslation
      */
     private $language;
 
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $previewContent;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -70,6 +75,18 @@ class ArticleCategoryTranslation
     public function setLanguage(?Language $language): self
     {
         $this->language = $language;
+
+        return $this;
+    }
+
+    public function getPreviewContent(): ?string
+    {
+        return $this->previewContent;
+    }
+
+    public function setPreviewContent(?string $previewContent): self
+    {
+        $this->previewContent = $previewContent;
 
         return $this;
     }

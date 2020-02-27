@@ -4,5 +4,6 @@ twig:
     strict_variables: '%kernel.debug%'
     paths:
         '%kernel.project_dir%/templates/frontend': frontend
+        '%kernel.project_dir%/templates/backend': backend
     form_themes:
         - bootstrap_4_layout.html.twig

@@ -11,7 +11,10 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *     indexes = {
  *         @ORM\Index(name = "pub_index", columns = {"pub"}),
  *         @ORM\Index(name = "sort_index", columns = {"sort"}),
- *         @ORM\Index(name = "url_language_uniq", columns = {"url", "language_id"}),
+ *         @ORM\Index(name = "language_index", columns = {"language_id"}),
+ *     },
+ *     uniqueConstraints = {
+ *          @ORM\UniqueConstraint(name="url_language_unique", columns={"url", "language_id"})
  *     }
  * )
  * @UniqueEntity(

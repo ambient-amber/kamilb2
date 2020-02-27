@@ -2,6 +2,14 @@ img {
     max-width: 100%;
 }
 
+.ks-bold, b {
+    font-weight: 600;
+}
+
+dl, ol, ul {
+    padding: 0 0 0 16px;
+}
+
 .ks-sidebar>.ks-wrapper .nav .dropdown-item>.ks-icon,
 .ks-sidebar>.ks-wrapper .nav .nav-link>.ks-icon {
     margin-right: 25px;

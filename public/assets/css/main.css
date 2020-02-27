@@ -327,6 +327,13 @@ h2:after {
     line-height: 150%;
 }
 
+.content_item_preview_content p {
+    margin: 0;
+    font-size: 14px;
+    color: #646473;
+    line-height: 150%;
+}
+
 .content_item_time_category_block {
     margin: 16px 0 0;
     display: flex;

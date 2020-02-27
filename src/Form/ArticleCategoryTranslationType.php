@@ -26,6 +26,13 @@ class ArticleCategoryTranslationType extends AbstractType
             )
             ->add('title')
             ->add(
+                'previewContent',
+                TextareaType::class,
+                [
+                    'attr' => ['class' => 'js_tinymce_textarea js_tinymce_simple']
+                ]
+            )
+            ->add(
                 'delete',
                 ButtonType::class,
                 [

@@ -57,7 +57,8 @@ class ArticleController extends AbstractController
         $metaData = $metaDataHelper->getMetaData(
             $request,
             [
-                'title' => $category->getArticleCategoryTranslations()[0]->getTitle()
+                'category_title' => $category->getArticleCategoryTranslations()[0]->getTitle(),
+                'category_description' => $category->getArticleCategoryTranslations()[0]->getPreviewContent(),
             ]
         );
 
@@ -107,6 +108,8 @@ class ArticleController extends AbstractController
             [
                 'title' => $article->getArticleTranslations()[0]->getTitle(),
                 'description' => $article->getArticleTranslations()[0]->getPreviewContent(),
+                'category_title' => $category->getArticleCategoryTranslations()[0]->getTitle(),
+                'category_description' => $category->getArticleCategoryTranslations()[0]->getPreviewContent(),
             ]
         );
 

@@ -30,8 +30,7 @@ class ArticleCategoryRepository extends ServiceEntityRepository
             ->setParameter('language_text_id', $locale)
             ->orderBy('a_category.id', 'ASC')
             ->getQuery()
-            ->getResult()
-            ;
+            ->getResult();
     }
 
     public function findActiveByUrl($url, $locale)
@@ -46,7 +45,6 @@ class ArticleCategoryRepository extends ServiceEntityRepository
             ->setParameter('language_text_id', $locale)
             ->orderBy('a_category.id', 'ASC')
             ->getQuery()
-            ->getOneOrNullResult()
-        ;
+            ->getOneOrNullResult();
     }
 }
