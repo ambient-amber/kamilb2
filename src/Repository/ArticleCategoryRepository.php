@@ -55,18 +55,4 @@ class ArticleCategoryRepository extends ServiceEntityRepository
 
         return $item;
     }
-
-    public function findActiveByUrlScalar($url)
-    {
-        return $this->createQueryBuilder('a_category')
-            ->select('a_category, trans, language')
-            ->join('a_category.articleCategoryTranslations', 'trans')
-            ->join('trans.language', 'language')
-            ->andWhere('a_category.url = :url')
-            ->andWhere('a_category.pub = 1')
-            ->setParameter('url', $url)
-            ->orderBy('a_category.id', 'ASC')
-            ->getQuery()
-            ->getOneOrNullResult();
-    }
 }
