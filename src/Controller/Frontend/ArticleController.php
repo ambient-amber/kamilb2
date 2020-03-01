@@ -36,6 +36,11 @@ class ArticleController extends AbstractController
             throw $this->createNotFoundException('category not found');
         }
 
+        // Если нет связи категории
+        if (empty($category->getRelevantTranslation())) {
+            return $this->redirectToRoute('app_homepage');
+        }
+
         $lastPagination = $paginator->paginate(
             $articleRepository->findLastActiveByCategory($category, $request->getLocale()),
             $request->query->getInt('last_items_page', 1),
@@ -57,8 +62,8 @@ class ArticleController extends AbstractController
         $metaData = $metaDataHelper->getMetaData(
             $request,
             [
-                'category_title' => $category->getArticleCategoryTranslations()[0]->getTitle(),
-                'category_description' => $category->getArticleCategoryTranslations()[0]->getPreviewContent(),
+                'category_title' => $category->getRelevantTranslation()->getTitle(),
+                'category_description' => $category->getRelevantTranslation()->getPreviewContent(),
             ]
         );
 
@@ -95,10 +100,18 @@ class ArticleController extends AbstractController
             throw $this->createNotFoundException('category not found');
         }
 
-        $article = $articleRepository->findActiveByUrl($request->getLocale(), $article_url);
+        $article = $articleRepository->findActiveByUrl($article_url, $request->getLocale());
 
         if (!$article) {
             throw $this->createNotFoundException('article not found');
+        }
+
+        if (empty($article->getRelevantTranslation())) {
+            if (empty($category->getRelevantTranslation())) {
+                return $this->redirectToRoute('app_homepage');
+            } else {
+                return $this->redirectToRoute('article_category', ['category_url' => $category->getUrl()]);
+            }
         }
 
         $articleRepository->increaseViewsCount($article);
@@ -106,10 +119,10 @@ class ArticleController extends AbstractController
         $metaData = $metaDataHelper->getMetaData(
             $request,
             [
-                'title' => $article->getArticleTranslations()[0]->getTitle(),
-                'description' => $article->getArticleTranslations()[0]->getPreviewContent(),
-                'category_title' => $category->getArticleCategoryTranslations()[0]->getTitle(),
-                'category_description' => $category->getArticleCategoryTranslations()[0]->getPreviewContent(),
+                'title' => $article->getRelevantTranslation()->getTitle(),
+                'description' => $article->getRelevantTranslation()->getPreviewContent(),
+                'category_title' => $category->getRelevantTranslation()->getTitle(),
+                'category_description' => $category->getRelevantTranslation()->getPreviewContent(),
             ]
         );
 

@@ -10,13 +10,9 @@
     <main>
         <div class="page_content_block">
             <div class="page_content_block_inner">
-                {% for translation in article.articleTranslations %}
-                    <h1>{{ translation.title }}</h1>
-                {% endfor %}
+                <h1>{{ article.relevantTranslation.title }}</h1>
 
-                {% for translation in article.articleTranslations %}
-                    {{ translation.content|raw }}
-                {% endfor %}
+                {{ article.relevantTranslation.content|raw }}
             </div>
         </div>
     </main>

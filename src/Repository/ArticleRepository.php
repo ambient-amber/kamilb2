@@ -83,19 +83,27 @@ class ArticleRepository extends ServiceEntityRepository
             ;
     }
 
-    public function findActiveByUrl($languageTextId, $url)
+    public function findActiveByUrl($url, $locale)
     {
-        return $this->createQueryBuilder('article')
-            ->select('article, trans')
+        $item = $this->createQueryBuilder('article')
+            ->select('article, trans, language')
             ->join('article.articleTranslations', 'trans')
-            ->join('trans.language', 'language', Expr\Join::WITH, 'language.textId = :language_text_id')
+            ->join('trans.language', 'language')
             ->andWhere('article.pub = 1')
             ->andWhere('article.url = :url')
-            ->setParameter('language_text_id', $languageTextId)
             ->setParameter('url', $url)
             ->getQuery()
             ->getOneOrNullResult()
-            ;
+        ;
+
+        foreach ($item->getArticleTranslations() as $translation) {
+            if ($translation->getLanguage()->getTextId() == $locale) {
+                $item->setRelevantTranslation($translation);
+                break;
+            }
+        }
+
+        return $item;
     }
 
     public function findBySource($source)

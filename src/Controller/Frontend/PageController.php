@@ -23,22 +23,26 @@ class PageController extends AbstractController
         Request $request,
         MetaDataHelper $metaDataHelper
     ) {
-        $item = $pageRepository->findActiveByUrl($request->getLocale(), $url);
+        $page = $pageRepository->findActiveByUrl($url, $request->getLocale());
 
-        if (!$item) {
+        if (!$page) {
             throw $this->createNotFoundException('page not found');
+        }
+
+        if (empty($page->getRelevantTranslation())) {
+            return $this->redirectToRoute('app_homepage');
         }
 
         $metaData = $metaDataHelper->getMetaData(
             $request,
             [
-                'title' => $item->getPageTranslations()[0]->getTitle(),
-                'description' => $item->getPageTranslations()[0]->getTitle(),
+                'title' => $page->getPageTranslations()[0]->getTitle(),
+                'description' => $page->getPageTranslations()[0]->getTitle(),
             ]
         );
 
         return $this->render('frontend/page/item.html.twig', [
-            'page' => $item,
+            'page' => $page,
             'meta_data' => $metaData,
         ]);
     }

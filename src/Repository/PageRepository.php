@@ -34,18 +34,26 @@ class PageRepository extends ServiceEntityRepository
             ;
     }
 
-    public function findActiveByUrl($languageTextId, $url)
+    public function findActiveByUrl($url, $locale)
     {
-        return $this->createQueryBuilder('page')
+        $item = $this->createQueryBuilder('page')
             ->select('page, trans')
             ->join('page.pageTranslations', 'trans')
-            ->join('trans.language', 'language', Expr\Join::WITH, 'language.textId = :language_text_id')
+            ->join('trans.language', 'language')
             ->andWhere('page.pub = 1')
             ->andWhere('page.url = :url')
-            ->setParameter('language_text_id', $languageTextId)
             ->setParameter('url', $url)
             ->getQuery()
             ->getOneOrNullResult()
             ;
+
+        foreach ($item->getPageTranslations() as $translation) {
+            if ($translation->getLanguage()->getTextId() == $locale) {
+                $item->setRelevantTranslation($translation);
+                break;
+            }
+        }
+
+        return $item;
     }
 }

@@ -70,6 +70,11 @@ class Article
      */
     private $viewsCount;
 
+    /**
+     * Отобранный перевод согласно текущей локали
+     */
+    private $relevantTranslation;
+
     public function __construct()
     {
         $this->articleTranslations = new ArrayCollection();
@@ -166,7 +171,7 @@ class Article
         return $this->source;
     }
 
-    public function setSource(?string $source): self
+    public function setSource(string $source): self
     {
         $this->source = $source;
 
@@ -178,7 +183,7 @@ class Article
         return $this->category;
     }
 
-    public function setCategory(?ArticleCategory $category): self
+    public function setCategory(ArticleCategory $category): self
     {
         $this->category = $category;
 
@@ -225,6 +230,18 @@ class Article
     public function setViewsCount(int $viewsCount): self
     {
         $this->viewsCount = $viewsCount;
+
+        return $this;
+    }
+
+    public function getRelevantTranslation(): ?ArticleTranslation
+    {
+        return $this->relevantTranslation;
+    }
+
+    public function setRelevantTranslation(ArticleTranslation $translation): self
+    {
+        $this->relevantTranslation = $translation;
 
         return $this;
     }

@@ -44,6 +44,11 @@ class ArticleCategory
      */
     private $articles;
 
+    /**
+     * Отобранный перевод согласно текущей локали
+     */
+    private $relevantTranslation;
+
     public function __construct()
     {
         $this->articleCategoryTranslations = new ArrayCollection();
@@ -137,6 +142,18 @@ class ArticleCategory
                 $article->setCategory(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getRelevantTranslation(): ?ArticleCategoryTranslation
+    {
+        return $this->relevantTranslation;
+    }
+
+    public function setRelevantTranslation(ArticleCategoryTranslation $translation): self
+    {
+        $this->relevantTranslation = $translation;
 
         return $this;
     }

@@ -45,6 +45,11 @@ class Page
      */
     private $pageTranslations;
 
+    /**
+     * Отобранный перевод согласно текущей локали
+     */
+    private $relevantTranslation;
+
     public function __construct()
     {
         $this->pageTranslations = new ArrayCollection();
@@ -118,6 +123,18 @@ class Page
                 $pageTranslation->setPage(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getRelevantTranslation(): ?PageTranslation
+    {
+        return $this->relevantTranslation;
+    }
+
+    public function setRelevantTranslation(PageTranslation $translation): self
+    {
+        $this->relevantTranslation = $translation;
 
         return $this;
     }
