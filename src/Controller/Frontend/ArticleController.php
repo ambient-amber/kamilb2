@@ -36,7 +36,7 @@ class ArticleController extends AbstractController
             throw $this->createNotFoundException('category not found');
         }
 
-        // Если нет связи категории
+        // 302 редирект на главную страницу, если у категории нет связи с выбранным языком
         if (empty($category->getRelevantTranslation())) {
             return $this->redirectToRoute('app_homepage');
         }
@@ -106,6 +106,8 @@ class ArticleController extends AbstractController
             throw $this->createNotFoundException('article not found');
         }
 
+        // 302 редирект на родительскую категорию, если у статьи нет связи с выбранным языком,
+        // или на главную страницу, если у категории также нет нужного перевода.
         if (empty($article->getRelevantTranslation())) {
             if (empty($category->getRelevantTranslation())) {
                 return $this->redirectToRoute('app_homepage');

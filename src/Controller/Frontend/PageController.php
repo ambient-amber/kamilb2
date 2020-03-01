@@ -29,6 +29,7 @@ class PageController extends AbstractController
             throw $this->createNotFoundException('page not found');
         }
 
+        // 302 редирект на главную страницу, если у страницы нет нужного перевода.
         if (empty($page->getRelevantTranslation())) {
             return $this->redirectToRoute('app_homepage');
         }
