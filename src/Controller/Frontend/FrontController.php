@@ -113,7 +113,9 @@ class FrontController extends AbstractController
             $title = '';
 
             foreach ($category->getArticleCategoryTranslations() as $translation) {
-                $title = $translation->getTitle();
+                if ($translation->getLanguage()->getTextId() == $locale) {
+                    $title = $translation->getTitle();
+                }
             }
 
             $resultCategories[] = [
