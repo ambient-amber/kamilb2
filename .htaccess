@@ -1,5 +1,10 @@
 RewriteEngine On
 
+RewriteBase /
+RewriteCond %{HTTP:X-HTTPS} !1
+RewriteCond %{HTTP_HOST} ^uzblog.ru$
+RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
+
 RewriteCond %{THE_REQUEST} /public/([^\s?]*) [NC]
 RewriteRule ^ %1 [L,NE,R=302]
 
