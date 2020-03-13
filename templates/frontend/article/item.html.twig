@@ -14,6 +14,31 @@
 
                 {{ article.relevantTranslation.content|raw }}
             </div>
+
+            <div class="social_share_block">
+                <div class="social_share_title">
+                    <b>Понравилась статья?</b><br/>
+                    Поделитесь с друзьями
+                </div>
+
+                <div class="social_share_buttons">
+                    <a class="js_social_share_button social_share_button" data-social_network="vk" data-url="https://uzblog.ru{{ path('article_item', {'category_url': category.url, 'article_url': article.url}) }}">
+                        {{ svg_content('icon_vk.svg')|raw }}
+                    </a>
+                    <a class="js_social_share_button social_share_button" data-social_network="ok" data-url="https://uzblog.ru{{ path('article_item', {'category_url': category.url, 'article_url': article.url}) }}">
+                        {{ svg_content('icon_ok.svg')|raw }}
+                    </a>
+                    <a class="js_social_share_button social_share_button" data-social_network="fb" data-url="https://uzblog.ru{{ path('article_item', {'category_url': category.url, 'article_url': article.url}) }}">
+                        {{ svg_content('icon_fb.svg')|raw }}
+                    </a>
+                </div>
+            </div>
         </div>
     </main>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="https://vk.com/js/api/share.js?93"></script>
+
+    {{ parent() }}
 {% endblock %}

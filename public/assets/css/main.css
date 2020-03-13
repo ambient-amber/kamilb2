@@ -569,3 +569,33 @@ h2:after {
     color: #8200FA;
 }
 /* -------------- */
+
+/* --- Поделиться через соц сети --- */
+.social_share_block {
+    margin: 0 0 48px;
+}
+
+.social_share_title {
+    margin: 0 0 16px;
+    line-height: 19px;
+}
+
+.social_share_buttons {
+    display: flex;
+}
+
+.social_share_button {
+    margin: 0 8px 0 0;
+    cursor: pointer;
+}
+
+.social_share_button[data-social_network="vk"]:hover svg .background_layer {
+    fill: #44678D;
+}
+.social_share_button[data-social_network="ok"]:hover svg .background_layer {
+    fill: #FF7A00;
+}
+.social_share_button[data-social_network="fb"]:hover svg .background_layer {
+    fill: #3A559F;
+}
+/* -------------------------------- */

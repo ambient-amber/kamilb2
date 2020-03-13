@@ -49,6 +49,29 @@ $(document).ready(function(){
         }
     }
 
+    // Отдельное всплывающее окно
+    function openPopup(url, winId, width, height) {
+        var left = Math.round(screen.width / 2 - width / 2);
+        var top = 0;
+
+        if (screen.height > height) {
+            top = Math.round(screen.height / 3 - height / 2);
+        }
+
+        var options = 'left=' + left + ',top=' + top + ',width=' + width + ',height=' + height + ',personalbar=0,toolbar=0,scrollbars=1,resizable=1';
+
+        var win = window.open(url, winId, options);
+
+        if (!win) {
+            location.href = url;
+            return null;
+        }
+
+        win.focus();
+
+        return win;
+    }
+
     // ------------------------------------------
 
     // События при скроле
@@ -165,6 +188,27 @@ $(document).ready(function(){
             $hashTabContent.siblings().removeClass('selected').end().addClass('selected');
         }
     }
+
+    // ------------------------------------------
+
+    // Кнопки "Поделиться" в соц сетях
+    $('.js_social_share_button').click(function(){
+        var $this = $(this);
+        var socialNetwork = $(this).data('social_network');
+        var pageUrl = $(this).data('url');
+
+        if (pageUrl) {
+            if (socialNetwork === 'vk') {
+                openPopup('https://vk.com/share.php?url=' + $this.data('url'), 'vkShareWindow', 550, 330);
+            } else if (socialNetwork === 'ok') {
+                openPopup('https://connect.ok.ru/dk?st.cmd=WidgetSharePreview&service=odnoklassniki&st.shareUrl=' + $this.data('url'), 'vkShareWindow', 640, 400);
+            } else if (socialNetwork === 'fb') {
+                openPopup('https://www.facebook.com/sharer/sharer.php?u=' + $this.data('url'), 'vkShareWindow', 600, 500);
+            }
+        }
+
+        return false;
+    });
 
     // ------------------------------------------
 });

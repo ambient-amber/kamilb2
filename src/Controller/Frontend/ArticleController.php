@@ -134,6 +134,7 @@ class ArticleController extends AbstractController
 
         return $this->render('frontend/article/item.html.twig', [
             'article' => $article,
+            'category' => $category,
             'meta_data' => $metaData,
             'banners' => $banners,
             'device' => $device
