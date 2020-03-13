@@ -5,16 +5,26 @@
 
     {% if meta_data is defined and meta_data is not empty %}
         {% block meta_title %}
-            <title>{{ meta_data.title }}</title>
+            {% if meta_data.title is defined and meta_data.title is not empty %}
+                <title>{{ meta_data.title }}</title>
+            {% endif %}
         {% endblock %}
 
         {% block meta_description %}
-            <meta name="description" content="{{ meta_data.description }}">
+            {% if meta_data.description is defined and meta_data.description is not empty %}
+                <meta name="description" content="{{ meta_data.description }}">
+            {% endif %}
         {% endblock %}
 
         {% block meta_keywords %}
-            <meta name="keywords" content="{{ meta_data.key_words }}">
+            {% if meta_data.key_words is defined and meta_data.key_words is not empty %}
+                <meta name="keywords" content="{{ meta_data.key_words }}">
+            {% endif %}
         {% endblock %}
+
+        {% if meta_data.og_image is defined and meta_data.og_image is not empty %}
+            <meta property="og:image" content="{{ meta_data.og_image }}" />
+        {% endif %}
     {% endif %}
 
     {% block stylesheets %}

@@ -125,6 +125,9 @@ class ArticleController extends AbstractController
                 'description' => $article->getRelevantTranslation()->getPreviewContent(),
                 'category_title' => $category->getRelevantTranslation()->getTitle(),
                 'category_description' => $category->getRelevantTranslation()->getPreviewContent(),
+                'image_hash' => $article->getImageHash(),
+                'domain' => $this->getParameter('domain'),
+                'protocol' => $this->getParameter('protocol'),
             ]
         );
 
@@ -137,7 +140,9 @@ class ArticleController extends AbstractController
             'category' => $category,
             'meta_data' => $metaData,
             'banners' => $banners,
-            'device' => $device
+            'device' => $device,
+            'domain' => $this->getParameter('domain'),
+            'protocol' => $this->getParameter('protocol')
         ]);
     }
 }
