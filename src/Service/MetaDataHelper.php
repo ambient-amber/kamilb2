@@ -29,6 +29,7 @@ class MetaDataHelper
      * Ссылка может быть статическим значением или регулярным выражением.
      * Например ^/article/.*[^/]/(\?.*)? с шаблонами для всех категорий статей
      * Или /page/polzovatelcskoe-soglashenie/ с явными значениями.
+     * Если мета теги не были найдены по ссылке с get параметрами, то будет второй поиск без get параметров
      *
      * @param Request $request
      * @param array $options Массив значений от сущности для подстановки в шаблоны
@@ -44,10 +45,14 @@ class MetaDataHelper
 
         $metaData = $this->metaDataRepository->findActiveByUrl($uri, $request->getLocale());
 
-        if (!empty($metaData)) {
-            if ($metaData['is_template']) {
-                $metaData = $this->metaDataTemplateReplacement($metaData, $options);
-            }
+        if (empty($metaData)) {
+            $uri = preg_replace('/\?.*/', '', $uri);
+
+            $metaData = $this->metaDataRepository->findActiveByUrl($uri, $request->getLocale());
+        }
+
+        if (!empty($metaData) && $metaData['is_template']) {
+            $metaData = $this->metaDataTemplateReplacement($metaData, $options);
         }
 
         if (!empty($options['image_hash']) && !empty($options['domain']) && !empty($options['protocol'])) {
