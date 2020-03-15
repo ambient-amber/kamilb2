@@ -27,7 +27,7 @@
                                 <div class="content_promo_vertical_inner">
                                     {% for banner in banners %}
                                         <div class="content_promo_vertical_item">
-                                            <img src="{{ resize_hash_image(banner.imageHash, {'width': 160, 'height': 0, 'method': 'scale', 'ignore_existence': true}) }}">
+                                            {{ resized_hash_image_html(banner.imageHash, {'width': 160, 'height': 0, 'method': 'scale', 'ignore_existence': true})|raw }}
                                         </div>
                                     {% endfor %}
                                 </div>

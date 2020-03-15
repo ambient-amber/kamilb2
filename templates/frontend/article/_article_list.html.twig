@@ -7,10 +7,10 @@
                         <div class="content_promo_list_item">
                             {% if banner.link %}
                                 <a href="{{ banner.link }}">
-                                    <img src="{{ resize_hash_image(banner.imageHash, {'width': 500, 'height': 0, 'method': 'scale', 'ignore_existence': true}) }}">
+                                    {{ resized_hash_image_html(banner.imageHash, {'width': 500, 'height': 0, 'method': 'scale', 'ignore_existence': true})|raw }}
                                 </a>
                             {% else %}
-                                <img src="{{ resize_hash_image(banner.imageHash, {'width': 500, 'height': 0, 'method': 'scale', 'ignore_existence': true}) }}">
+                                {{ resized_hash_image_html(banner.imageHash, {'width': 500, 'height': 0, 'method': 'scale', 'ignore_existence': true})|raw }}
                             {% endif %}
                         </div>
                     </div>
@@ -22,7 +22,7 @@
                     <div class="content_item_image_block">
                         {% if article.imageHash %}
                             <a class="content_item_image_link" href="{{ path('article_item', {'category_url': article.category.url, 'article_url': article.url}) }}">
-                                <img src="{{ resize_hash_image(article.imageHash, {'width': 500, 'height': 0, 'method': 'scale', 'ignore_existence': true}) }}">
+                                {{ resized_hash_image_html(article.imageHash, {'width': 500, 'height': 0, 'method': 'scale', 'ignore_existence': true})|raw }}
                             </a>
                         {% endif %}
 

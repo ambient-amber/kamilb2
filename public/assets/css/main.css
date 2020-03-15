@@ -282,6 +282,11 @@ h2:after {
     align-items: center;
     height: 160px;
     overflow: hidden;
+    justify-content: center;
+}
+
+.content_item_image_link svg {
+    height: 100%;
 }
 
 .content_item_statuses {

@@ -19,7 +19,8 @@ class ImageResizeHelper
      * @param string $fileName Путь до файла в папке uploads
      * @param array $settings Опции изменения размеров изображения
      *
-     * @return string Путь до нового изображения с новыми размерами
+     * @return mixed Путь до нового изображения с новыми размерами или false, если оно не найдено
+     *
      */
     public function resizeHashImage($fileName, $settings)
     {
@@ -36,7 +37,7 @@ class ImageResizeHelper
      * @param string $publicPath Путь до файла в папке uploads
      * @param array $settings Опции изменения размеров изображения
      *
-     * @return string Путь до нового изображения с новыми размерами
+     * @return mixed Путь до нового изображения с новыми размерами или false, если оно не найдено
      *
      * @throws
      */
@@ -59,44 +60,52 @@ class ImageResizeHelper
             $dimensionsImageName = $fullPathParts['filename'] . $dimensionsNamePart . '.' . $fullPathParts['extension'];
             $dimensionsImageNameFullPath = $fullPathParts['dirname'] . '/' . $dimensionsImageName;
 
-            if (!file_exists($dimensionsImageNameFullPath) || $ignoreExistence) {
-                $imagick = new Imagick($fullPath);
+            if (file_exists($fullPath)) {
+                if (!file_exists($dimensionsImageNameFullPath) || $ignoreExistence) {
+                    $imagick = new Imagick($fullPath);
 
-                switch ($method) {
-                    case 'exact':
-                        $imagick->resizeImage($width, $height, Imagick::FILTER_POINT, $blur = 1, true);
+                    switch ($method) {
+                        case 'exact':
+                            $imagick->resizeImage($width, $height, Imagick::FILTER_POINT, $blur = 1, true);
 
-                        $newWidth = $imagick->getImageWidth();
-                        $newHeight = $imagick->getImageHeight();
+                            $newWidth = $imagick->getImageWidth();
+                            $newHeight = $imagick->getImageHeight();
 
-                        $offLeft = (($width - $newWidth) / 2) * -1;
-                        $offTop = (($height - $newHeight) / 2) * -1;
+                            $offLeft = (($width - $newWidth) / 2) * -1;
+                            $offTop = (($height - $newHeight) / 2) * -1;
 
-                        $imagick->setImageBackgroundColor($bgColor);
-                        $imagick->extentImage($width, $height, $offLeft, $offTop);
+                            $imagick->setImageBackgroundColor($bgColor);
+                            $imagick->extentImage($width, $height, $offLeft, $offTop);
 
-                        break;
+                            break;
 
-                    case 'scale_best_fit':
-                        $imagick->scaleImage($width, $height, true);
+                        case 'scale_best_fit':
+                            $imagick->scaleImage($width, $height, true);
 
-                        break;
-                    case 'scale':
-                        $imagick->scaleImage($width, $height);
+                            break;
+                        case 'scale':
+                            $imagick->scaleImage($width, $height);
 
-                        break;
+                            break;
+                    }
+
+                    $imagick->writeImage($dimensionsImageNameFullPath);
                 }
 
-                $imagick->writeImage($dimensionsImageNameFullPath);
+                $resultPublicPath = str_replace(
+                    $fullPathParts['basename'],
+                    $dimensionsImageName,
+                    $publicPath
+                );
+            } else {
+                $resultPublicPath = false;
             }
-
-            $resultPublicPath = str_replace(
-                $fullPathParts['basename'],
-                $dimensionsImageName,
-                $publicPath
-            );
         }
 
-        return $this->uploadHelper->getPublicPath($resultPublicPath);
+        if ($resultPublicPath) {
+            return $this->uploadHelper->getPublicPath($resultPublicPath);
+        } else {
+            return false;
+        }
     }
 }

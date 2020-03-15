@@ -25,7 +25,7 @@
                                     <td>{{ popular_shop.title }}</td>
                                     <td>{{ popular_shop.url }}</td>
                                     <td>
-                                        <img src="{{ resize_hash_image(popular_shop.imageHash, {'width': 100, 'height': 100, 'method': 'exact', 'ignore_existence': true}) }}">
+                                        {{ resized_hash_image_html(popular_shop.imageHash, {'width': 100, 'height': 100, 'method': 'exact', 'ignore_existence': true})|raw }}
                                     </td>
                                     <td>
                                         <a href="{{ path('popular_shop_show', {'id': popular_shop.id}) }}" title="look">

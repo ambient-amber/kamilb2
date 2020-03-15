@@ -22,7 +22,7 @@
                                 <tr>
                                     <td>{{ banner.id }}</td>
                                     <td>
-                                        <img src="{{ resize_hash_image(banner.imageHash, {'width': 100, 'height': 100, 'method': 'exact'}) }}">
+                                        {{ resized_hash_image_html(banner.imageHash, {'width': 100, 'height': 100, 'method': 'exact'})|raw }}
                                     </td>
                                     <td>
                                         <p>Index page: {{ banner.onIndex ? 'Yes' : 'No' }}</p>

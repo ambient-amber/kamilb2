@@ -26,7 +26,7 @@ class AppExtension extends AbstractExtension implements ServiceSubscriberInterfa
             new TwigFunction('uploaded_asset', [$this, 'getUploadedAssetPath']),
             new TwigFunction('uploaded_hash_asset', [$this, 'getUploadedHashAssetPath']),
             new TwigFunction('resize_image', [$this, 'getResizedImage']),
-            new TwigFunction('resize_hash_image', [$this, 'getResizedHashImage']),
+            new TwigFunction('resized_hash_image_html', [$this, 'getResizedHashImageHtml']),
             new TwigFunction('plural_ending', [$this, 'getPluralEnding']),
             new TwigFunction('svg_content', [$this, 'getSvgContent']),
         ];
@@ -61,18 +61,24 @@ class AppExtension extends AbstractExtension implements ServiceSubscriberInterfa
     }
 
     /**
-     * Изменение размеров изображения со сгенерированным названием.
+     * Получение html изображения с измененными размерами.
      *
      * @param string $fileName Сгенерированное название
      * @param array $settings Опции изменения размеров изображения
      *
-     * @return string Путь до нового изображения с новыми размерами
+     * @return string Html img с изображением или svg с заглушкой
      */
-    public function getResizedHashImage(string $fileName, $settings): string
+    public function getResizedHashImageHtml(string $fileName, $settings)
     {
-        return $this->container
+        $resizedImage = $this->container
             ->get(ImageResizeHelper::class)
             ->resizeHashImage($fileName, $settings);
+
+        if ($resizedImage) {
+            return '<img src="' . $resizedImage . '">';
+        } else {
+            return $this->getSvgContent('no_img.svg');
+        }
     }
 
     /**
